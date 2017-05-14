@@ -1,8 +1,11 @@
 \chapter{Design and Implementation}
 \label{chap:design}
-This chapter will present the design and technical details on implementation of Sociopath event extraction system. \\
+This chapter will present the design and technical details on implementation of Sociopath event extraction system. In the \nameref{sec:method} we will discuss our method and set the problem formulation, also we will briefly walk through the main points of the project's workflow. We will recapitulate the information on Microdata from the chapter \nameref{chap:background}and explain how it is relevant in the context of event extraction process. The main part of this section is devoted to the process of training dataset construction. \\
+
+In the section \nameref{sec:arch} we will show the diagram of the project and describe the basic components. 
 
 \section{Methodology and Approach}
+\label{sec:method}
 As we mentioned in \nameref{chap:intro}, the Sociopath system aims to extract the following four event properties from the web page: 
 
 \begin{enumerate}
@@ -27,19 +30,25 @@ As we will discuss in the chapter \nameref{chap:datacollect} there are several n
 
 To generate the dataset for training and evaluation we exploited the set of webpages which format their HTML code using the semantic markup Microdata together with the schema \textit{Event} from Schema.org. The Microdata markup and its structure was previously discussed in details in \nameref{chap:background} chapter. Search engines take advantage of the semantic markup to automatically extract the information, incorporate it into its vertical services and provide a richer browsing experience for users. Despite the fact search engines encourage and promote the websites which use such markup, in fact not all of them use it. By statistics only 16\% of the domains use semantic markup, the rest 84\% use classic HTML. That's also the reason why the task of structural information extraction from unstructured webpages is still relevant - most of the data in the Internet is still stored as a plain HTML.\\ 
 
-Stat Link: http://webdatacommons.org/structureddata/2016-10/stats/stats.html  
+Stat Link: http://webdatacommons.org/structureddata/2016-10/stats/stats.html  \\
 
-% Where to take urls where markup is used
- 
 In order to extract the information from the webpages which actually do use the semantic Microdata tags, first of all we need to find these pages and select only those ones which contain an event announcement. As we said, there are only small part of such websites. That means the problem of gathering the pages with specific schema is not obvious especially if we want to collect rich and diverse dataset of URLs. As a consequence, one of the intermediate task in the thesis was to collect the list of URLs which apply Microdata with Event schema in their HTML code. \\
 
-Fortunately for us we discovered the great open repository \textit{Common Crawl}, which maintains and collect the web crawl unstructured data. Common Crawl is the largest web corpus available to the public, which collects petabytes of data from various Internet pages. To find the pages which contain the Event Microdata markup would not be feasible if it wasn't for another great open repository \textit{Web Data Commons} which in fact does what we exactly need - it annually processes the Common Crawl entire database and selects only those URLs which contain any kind of structured data including RDFa, Microdata, Microformat, and Embedded JSON-LD. \\
+Fortunately for us we discovered the great open repository \textit{Common Crawl}, which maintains and collects the web crawl unstructured data. Common Crawl is the largest web corpus available to the public, which collects petabytes of data from various Internet pages. To find the pages which contain the Event Microdata markup would not be feasible if it wasn't for another great open repository \textit{Web Data Commons} which in fact does what we exactly need - it annually processes the Common Crawl entire database and selects only those URLs which contain any kind of structured data including RDFa, Microdata, Microformat, and Embedded JSON-LD. \\
 
 The detailed process of collecting URLs, cleaning, parsing those URLs and again cleaning is discussed in the chapter \nameref{chap:datacollect}. The most challenging part of data collection task was the parsing those list of URLs. We had 80GB of URLs which supposed to contain an Event schema. We went through all of them, checked they availability, found the web elements tagged with Microdata semantic markup and extracted corresponding web features. For these purposes we implemented continuous parallel crawling process and set it on MetaCentrum computers. The result of all these steps is a dataset where in every row there is a URL, event component name and the values of corresponding features which we extracted from the page.\\ 
 
-After we created the dataset we performed the comprehensive exploratory data analysis and visualization, built several models for binary classification tasks, executed the feature engineering and selection, and finally evaluated the classification models.    
+After we created the dataset we performed the following procedures:
+\begin{enumerate}
+    \item Comprehensive exploratory data analysis including visualization of extracted features fro every event component.
+    \item We performed feature engeneering in order to 
+\end{enumerate}
+
+the  built several models for binary classification tasks, executed the feature engineering and selection, and finally evaluated the classification models.    
 
 \section{Architecture of the system / TODO}
+\label{sec:arch}
+
 The system is composed of several independent modules which can be logically separated into three parts:
 
 \begin{itemize}
