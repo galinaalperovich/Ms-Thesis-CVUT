@@ -2,7 +2,7 @@
 \label{chap:intro}
 Information extraction (IE) from the web pages is a popular task which often occurs on the stage of data collection for further building of statistical model or other data processing procedures. The goal of IE is the automatic extraction of structural data from unstructured or semi-structured one. In general case, IE algorithm should \textit{learn how} to extract the meaningful structural information from training labeled data and then be able to do the same on previously unseen data with reasonable quality. This formulation basically allows considering IE problem as a machine learning task.
 
-IE is closely related to Information Retrieval (IR) task. The purpose of IR is for a particular query to select and rank a subset of documents from the corpus of textual documents. Selected documents are relevant and ranked which is very convenient but at this point, no information is being extracted for the query. That's exactly where IE is applied. In order to extract the facts or meaningful information one need to understand the semantic of the documents.\\
+IE is closely related to Information Retrieval (IR) task. The purpose of IR is for a particular query to select and rank a subset of documents from the corpus of textual documents. Selected documents are relevant and ranked which is very convenient but at this point, no relevant information is being extracted. That's exactly where IE is applied. In order to extract the facts or meaningful information one need to understand the semantic of the documents.\\
 
 IE task considered to be more difficult than IR. However, IR and IE techniques are complementary and may be combined in different ways. IE often uses the IR as a filtering step, because usually, the corpus of texts where the IE is extracting the information from is very large.\\
 
@@ -16,16 +16,16 @@ Besides the obvious IE application in the search engine, there are also so-calle
 
 Aggregators are usually very popular because they provide the user with the big database, rich functionality, flexibility and instant updates, what helps a user to save time. Due to popularity of aggregator the 'original' content maker is becoming popular too and therefore the content maker has resources to produce new interesting content. The other side of this practice is traffic reduction on the original content maker websites. It happens for example if the aggregator is unfair and doesn't show the source of the information. \\
 
-The relationship between aggregators and original source makers today reminds the problem of chicken and egg. That's why search engines are very accurate with automatic extraction at the moment of showing the result for the search query. If Google shows you the correct answer right when you type the question, the website with this particular answer where Google took the information from will lose the user. Since this site loses the user, it also loses monetizing and resources to produce the 'correct answers' in future, this Google will lose the sources of correct answers. That's the reason why IE among Internet industry players is  a controversial topic.\\
+The relationship between aggregators and original source makers today reminds the problem of chicken and egg. That's why search engines are very accurate with automatic extraction at the moment of showing the result for the search query. If Google shows you the correct answer right when you type the question, the website with this particular answer where Google took the information from will lose the user. Since this site loses the user, it also loses monetizing and resources to produce the 'correct answers' in future, this Google will lose the sources of correct answers. That's the reason why IE among Internet industry players is a controversial topic.\\
 
-In research area IE of web pages is usually used in the tasks related to natural language processing and text mining. The reason for this is that the web page content is basically the semi-structured text mixed with the HTML markdown. Many research project centered around analysis of various news sources as news articles, tweets, social networks, etc. Here is incomplete list of possible tasks: sentiment analysis of news, topic recognition, summarization. Some projects aim to build the system which determines the answer on human-language question based on huge amount of processed text (IBM Watson, Wolfram Language).\\      
+In research area, IE of web pages is usually used in the tasks related to natural language processing and text mining. The reason for this is that the web page content is basically the semi-structured text mixed with the HTML markdown. Many research project centered around the analysis of various news sources as news articles, tweets, social networks, etc. Here is an incomplete list of possible tasks: sentiment analysis of news, topic recognition, summarization. Some projects aim to build the system which determines the answer on human-language question based on huge amount of processed text (IBM Watson, Wolfram Language).\\      
 
 The extraction of data from the web page is usually linked with the Document Object Model (DOM) processing and implies the understanding of the web page structure from the 'browser' point of view. \\
 
-In this way IE is becoming a quite interesting, actual and challenging task. It includes both the technical background for the data retrieving and manipulation as well as theoretical background for reasonable model building. This thesis includes all necessary parts of this task.
+In this way, IE is becoming a quite interesting, actual and challenging task. It includes both the technical background for the data retrieving and manipulation as well as theoretical background for the reasonable model building. This thesis includes all necessary parts of this task.
 
 \section{Problem definition}
-In the thesis we aim to create the system which automatically extracts the social events from the web page. The social events might include musical concerts, meetings, performances, festivals, cinema and other social activities. Such events may be published on the different web sites, usually on a web site of the event organizer.\\
+In the thesis, we aim to create the system which automatically extracts the social events from the web page. The social events might include musical concerts, meetings, performances, festivals, cinema and other social activities. Such events may be published on the different websites, usually on a website of the event organizer.\\
 
 To classify the entity on a web page as an event let's state that it must have:
 \begin{enumerate}
@@ -35,26 +35,20 @@ To classify the entity on a web page as an event let's state that it must have:
     \item Certain location where event is taking place
 \end{enumerate}
 
-In this thesis we won't solve the problem of identifying if the event announcement is actually placed on the web page since it is the task from IR field. We assume that the page already has an event and we want to find and extract the structured information about it (i.e. extract four items above).\\
+In this thesis, we won't solve the problem of identifying if the event announcement is actually placed on the web page since it is the task from IR field. We assume that the page already has an event and we want to find and extract the structured information about it (i.e. extract four items above).\\
 
 We consider \textit{the web page} as the already rendered page where JavaScript is executed. Such page has several important components: DOM tree, corresponding CSS, HTML code, resources (e.g. images) and rendered picture which the browser shows us.\\  
 
 \section{Objective and Contributions}
 
 \section{Thesis Outline / TODO}
+The thesis consists of 8 chapters, \nameref{append} and \nameref{chap:cd}. Below you'll find the summary fro every chapter:
 
-%
-% TODO
-%
-% 
-First of all, for solving the problem of event extraction we need to create a good labeled dataset. The training set collecting is the main stumbling block in the tasks like this. Search engines and big corporation working on this task can easily afford the huge labeled dataset with the high quality. For example Google hires several companies where hundreds or thousands of people are labelling the data as the full-time job. For researchers it is much more challenging, and since the quality of the algorithm is directly tied with the quality of data it took as an input, it is very important to find such dataset. 
-
-After the dataset is created the next step would be the feature selection process, model building and evaluation.
-
-Chapter \nameref{chap:background}\\
-Chapter \nameref{chap:design}\\
-Chapter \nameref{chap:datacollect}\\
-Chapter \nameref{chap:dataexplore}\\
-Chapter \nameref{chap:model}\\
-Chapter \nameref{chap:eval}\\
-Chapter \nameref{chap:conclusion}\\
+\subsection* {Chapter \ref{chap:intro}: \nameref{chap:intro}}
+\subsection* {Chapter \ref{chap:background}: \nameref{chap:background}}
+\subsection* {Chapter \ref{chap:design}: \nameref{chap:design}}
+\subsection* {Chapter \ref{chap:datacollect}: \nameref{chap:datacollect}}
+\subsection* {Chapter \ref{chap:dataexplore}: \nameref{chap:dataexplore}}
+\subsection* {Chapter \ref{chap:model}: \nameref{chap:model}}
+\subsection* {Chapter \ref{chap:eval}: \nameref{chap:eval}}
+\subsection* {Chapter \ref{chap:conclusion}: \nameref{chap:conclusion}}

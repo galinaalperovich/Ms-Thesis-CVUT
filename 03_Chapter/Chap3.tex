@@ -50,14 +50,16 @@ After we created the dataset we performed the following procedures:
 \section{Architecture of the system / TODO}
 \label{sec:arch}
 
-The system is composed of several independent modules which can be logically separated into three parts:
+The system is composed of 4 logical modules:
 
 \begin{itemize}
-    \item URL Collector - download data from CrawlWeb, clean it, send to MetaCentrum for further steps.
-    \item Data Loader - set of crawlers for extracting the features from web pages. 
+    \item \textbf{I. URLs Collection} - download data from Web Data Commons, clean it, extract the URLs with Event Microdata semantic markup.
+    \item \textbf{II. Creating a dataset} - send these URLs to MetaCentrum and set continuous parallel crawling process for extracting web elements of the event components and corresponding features.
+    \item \textbf{III. Dataset cleaning} - processing of the raw data, in the end we'll have a final dataset for analysis.
+    \item \textbf{IV. Analysis and modeling} - data exploration, analysis, building and evaluation of models.
 \end{itemize}
+
 On the picture below you see the detailed schema of the application. 
-\section{Tools / TODO}
 
 \begin{figure}[h]
 \begin{center}
@@ -66,3 +68,41 @@ On the picture below you see the detailed schema of the application.
 \label{fig:architecture}
 \end{center}
 \end{figure}
+
+\vspace{5mm} 
+\noindent\textbf{Common Crawl}\\\\
+\textit{The Common Crawl Foundation} is non-profit organization which collects and maintain the largest and the most comprehensive public corpus of web crawl data. Common Crawl's web archive consists of more than 250 TiB of content from more than 3 billion webpages. It completes the crawls every month and the history is available for the last 8 years (http://commoncrawl.org/connect/blog/). Common Crawl keeps the data in AWS S3 bucket which publicly available by this link https://aws.amazon.com/ru/public-datasets/common-crawl/  The corpus contains raw web page data, extracted metadata (RDFa, Microdata, Microformat, etc) and extracted text. \\
+
+\vspace{5mm} 
+\noindent\textbf{Web Data Common}\\\\
+% AMAZON article, edit
+\textit{The Web Data Commons} (WDC) project was started by researchers from Freie Universität Berlin and the Karlsruhe Institute of Technology (KIT) in 2012. The goal of the project is extracting the structured data (RDFa, Microdata, Microformat, and Embedded JSON-LD) from the Common Crawl corpus and share the dataset for public download in order to support researcher and companies.The same as Common Crawl corpus, structured corpus is publicly available in Amazon S3 buckets.
+
+\vspace{5mm} 
+\noindent\textbf{1. URLs extractor}\\\\
+\vspace{5mm} 
+\noindent\textbf{2. URLs cleaner}\\\\
+\vspace{5mm} 
+\noindent\textbf{3. List of URLs}\\\\
+\vspace{5mm} 
+\noindent\textbf{4. Multiparser}\\\\
+\vspace{5mm} 
+\noindent\textbf{5. Raw dataset}\\\\
+\vspace{5mm} 
+\noindent\textbf{6. Data loader}\\\\
+\vspace{5mm} 
+\noindent\textbf{7. Data cleaner}\\\\
+\vspace{5mm} 
+\noindent\textbf{8. Dataset}\\\\
+\vspace{5mm} 
+\noindent\textbf{9. Exploratory data analysis}\\\\
+\vspace{5mm} 
+\noindent\textbf{10. Feature engeneering}\\\\
+\vspace{5mm} 
+\noindent\textbf{11. Model building}\\\\
+\vspace{5mm} 
+\noindent\textbf{12. Evaluation}\\\\
+
+\section{Tools / TODO}
+
+
