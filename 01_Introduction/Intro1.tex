@@ -25,9 +25,9 @@ The extraction of data from the web page is usually linked with the Document Obj
 In this way, IE is becoming a quite interesting, actual and challenging task. It includes both the technical background for the data retrieving and manipulation as well as theoretical background for the reasonable model building. This thesis includes all necessary parts of this task.
 
 \section{Problem definition}
-In the thesis, we aim to create the system which automatically extracts the social events from the web page. The social events might include musical concerts, meetings, performances, festivals, cinema and other social activities. Such events may be published on the different websites, usually on a website of the event organizer.\\
+In the thesis, we aim to create the system which automatically extracts the \textit{event components} of the social events from the web page. The social events might include musical concerts, meetings, performances, festivals, cinema and other social activities. Such events may be published on the different websites, usually on a website of the event organizer.\\
 
-To classify the entity on a web page as an event let's state that it must have:
+To classify the entity on a web page as an event let's state that it must have the following \textit{event components}:
 \begin{enumerate}
     \item The title
     \item The description
@@ -37,15 +37,27 @@ To classify the entity on a web page as an event let's state that it must have:
 
 In this thesis, we won't solve the problem of identifying if the event announcement is actually placed on the web page since it is the task from IR field. We assume that the page already has an event and we want to find and extract the structured information about it (i.e. extract four items above).\\
 
-We consider \textit{the web page} as the already rendered page where JavaScript is executed. Such page has several important components: DOM tree, corresponding CSS, HTML code, resources (e.g. images) and rendered picture which the browser shows us.\\  
+We consider \textit{the webpage} as the already rendered page where JavaScript is executed. Such page has several important components: DOM tree, corresponding CSS, HTML code, resources (e.g. images) and rendered picture which the browser displays us. For one webpage we will collect all web elements from a DOM and four of them would be components we need to extract. We will collect more than two hundreds features for every web element and try to build the model which distinguishes an event components from all other elements. In such way for every event component we will build the binary classifier. That means in our problem we will build four one-vs-all classifiers where each of them will refers and detects corresponding event component. 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{figures01/event_example}
+\caption{An example of the social event on a webpage. Four main event components are circled in red.}
+\label{fig:architecture}
+\end{center}
+\end{figure}
+
+
 
 \section{Objective and Contributions}
 
 \section{Thesis Outline / TODO}
-The thesis consists of 8 chapters, \nameref{append} and \nameref{chap:cd}. Below you'll find the summary fro every chapter:
-
-\subsection* {Chapter \ref{chap:intro}: \nameref{chap:intro}}
+The thesis consists of 8 chapters, \nameref{append} and \nameref{chap:cd}. 
+The current Chapter \ref{chap:intro}: \nameref{chap:intro} describes briefly the idea of the thesis and motivation for the task of automatic information extraction. Below you see the summary of all other chapters:
+ 
 \subsection* {Chapter \ref{chap:background}: \nameref{chap:background}}
+This chapter will cover necessary theoretical background. We will give definitions of major concepts which we are going to work with. First of all we will consider the structure of a webpage which is essential for this work, specially the notion of the Documnet Object Model (DOM) and it's relation with JavaScript and HTML. Then we will provide an overview of state of the art Information Extraction techniques and the reference to related work. The crucial part of the chapter is the notion of Microdata semantic markup. In fact the Microdata markup provides the basis of the thesis, namely, collecting the training dataset.  
+
 \subsection* {Chapter \ref{chap:design}: \nameref{chap:design}}
 \subsection* {Chapter \ref{chap:datacollect}: \nameref{chap:datacollect}}
 \subsection* {Chapter \ref{chap:dataexplore}: \nameref{chap:dataexplore}}
