@@ -21,7 +21,7 @@ We consider the event extraction problem as several binary classification tasks,
 
 On the web page, there are a big number of elements which are not relevant by default and even can't be considered as an event property. The list of such elements includes advertisement blocks and pop-ups, footers, sidebars, media and other elements which are expected to be on a regular web page. We don't want our classifiers to spend computational time on such elements so we applied the filtering procedure in order to leave only relevant web elements for further analysis.\\
 
-\subsection{About the dataset}
+\subsection*{About the dataset}
 As usual, for building the meaningful statistical model one need to have a relatively large training set. As it was said before the collecting of such dataset is one of the main problems in Informational Extraction and often implies human involvement into labeling procedure. In our case we must have a big set of web pages with event announcement for which we know exactly where every component is located. One of the 'location' identifiers of the web element is XPath of the element in a DOM tree. What is XPath we discussed in details in the chapter \nameref{chap:background}.\\
 
 There are various types of design and structure of an event page. The event components might be located in different places relative to each other. Furthermore, there are different HTML code styles, which depends on the developer who programmed the front-end, used web frameworks and technologies. In order to build the model which will work on previously unseen web pages, we must train the classifiers on many diverse pages to consider all these cases. That's the reason why didn't consider the option of collecting the training dataset through the human labeling process.\\   
@@ -34,7 +34,7 @@ Stat Link: http://webdatacommons.org/structureddata/2016-10/stats/stats.html  \\
 
 In order to extract the information from the web pages which actually do use the semantic Microdata tags, first of all, we need to find these pages and select only those ones which contain an event announcement. As we said, there is only small part of such websites. That means the problem of gathering the pages with specific schema is not obvious especially if we want to collect the rich and diverse dataset of URLs. As a consequence, one of the intermediate tasks in the thesis was to collect the list of URLs which apply Microdata with Event schema in their HTML code. \\
 
-Fortunately for us, we discovered the great open repository \textit{Common Crawl}, which maintains and collects the web crawl unstructured data. Common Crawl is the largest web corpus available to the public, which collects petabytes of data from various Internet pages. To find the pages which contain the Event Microdata markup would not be feasible if it wasn't for another great open repository \textit{Web Data Commons} which in fact does what we exactly need - it annually processes the Common Crawl entire database and selects only those URLs which contain any kind of structured data including RDFa, Microdata, Microformat, and Embedded JSON-LD. \\
+Fortunately for us, we discovered the great open repository \textit{Common Crawl}, which maintains and collects the web crawl unstructured data. Common Crawl is the largest web corpus available to the public, which collects huge amount of data from various Internet pages. To find the pages which contain the Event Microdata markup would not be feasible if it wasn't for another great open repository \textit{Web Data Commons} which in fact does what we exactly need - it processes the Common Crawl entire database and selects only those URLs which contain any kind of structured data.\\
 
 The detailed process of collecting URLs, cleaning, parsing those URLs and again cleaning is discussed in the chapter \nameref{chap:datacollect}. The most challenging part of data collection task was the parsing those list of URLs. We had 80GB of URLs which supposed to contain an Event schema. We went through all of them, checked they availability, found the web elements tagged with Microdata semantic markup and extracted corresponding web features. For these purposes we implemented continuous parallel crawling process and set it on MetaCentrum computers. The result of all these steps is a dataset where every row consists of a URL, event component name and the values of corresponding features which we extracted from the page.\\ 
 
@@ -59,8 +59,6 @@ The system is composed of 4 logical modules:
     \item \textbf{IV. Analysis and modeling} - data exploration, analysis, building and evaluation of models.
 \end{itemize}
 
-On the picture below you see the detailed schema of the application. 
-
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{figures03/Architecure}
@@ -69,40 +67,64 @@ On the picture below you see the detailed schema of the application.
 \end{center}
 \end{figure}
 
-\vspace{5mm} 
-\noindent\textbf{Common Crawl}\\\\
-\textit{The Common Crawl Foundation} is non-profit organization which collects and maintain the largest and the most comprehensive public corpus of web crawl data. Common Crawl's web archive consists of more than 250 TiB of content from more than 3 billion webpages. It completes the crawls every month and the history is available for the last 8 years (http://commoncrawl.org/connect/blog/). Common Crawl keeps the data in AWS S3 bucket which publicly available by this link https://aws.amazon.com/ru/public-datasets/common-crawl/  The corpus contains raw web page data, extracted metadata (RDFa, Microdata, Microformat, etc) and extracted text. \\
+On the picture \nameref{fig:architecture} you see the detailed schema of the application. Below you will find the description of every component from this schema.\\
 
-\vspace{5mm} 
-\noindent\textbf{Web Data Common}\\\\
-% AMAZON article, edit
-\textit{The Web Data Commons} (WDC) project was started by researchers from Freie Universität Berlin and the Karlsruhe Institute of Technology (KIT) in 2012. The goal of the project is extracting the structured data (RDFa, Microdata, Microformat, and Embedded JSON-LD) from the Common Crawl corpus and share the dataset for public download in order to support researcher and companies.The same as Common Crawl corpus, structured corpus is publicly available in Amazon S3 buckets.
+\textbf{Common Crawl}. \textit{The Common Crawl Foundation} is non-profit organization which collects and maintain the largest and the most comprehensive public corpus of web crawl data. Common Crawl's web archive consists of more than 250 TiB of content from more than 3 billion webpages. It completes the crawls every month and the history is available for the last 8 years (http://commoncrawl.org/connect/blog/). Common Crawl keeps the data in AWS S3 bucket which publicly available by this link https://aws.amazon.com/ru/public-datasets/common-crawl/  The corpus contains raw web page data, extracted metadata and text. \\
 
-\vspace{5mm} 
-\noindent\textbf{1. URLs extractor}\\\\
-\vspace{5mm} 
-\noindent\textbf{2. URLs cleaner}\\\\
-\vspace{5mm} 
-\noindent\textbf{3. List of URLs}\\\\
-\vspace{5mm} 
-\noindent\textbf{4. Multiparser}\\\\
-\vspace{5mm} 
-\noindent\textbf{5. Raw dataset}\\\\
-\vspace{5mm} 
-\noindent\textbf{6. Data loader}\\\\
-\vspace{5mm} 
-\noindent\textbf{7. Data cleaner}\\\\
-\vspace{5mm} 
-\noindent\textbf{8. Dataset}\\\\
-\vspace{5mm} 
-\noindent\textbf{9. Exploratory data analysis}\\\\
-\vspace{5mm} 
-\noindent\textbf{10. Feature engeneering}\\\\
-\vspace{5mm} 
-\noindent\textbf{11. Model building}\\\\
-\vspace{5mm} 
-\noindent\textbf{12. Evaluation}\\\\
+\textbf{Web Data Common}. \textit{The Web Data Commons} (WDC) project was started by researchers from Freie Universität Berlin and the Karlsruhe Institute of Technology (KIT) in 2012. The goal of the project is extracting the structured data (RDFa, Microdata, Microformat, and Embedded JSON-LD) from the Common Crawl corpus and share the dataset for public download in order to support researcher and companies. The same as Common Crawl corpus, structured corpus is publicly available in Amazon S3 buckets. WDC provides with the new corpus quarterly, so in January, 2017 the datasets corresponding to October, 2016 was available.\\
 
-\section{Tools / TODO}
+\textbf{1. URLs extractor}. This component takes as an input the raw data from Web Data Common which looks as a huge text file which consists of N-Quads rows. An example of such format you will see in the section \nameref{subsec:nquand}. The goal of URLs extractor is collecting only URL addresses of those pages which contain the \textit{Event} Microdata semantic markup. \textit{Event} schema includes more specific types of Event structure as \textit{SocialEvent}, \textit{SportsEvent}, \textit{TheaterEvent}, \textit{VisualArtsEvent}, etc.\\
+
+\textbf{2. URLs cleaner}. This component ensures that all URLs exists, available, and have the correct structure. After URLs are collected, we put them to the storage of text files with the chunks of URLs. Every chunk consist of 100 URLs with Event Microdata. We keep the data like this in the \textbf{3. List of URLs} component because it would be more convenient to process later.\\
+
+\textbf{4. Multiparser.} This component is the mos time-consuming one. The Multiparser is a parallel program which runs several independent processes for crawling the URLs. Every crawler basically does 3 main things: loading, feature extraction and writing. In the first step it goes to the webpage, and since we know from Web Data Common there is an Event there, it tries to find every event's component. Then if it succeeds it extracts web features through the JavaScript in a virtual browser. So the virtual browser actually opens every page, renders it, and sees it together with the DOM, CSS and JavaScript being executed. This step is the longest one, it takes from 30 seconds to 2 minutes to render and extract all features for one URL. After it's done the crawler writes its result to the file. For every input file with chunks of URLs there is a separate file with corresponding extracted features. For every step of a crawler we set the time limit since sometimes it's processing too long and holding everything back. \\
+
+\textbf{5. Raw dataset}\\\
+
+\textbf{6. Data loader} and \textbf{7. Data cleaner}. These two components aim to load the raw data from the MetaCentrum distributed computer system through the SSH connectors and then prepare and clean it before the analysis procedures.\\
+
+\textbf{8. Dataset.} There is a list of properties of the final dataset we've collected.
+
+\begin{itemize}
+    \item For every URLs with Event Microdata schema we extracted four event components (title, date time, location, description) together with the various web features. The full list you will find in the section \nameref{sec:features}. 
+    \item The dataset is cleared of the the records where visual block has zero-width or zero-height and web elements with the useless tags like \textit{script}, \textit{meta}, etc.
+    \item It contains at most 100 different URLs for one domain to rid of inconsistency. 
+    \item Every page contains only one event. The pages with several events generally have the different structure than one-event pages, so if we leave it we will add noise to the data. More about the dataset cleaning read in section \nameref{sec:dataclean}.  
+    \item We removed the records with duplicate numeric features.
+\end{itemize}
+
+\textbf{9. Exploratory data analysis}. We visualized and learned every features, its basic statistics, the form of distribution and its specificity.\\
+
+\textbf{10. Feature engineering and selection}. On this stage we run several Random Forests algorithms in order to invoke the features importance for every binary classifier. Also we did feature engineering and created features can be divided into several parts:
+\begin{itemize}
+\item Spatial features related to original X and Y coordinates of the web element on the page.
+\item Textual features from the description and title of the event. 
+\item Visual features from the CSS original properties.  
+\end{itemize}
+
+\textbf{11. Model building}\\
+
+\textbf{12. Evaluation}\\
+
+\section{Tools}
+
+Here is a list of major tools and frameworks which we used for building the Sociopath event extraction system. All used tools are free and/or open-source.\\
+
+\noindent\textbf{Used programming languages:} \textit{Python} for all processing, parsing and data analysis procedures; \textit{JavaScript} for DOM manipulation inside the virtual browser.\\
+
+\noindent\textbf{Python stack:} \textit{sklearn, pandas, numpy} libraries for data manipulation and model building; \textit{NLTK} toolkit for textual features engineering;  \textit{xgboost} framework for boosted trees algorithm; \textit{multiprocessing} library for parallel parsing process. \\
+
+\noindent\textbf{Webpage crawling:} \textit{PhantomJS} virtual browser; \textit{urllib2, Scrapy} frameworks for retrieving data from a URL webpage with CSS and XPath selectors.\\
+
+\noindent\textbf{Visualization:} \textit{Matplotlib, Seaborn and Bokeh} - Python libraries for dataset visualization, \textit{draw.io} - web service for creating diagrams. \\
+
+\noindent\textbf{Computation:} \textit{Local computer} -- Mac OS, Processor 2,7GHz Intel Core i5, RAM 16 GB; \textit{Remote computation} -- \textit{MetaCentrum} virtual distributed computing infrastructure (free for CVUT students).\\
+
+\noindent\textbf{SSH connection:} \textit{Paramiko} for Python code, \textit{Cyberduck} and terminal for a desktop.\\
+
+\noindent\textbf{IDE:} PyCharm IDE and Jupyter Notebook.\\
+
+
+
 
 
