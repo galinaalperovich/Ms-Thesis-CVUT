@@ -35,15 +35,17 @@ To classify the entity on a web page as an event let's state that it must have t
     \item Certain location where event is taking place
 \end{enumerate}
 
-In this thesis, we won't solve the problem of identifying if the event announcement is actually placed on the web page since it is the task from IR field. We assume that the page already has an event and we want to find and extract the structured information about it (i.e. extract four items above).\\
+In this thesis, we won't solve the problem of identifying if the event announcement is actually placed on the web page since it is the task from IR field. We assume that the page already has an event and we want to find and extract the structured information about it (i.e. extract four items above). On the picture \nameref{fig:webevent} you can see an ordinary example of the page where four main event components are circled in red.\\
 
-We consider \textit{the webpage} as the already rendered page where JavaScript is executed. Such page has several important components: DOM tree, corresponding CSS, HTML code, resources (e.g. images) and rendered picture which the browser displays us. For one webpage we will collect all web elements from a DOM and four of them would be components we need to extract. We will collect more than two hundreds features for every web element and try to build the model which distinguishes an event components from all other elements. In such way for every event component we will build the binary classifier. That means in our problem we will build four one-vs-all classifiers where each of them will refers and detects corresponding event component. 
+We consider \textit{the webpage} as the rendered page where primary JavaScript already executed (it may execute too in future if the user interacts with a page). Such page has several important components: DOM tree, corresponding CSS, HTML code, resources (e.g. images) and rendered picture which the browser displays us. \\
+
+For one webpage we will collect all web elements from a DOM tree and four of them would be components we need to extract. We will collect more than two hundreds features for every web element and build the model which distinguishes an event components from all other elements. In such way for every event component we will build the binary classifier. That means in our problem we will consider four one-vs-all classifiers where each of them will refers and detects corresponding event component. 
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=1.0\textwidth]{figures01/event_example}
-\caption{An example of the social event on a webpage. Four main event components are circled in red.}
-\label{fig:architecture}
+\includegraphics[height=7cm]{figures01/event_example}
+\caption{An example of the social event on a webpage}
+\label{fig:webevent}
 \end{center}
 \end{figure}
 
