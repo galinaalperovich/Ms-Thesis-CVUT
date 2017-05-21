@@ -10,7 +10,7 @@ On the picture \nameref{fig:clean} you main see the main stages of the cleaning 
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=1.0\textwidth]{figures06/clean_workflow2}
+\includegraphics[width=1.0\textwidth]{figures06/clean_workflow4}
 \caption{Raw data-cleaning workflow}
 \label{fig:clean}
 \end{center}
@@ -20,11 +20,11 @@ Let's discuss every part of this scheme.\\
 
 \section{Evident inconsistency}
 
-Here we worked with several types of inconsistency:
+When we uploaded the data, first of all we worked with several types of inconsistency which are easy to detect and which usually touches a lot of data:
 
 \begin{itemize}
     \item Duplicates of rows by numerical features.
-    \item The 'meta' tag. Developers often set the meta information with semantic schema not in the associated real web element, but rather to an artificial auxiliary tags 'meta'. These artificial tags don't fall into a render tree because they are not visible. That means the data like this is unnecessary because it doesn't contain any visual relevant information we extract. With this filtering, we lost of data.  
+    \item The 'meta' tag. Developers often set the meta information with semantic schema not in the associated real web element, but rather to an artificial auxiliary tags 'meta'. These artificial tags don't fall into a render tree because they are not visible. That means the data like this is unnecessary because it doesn't contain any visual relevant information we extract. With this filtering, we lost a lot of data.  
     \item Zero block width and height.
     \item Zero X and Y coordinates
     \item Empty URL
@@ -99,16 +99,32 @@ The final list of 12 CSS features as follows: \textit{x\_coords, y\_coords, bloc
 Corresponding code for this step you may see in the notebook with the prefix \textit{Clean II}.
 
 \section{Frequent domains}
-During the dataset examining, we found out that there are many URL pages from the same domain name. For us it means that in the dataset we have a lot of records whose corresponding webpages have a similar structure and use the same visual templates. A structure of such HTML pages is also alike, and only the content of the pages differ. It happens because these pages generated automatically by a web-server, as we discussed before such websites are called \textit{dynamic}.\\ 
+During the dataset examining, we found out that there are many URL pages belonging to same domain name. For us it means that in the dataset we have a lot of records whose corresponding webpages have a similar structure and use the same visual templates. A structure of such HTML pages is also alike, and only the content of the pages differ. It happens because these pages generated automatically by a web-server, as we discussed before such websites are called \textit{dynamic}.\\ 
 
 On this step, we get rid of those pages whose domain appears too often. We limited the number of pages for one domain name and tagged every record with the flag \textit{keep/remove} depending on how many times the associated domain appeared before. Then we removed records with \textit{remove} value.
 
 
 \section{Multi-events pages}
 
-We found two types of webpages with an event announcement: the page with only one event and the page with several events grouped by date, place, artist, and so one. We will call second group \textit{multi-event pages}. The structure of these two groups differs because the multi-event page usually has a tabular view and visually it looks not alike. We detected URLs with up to 25 events per page. Fortunately for us, there is only 1\% of multi-event pages in our dataset, so we removed those pages. \\
+We found two types of webpages with an event announcement: the page with only one event and the page with several events grouped by date, place, artist, and so one. We will call second group \textit{multi-events pages}. The structure of these two groups differs because the multi-event page usually has a tabular view and visually it looks not alike. We detected URLs with up to 25 events per page. Fortunately for us, there is only 1\% of multi-event pages in our dataset, so we removed those pages. \\
 
-We detected such pages based on appearance of the \textit{name} component of an event. On the picture below you may see two examples: 
+We detected such pages based on appearance of the \textit{name} component of an event. We assumed that the name of the event is the most significant field and if there are more than one event names that mean we deal with a multi-events page. We collected the list of URLs like this and removed those records in our dataset which associated with these URLs.  On the picture \nameref{fig:onemulti} you may see the difference between these two types of pages.  
+
+
+\begin{figure}[H]
+\begin{subfigure}{1\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{figures06/one_event}
+  \caption{One-event webpage}
+\end{subfigure} \\
+\begin{subfigure}{1\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{figures06/multi_event}
+  \caption{Multi-events webpage}
+\end{subfigure}
+\caption{Visual difference between one-event and multi-events pages}
+\label{fig:onemulti}
+\end{figure}
 
 
 
