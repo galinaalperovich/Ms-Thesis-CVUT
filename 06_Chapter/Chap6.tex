@@ -6,7 +6,7 @@ This chapter opens the block of the chapters which cover the Experimental part o
 
 The process of big dataset cleaning usually is very time-consuming, and in our thesis, it was not an exception. The reason for this in our case is that the dataset is artificial and collected from the Internet by our crawlers. During the collecting stage, we could face problems with the web element availability, encoding, duplicates, missing values and all other natural effects. We separated the whole process into 4 logical components. In the first part we remove the rows which have a visible damage. In the second part we look closer and work individually with the CSS properties since there are more than 200 features and not all of them are relevant for us. In the third part, we work with \textit{frequent domains} which have a lot of similar URL pages. In the last part, we worked with the outliers and logically not-existing values of the features. \\
 
-On the picture \nameref{fig:clean} you main see the main stages of the cleaning process.
+On the picture \nameref{fig:clean} you main see the main stages of the cleaning process. On the upper part of the picture, you find five main steps. In the bottom of the picture, you can see a number of records left in a dataset after each step. After step "CSS properties" nothing changed because at that moment we reduced the number of columns, rather than rows. 
 
 \begin{figure}[h]
 \begin{center}
@@ -24,7 +24,7 @@ When we uploaded the data, first of all we worked with several types of inconsis
 
 \begin{itemize}
     \item Duplicates of rows by numerical features.
-    \item The 'meta' tag. Developers often set the meta information with semantic schema not in the associated real web element, but rather to an artificial auxiliary tags 'meta'. These artificial tags don't fall into a render tree because they are not visible. That means the data like this is unnecessary because it doesn't contain any visual relevant information we extract. With this filtering, we lost a lot of data.  
+    \item The 'meta' tag. Developers often set the meta information with semantic schema not in the associated real web element, but rather to an artificial auxiliary tags 'meta'. These artificial tags don't fall into a render tree because they are not visible. That means the data like this is unnecessary because it doesn't contain any visual relevant information we extract. \textit{After this filtering, the dataset became approximately four times smaller.}
     \item Zero block width and height.
     \item Zero X and Y coordinates
     \item Empty URL
@@ -98,7 +98,7 @@ The final list of 12 CSS features as follows: \textit{x\_coords, y\_coords, bloc
 
 Corresponding code for this step you may see in the notebook with the prefix \textit{Clean II}.
 
-\section{Frequent domains}
+\section{Frequent domain names}
 During the dataset examining, we found out that there are many URL pages belonging to same domain name. For us it means that in the dataset we have a lot of records whose corresponding webpages have a similar structure and use the same visual templates. A structure of such HTML pages is also alike, and only the content of the pages differ. It happens because these pages generated automatically by a web-server, as we discussed before such websites are called \textit{dynamic}.\\ 
 
 On this step, we get rid of those pages whose domain appears too often. We limited the number of pages for one domain name and tagged every record with the flag \textit{keep/remove} depending on how many times the associated domain appeared before. Then we removed records with \textit{remove} value.
@@ -179,3 +179,7 @@ block\_width	& 124\\
 \end{table}
 
 
+
+\section*{Conclusion on data cleaning}
+After these five steps, we reduced the number of records in the dataset significantly. In original dataset, we had 1.5M rows with the both event components and random elements of the page. After the last step, we gained 170K where 140K is random web element features, and 30K are an event components.\\
+The largest part was reduced after the first step where we removed the evident inconsistency. That happens due to a big number of web elements without width, height and with zero coordinates. These elements usually have \textit{meta} tag and they include all event information but not associated with any real web elements which contain the name, location, date and description. Also, we removed multi-events pages, pages with frequent domains, detected outliers and replaced them with 'NaN' value. We performed CSS feature selection and cleaning, after this step the number of CSS feature declined from 288 to 12. The size of our final dataset is 170K rows and 21 columns. In the next chapters we will continue feature engineering, so the number of columns will increase.
