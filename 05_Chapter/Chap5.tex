@@ -1,4 +1,39 @@
-\chapter{The formalization and Exploratory data analysis}
-\label{chap:dataexplore}
-\section{Event extraction as classification problem}
-\section{Analysis of features}
+\chapter{Data collection and preparation}
+\label{chap:datacollect}
+
+For solving the problem of Event Extraction (EE) from the webpage we need to create or find publicly available well labeled dataset. Usually, collecting of the training set is the main stumbling block in the tasks related to Information Extraction (IE). As an example, Google hired several special companies where hundreds or thousands of people are labeling the data as the full-time job. Search engines and big corporations which work on this task can afford the big labeled dataset with the high quality, but it is much more challenging for researchers. The rule "garbage in, garbage out" is saying that the quality of the learning algorithm is directly tied to the quality of data it takes as an input. Since we consider EE task as a set of binary classification tasks it is very important for us to have representative and relatively big dataset for building the model. \\
+
+In our case the perfect training dataset would look as follows: for one URL we want to have four main \textit{event components} (title, date time, description and location) together with their \textit{event feature} values. Since the design and the structure of a webpage with an event differs from site to site, we need a lot of URLs pages and we need to have features for every event component. \\
+
+By the \textit{event feature} we mean the values describing the event component as a web element on the page. The list of such features might be a tag, text of the element, the position on the page, a number of children in a DOM tree, the CSS property of the font size, etc. All these features in one way or another characterize the meaning of the element, knowing that en event announcement is actually on the page. As we described in the \nameref{chap:intro}, we consider the task of IE and we imply that the event is in the page but we don't know where exactly its components are placed. \\
+
+Firstly in this chapter we will discuss \nameref{sec:datasource} for the dataset we need. Then we will present the method which we used to create the dataset using Microdata semantic markup and Common Crawl Data open corpus. We will tell about the process of URL crawling and event feature extraction for the creating the dataset. For every event we extracted more than two hundred features and we will provide with the list of them in section \nameref{sec:features}. In the last section we will talk about \nameref{sec:dataclean}.
+
+
+\section{Possible data sources / TODO}
+
+Relevant, or web pages\\
+University dataset http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/data/\\
+Internet ads http://archive.ics.uci.edu/ml/datasets/Internet+Advertisements\\
+Interested or not web pages http://kdd.ics.uci.edu/databases/SyskillWebert/SyskillWebert.html\\
+Phishing websites https://archive.ics.uci.edu/ml/datasets/phishing+websites\\
+Amazon product review https://snap.stanford.edu/data/web-Amazon.html\\
+Rumor dataset: https://www.kaggle.com/arminehn/rumor-citation\\
+Real state from website: https://www.kaggle.com/fredgirod/web-crawler-for-real-estate-market\\
+IMDB movies: https://www.kaggle.com/deepmatrix/imdb-5000-movie-dataset\\
+
+
+
+\label{sec:datasource}
+\section{Common Crawl and Web data common / TODO}
+\subsection{N-quands format}
+\label{subsec:nquand}
+\section{List of extracted features / TODO}
+\label{sec:features}
+\section{URLs parsing process / TODO}
+\label{sec:urlparse}
+We will use explicit HTTP requesting as a filtering step before processing the DOM in a virtual browser, that is quite slow in a virtual browser environment. \\
+
+\label{sec:urlparse}
+\section{Dataset cleaning / TODO}
+\label{sec:dataclean}

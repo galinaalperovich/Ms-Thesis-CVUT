@@ -2,7 +2,7 @@
 \label{chap:intro}
 Information extraction (IE) from the web pages is a popular task and the goal of IE is the automatic extraction of structural data from unstructured or semi-structured one. In general case, IE algorithm should \textit{learn} how to extract the meaningful structural information from the training labeled data and then be able to do the same on previously unseen data with reasonable quality. This formulation basically allows considering IE problem as a machine learning task.\\
 
-IE is closely related to Information Retrieval (IR). A clear example of IR is a search engine websites. The purpose of IR algorithm is for a given textual query to select and rank a subset of documents, where documents are taken from the indexed corpus. These documents are relevant for the query and they ranked in descending order, but at this point, the user doesn't see extracted information as an answer on her question. That's exactly where IE is applied. In order to extract the facts or meaningful structured information one need to understand the semantic of the documents.\\
+IE is closely related to Information Retrieval (IR). A clear example of IR is a search engine websites. The purpose of IR algorithm is for a given textual query to select and rank a subset of documents, where documents are taken from the indexed corpus. These documents are relevant to the query and they ranked in descending order, but at this point, the user doesn't see extracted information as an answer to her question. That's exactly where IE is applied. In order to extract the facts or meaningful structured information one need to understand the semantic of the documents.\\
 
 IE task considered to be more difficult than IR. However, IR and IE techniques are complementary and may be combined in different ways. IE often uses the IR as a filtering step, because usually, the corpus of texts where the IE is extracting the information is very large. IR often uses IE for the feature extraction.\\
 \cite{IEstate}
@@ -14,7 +14,7 @@ Aggregators are usually very popular because they provide the user with the big 
 
 The relationship between aggregators and original source makers today reminds the problem of chicken and egg. That's why search engines are very accurate with automatic extraction at the moment of showing the result for the search query. If Google shows you the correct answer right when you type the question, the website with this particular answer where Google took the information from will lose the user. Since this site loses the user, it also loses monetizing and resources to produce the 'correct answers' in future, this Google will lose the sources of correct answers. That's the reason why IE among Internet industry players is a controversial topic.\\
 
-In research area, IE of web pages is usually used in the tasks related to natural language processing and text mining. The reason for this is that the web page content is basically the semi-structured text mixed with the HTML markdown. Many research project centered around the analysis of various news sources as news articles, tweets, social networks, etc. Here is an incomplete list of possible tasks: sentiment analysis of news, topic recognition, summarization. Some projects aim to build the system which determines the answer on human-language question based on huge amount of processed text (IBM Watson, Wolfram Language).\\      
+In the research area, IE of web pages is usually used in the tasks related to natural language processing and text mining. The reason for this is that the web page content is basically the semi-structured text mixed with the HTML markdown. Many research project centered around the analysis of various news sources as news articles, tweets, social networks, etc. Some of the possible tasks are sentiment analysis of news, topic recognition, summarization. Some projects aim to build the system which determines the answer on human-language question based on huge amount of processed text (IBM Watson, Wolfram Language).\\      
 
 The extraction of data from the web page is usually linked with the Document Object Model (DOM) processing and implies the understanding of the web page structure from the 'browser' point of view. \\
 
@@ -35,7 +35,7 @@ In this thesis, we won't solve the problem of identifying if the event announcem
 
 We consider \textit{the webpage} as the rendered page where primary JavaScript already executed (it may execute too in future if the user interacts with a page). Such page has several important components: DOM tree, corresponding CSS, HTML code, resources (e.g. images) and rendered picture which the browser displays us. \\
 
-For one webpage we will collect all web elements from a DOM tree and four of them would be components we need to extract. We will collect more than two hundreds features for every web element and build the model which distinguishes an event components from all other elements. In such way for every event component we will build the binary classifier. That means in our problem we will consider four one-vs-all classifiers where each of them will refers and detects corresponding event component. 
+For one webpage we will collect all web elements from a DOM tree and four of them would be components we need to extract. We will collect more than two hundreds features for every web element and build the model which distinguishes an event components from all other elements. In such way, for every event component, we will build the binary classifier. That means in our problem we will consider four one-vs-all classifiers where each of them will refer and detects corresponding event component. 
 
 \begin{figure}[h]
 \begin{center}
@@ -47,18 +47,10 @@ For one webpage we will collect all web elements from a DOM tree and four of the
 
 
 
-\section{Objective and Contributions}
+% \section{Objective and Contributions}
 
-\section{Thesis Outline / TODO}
+\section{Thesis Outline}
 The thesis consists of 8 chapters, \nameref{append} and \nameref{chap:cd}. 
-The current Chapter \ref{chap:intro}: \nameref{chap:intro} describes briefly the idea of the thesis and motivation for the task of automatic information extraction. Below you see the summary of all other chapters:
- 
-\subsection* {Chapter \ref{chap:background}: \nameref{chap:background}}
-This chapter will cover necessary theoretical background. We will give definitions of major concepts which we are going to work with. First of all we will consider the structure of a webpage which is essential for this work, specially the notion of the Documnet Object Model (DOM) and it's relation with JavaScript and HTML. Then we will provide an overview of state of the art Information Extraction techniques and the reference to related work. The crucial part of the chapter is the notion of Microdata semantic markup. In fact the Microdata markup provides the basis of the thesis, namely, collecting the training dataset.  
+The current Chapter \ref{chap:intro}: \nameref{chap:intro} describes briefly the idea of the thesis and motivation for the task of automatic information extraction. The chapter \nameref{chap:background} will cover necessary theoretical background, consider important concepts for this work (webpage, DOM, XPath, Microdata semantic markup, etc) and provide an overview of state of the art Information Extraction techniques. In chapter \nameref{chap:design} we will explain in details the pipeline of the Sociopath system together with a description of its main components. The method which we propose for the collecting of the training dataset will be discussed in details in chapter \nameref{chap:datacollect}. \\
 
-\subsection* {Chapter \ref{chap:design}: \nameref{chap:design}}
-\subsection* {Chapter \ref{chap:datacollect}: \nameref{chap:datacollect}}
-\subsection* {Chapter \ref{chap:dataexplore}: \nameref{chap:dataexplore}}
-\subsection* {Chapter \ref{chap:model}: \nameref{chap:model}}
-\subsection* {Chapter \ref{chap:eval}: \nameref{chap:eval}}
-\subsection* {Chapter \ref{chap:conclusion}: \nameref{chap:conclusion}}
+Last three chapters are devoted to a cyclic process of the dataset analysis. In \nameref{chap:dataexplore} we will show the visualization and precise analysis of the extracted features. In \nameref{chap:model} we will build several classification models and optimize their parameters. In chapter \nameref{chap:eval} we will compare the models and evaluate them on previously unseen data. In \nameref{chap:conclusion} we will sum up our main contributions and propose ideas for further work.
