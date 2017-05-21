@@ -10,7 +10,7 @@ On the picture \nameref{fig:clean} you main see the main stages of the cleaning 
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=1.0\textwidth]{figures06/clean_workflow1}
+\includegraphics[width=1.0\textwidth]{figures06/clean_workflow2}
 \caption{Raw data-cleaning workflow}
 \label{fig:clean}
 \end{center}
@@ -18,7 +18,7 @@ On the picture \nameref{fig:clean} you main see the main stages of the cleaning 
 
 Let's discuss every part of this scheme.\\
 
-\section*{Obvious inconsistency}
+\section{Evident inconsistency}
 
 Here we worked with several types of inconsistency:
 
@@ -33,7 +33,7 @@ Here we worked with several types of inconsistency:
 Corresponding code for this step you may see in the notebook with the prefix \textit{Clean I}.
 
 
-\section*{CSS properties}
+\section{CSS properties}
 In out Raw dataset we have 288 CSS features from a virtual web browser. To get these properties the browser rendered the page, so we have real post-processing values of CSS fields. Many of properties have prefix \textit{-webkit}. Webkit is a rendering engine used by Safari, Chrome, and other browsers. The \textit{-webkit} prefix on CSS selectors are properties that only this specific engine is intended to process. Due to inconsistency in a browser rendering engines, developers need to set multiple rules for the same thing for all popular browsers, that's the reason why web developers community is hoping this goes away. From our point of view, that means we have a lot of duplicated or almost the same features which don't add new information.\\
 
 Here is a list of steps we made for working with CSS features:
@@ -98,10 +98,21 @@ The final list of 12 CSS features as follows: \textit{x\_coords, y\_coords, bloc
 
 Corresponding code for this step you may see in the notebook with the prefix \textit{Clean II}.
 
-\section*{Frequent domains}
-On this step we get rid of those pages whose domain appears too often. It happens because original list of URLs contained too many URLs with the same visual template.   
+\section{Frequent domains}
+During the dataset examining, we found out that there are many URL pages from the same domain name. For us it means that in the dataset we have a lot of records whose corresponding webpages have a similar structure and use the same visual templates. A structure of such HTML pages is also alike, and only the content of the pages differ. It happens because these pages generated automatically by a web-server, as we discussed before such websites are called \textit{dynamic}.\\ 
 
-\section*{Outliers and multi-event pages}
+On this step, we get rid of those pages whose domain appears too often. We limited the number of pages for one domain name and tagged every record with the flag \textit{keep/remove} depending on how many times the associated domain appeared before. Then we removed records with \textit{remove} value.
+
+
+\section{Multi-events pages}
+
+We found two types of webpages with an event announcement: the page with only one event and the page with several events grouped by date, place, artist, and so one. We will call second group \textit{multi-event pages}. The structure of these two groups differs because the multi-event page usually has a tabular view and visually it looks not alike. We detected URLs with up to 25 events per page. Fortunately for us, there is only 1\% of multi-event pages in our dataset, so we removed those pages. \\
+
+We detected such pages based on appearance of the \textit{name} component of an event. On the picture below you may see two examples: 
+
+
+
+\section{Outliers}
 After we formed boxplots of all numerical features and looked at their basic statistics we found out that they have a lot of outliers. See \nameref{fig:outlier} for features \textit{width} and \textit{num\_siblings}.\\
 
 We replaced outliers with 'NaN' values for further imputation. We detected outliers similarly as a boxplot but with the difference that we considered $P_{10\%}$ and $P_{90\%}$ instead of $Q_{25\%}$ and $Q_{75\%}$. We calculated percentiles $P_{10\%}$ and $P_{90\%}$, and then we calculated the value $IPR$ by analogy with Interquartile Range (IQR):
@@ -150,4 +161,5 @@ block\_width	& 124\\
 \label{table:outlier}
 \end{center}
 \end{table}
+
 
