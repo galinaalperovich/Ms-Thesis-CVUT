@@ -1,4 +1,4 @@
-\chapter{Data collection and preparation}
+\chapter{Data collection}
 \label{chap:datacollect}
 
 For solving the problem of Event Extraction (EE) from the webpage we need to create or find publicly available well labeled dataset. Usually, collecting of the training set is the main stumbling block in the tasks related to Information Extraction (IE). As an example, Google hired several special companies where hundreds or thousands of people are labeling the data as the full-time job. Search engines and big corporations which work on this task can afford the big labeled dataset with the high quality, but it is much more challenging for researchers. The rule "garbage in, garbage out" is saying that the quality of the learning algorithm is directly tied to the quality of data it takes as an input. Since we consider EE task as a set of binary classification tasks it is very important for us to have representative and relatively big dataset for building the model. \\
@@ -30,10 +30,8 @@ IMDB movies: https://www.kaggle.com/deepmatrix/imdb-5000-movie-dataset\\
 \label{subsec:nquand}
 \section{List of extracted features / TODO}
 \label{sec:features}
-\section{URLs parsing process / TODO}
+\section{URLs crawling/ TODO}
 \label{sec:urlparse}
 We will use explicit HTTP requesting as a filtering step before processing the DOM in a virtual browser, that is quite slow in a virtual browser environment. \\
 
-\label{sec:urlparse}
-\section{Dataset cleaning / TODO}
-\label{sec:dataclean}
+our system renders the page fully, as it appears in a browser -- including images, CSS, even Ajax-delivered content -- and then analyzes its visual layout.

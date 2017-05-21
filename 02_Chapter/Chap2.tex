@@ -37,7 +37,7 @@ The triad of the most important Web technologies are HTML to specify the content
 <body>
 
 <h1>This is a heading</h1>
-<p>This is a paragraph.</p>
+<div>This is a block of information.</div>
 
 </body>
 </html>
@@ -59,7 +59,7 @@ h1 {
     text-align: center;
 }
 
-p {
+div {
     font-family: verdana;
     font-size: 20px;
 }
@@ -87,7 +87,7 @@ image.onload = window.setInterval(function() {
 \end{lstlisting}\\
 
 
-\section{How does the browser render the page}
+\section{How does the browser render the page / TODO}
 \label{sec:browser}
 
 Every time the browser retrieves the information from the web server, it makes the series of important actions in order to display the initial page to the user. This series of steps is named \textit{the critical rendering path}. For a web developers it is very important to understand these steps because optimized websites are easy to use and have a higher rank in search engines. Optimized in this case means that the browser is able to load and render the page quickly and the internal structure of the code is clear.\\
@@ -175,7 +175,93 @@ Element E whose attribute A ends with 't'	&	\texttt{//E[substring(@A, string-len
 
 
 \section{Semantic Web / TODO}
-\subsection{Microformats, RDF / TODO}
-\subsection{Semantic Web pervasiveness/ TODO}
+Currently, the Internet, in general, can be considered as \textit{"Web of documents"}, where every document is an HTML page. With Semantic Web, W3C is helping to build a technology stack to support a \textit{"Web of data"}, where all available data on those HTML pages produce the database and anyone can retrieve that data similarly working with databases. So \textit{the Semantic Web} is an extension of the Web through the list of specific standards and technologies supported by the W3C [source Wiki].  \\
+
+As we know, today not only the humans read the pages on the Internet. A lot of computers with the comprehensive programs read the Interned too, and the easiest example is a search engine. It continuously scans the Web pages, processed an enormous amount of data with complicated algorithms to understand the meaning of the text written in natural language. It is a very complex task to understand the context of the document, its semantic nature and the relationship between included concepts. To do so one needs special software and significant computational power, that's why only big corporations as Google, IBM (with the Watson project), and other can afford it. The root of this complexity lies in the fact that the Web is semi-structured text written in natural language, initially made for simple human needs, not for a computer or complicated queries about the underlying concepts.\\ 
+
+The Semantic Web acts as an integrator of different content and systems. The stack of major technologies as follows: 
+
+\begin{enumerate}
+    \item Resource Description Framework (RDF). It is a language for expressing data models, which refer to objects and their relationships. 
+    \itme RDF Schema (RDFS), is a vocabulary for describing properties and classes of RDF-based resources.
+    \item SPARQ - is a query language for semantic web data sources.
+    \item Web Ontology Language (OWL), a family of knowledge. representation. It adds more vocabulary and relations for describing properties and classes.
+    \item XML provides basic syntax for the structure of content.
+\end{enumerate}
+
+The biggest problem with Semantic Web is its practical feasibility. While learning of HTML is relatively easy, the theoretical background needed to implement the ideas from Semantic web requires the understanding of knowledge representation subject which is quite complicated. 
+
+\subsection{Semantic markup}
+\textit{Semantic markup (or semantic annotation)} is an extension of HTML which implies using special tags with meta information. It helps search engines, web crawlers, and browsers automatically retrieve the concepts with detailed information from an HTML page. Search engine relies on this markup to improve search results. For example, it can automatically show the details of a person or a movie right below the search query in case this information appears with the corresponding meta tags on a reliable webpage.\\ 
+
+The list of concepts and its relationships is very broad and includes for example person, address, dates, events, etc. There are three the most popular semantic markup: Microdata, RDF, and Microformat. Also, the last version of HTML (HTML5) has embedded tags which created especially for some semantic annotations. The core of the thesis is using \textit{Microdata} for collecting the initial training set. Let's discuss how does this markup look like and what functionality provide.\\
+
+\subsubsection*{Microdata}
+\textit{Microdata} vocabularies iself does not provide the semantics, or meaning of an Item.[source: https://html.spec.whatwg.org/multipage/microdata.html] Instead of this, web developers can create a custom vocabulary or use vocabularies available on the Web. \textit{Schema.org} schemas provide the most commonly used markup vocabularies, which includes: Person, Place, Event, Organization and many others. \\
+
+In our work, we regularly use \textit{Event Shcema} vocabulary of the Microdata markup. Let's consider a small example and its primary fields. Look at the two listings: {lst:htmlevent} and {lst:htmleventmark}.\\
+
+\begin{lstlisting}[language=html, caption={Event information without semantic markup}, label={lst:htmlevent}, captionpos=b]
+<div class="event-wrapper">
+  <div class="event-date">Sat Sep 14</div>
+  <div class="event-title">Typhoon with Radiation City</div>
+  <div class="event-venue">
+    The Hi-Dive
+    <div class="address">
+        7 S. Broadway<br>
+        Denver, CO 80209
+    </div>
+  </div>
+  <div class="event-time">9:30 PM</div>
+</div>
+
+\end{lstlisting}
+\\
+
+\begin{lstlisting}[language=html, caption={Event information annotated with Microdata}, label={lst:htmleventmark}, captionpos=b]
+<div class="event-wrapper" itemscope itemtype="http://schema.org/Event">
+  <div class="event-date" itemprop="startDate" content="2013-09-14T21:30">Sat Sep 14</div>
+  <div class="event-title" itemprop="name">Typhoon with Radiation City</div>
+  <div class="event-venue" itemprop="location" itemscope itemtype="http://schema.org/Place">
+    <span itemprop="name">The Hi-Dive</span>
+    <div class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+      <span itemprop="streetAddress">7 S. Broadway</span><br>
+      <span itemprop="addressLocality">Denver</span>,
+      <span itemprop="addressRegion">CO</span>
+      <span itemprop="postalCode">80209</span>
+    </div>
+  </div>
+  <div class="event-time">9:30 PM</div>
+</div>
+
+\end{lstlisting}\\
+
+
+As you can see, the second code block looks more cumbersome because it has a lot of additional annotations. 
+
+\begin{itemize}
+    \item \textbf{itemscope} – creates the Item and indicates that descendants of this element contain information about it.[source: https://html.spec.whatwg.org/multipage/microdata.html]
+    \item \textbf{itemtype} – a valid URL of a vocabulary that describes the item. In our case it is "http://schema.org/Event" and if you go by thins link, you will find all possible fields and information. 
+    \item \textbf{itemprop} - contatining tag holds specific property of the item, for example "location", "startDate", "name".
+\end{itemize}
+
+There are dozens of Event properties in "http://schema.org/Event", but in the thesis we consider only four main properties "name", "startDate", "description" and "location". We will call them \textit{event components}.\\
+
+You can mention, that the item can contain a property as well as another item. For example, property "address" includes the item type "http://schema.org/PostalAddress". In the thesis it would be an additional difficulty during the parsing process because we will need to invoke not only the property but also the properties of all included items to collect the event components. We will discuss it in chapter \nameref{chap:datacollect}. 
+
+\subsubsection*{Semantic markup popularity}
+
+up vote
+1
+down vote
+The last statistics from the WebDataCommons as follows:
+
+Source: http://webdatacommons.org/structureddata/2016-10/stats/stats.html
+
+Number of domain parsed: 34 million pay-level-domains
+Number of domains with RDFa, Microdata and Microformats: 5.63 million (16.5%)
+
+Popularity different formats: 
+
 
 
