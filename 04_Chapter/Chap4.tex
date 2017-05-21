@@ -1,23 +1,130 @@
-\chapter{Data collection and preparation}
-\label{chap:datacollect}
+\chapter{Design and Implementation}
+\label{chap:design}
+This chapter will present the design and technical details on the implementation of Sociopath event extraction system. In the \nameref{sec:method} we will discuss our method and set the problem formulation, also we will briefly walk through the main points of the project's workflow. We will recapitulate the information on Microdata from the chapter \nameref{chap:background}and explain how it is relevant in the context of event extraction process. The main part of this section is devoted to the process of training dataset construction. \\
 
-For solving the problem of Event Extraction (EE) from the webpage we need to create or find publicly available well labeled dataset. Usually, collecting of the training set is the main stumbling block in the tasks related to Information Extraction (IE). As an example, Google hired several special companies where hundreds or thousands of people are labeling the data as the full-time job. Search engines and big corporations which work on this task can afford the big labeled dataset with the high quality, but it is much more challenging for researchers. The rule "garbage in, garbage out" is saying that the quality of the learning algorithm is directly tied to the quality of data it takes as an input. Since we consider EE task as a set of binary classification tasks it is very important for us to have representative and relatively big dataset for building the model. \\
+In the section \nameref{sec:arch} we will show the diagram of the project and describe the basic components. 
 
-In our case the perfect training dataset would look as follows: for one URL we want to have four main \textit{event components} (title, date time, description and location) together with their \textit{event feature} values. Since the design and the structure of a webpage with an event is differ from site to site, we need a lot of URLs pages and we need to have features for every event component. \\
+\section{Methodology and Approach}
+\label{sec:method}
+As we mentioned in \nameref{chap:intro}, the Sociopath system aims to extract the following four event properties from the web page: 
 
-By the \textit{event feature} we mean the values describing the event component as a web element on the page. The list of such features might be a tag, text of the element, the position on the page, a number of children in a DOM tree, the CSS property of the font size, etc. All these features in one way or another characterize the meaning of the element, knowing that en event announcement is actually on the page. As we described in the \nameref{chap:intro}, we consider the task of IE and we imply that the event is in the page but we don't know where exactly its components are placed. \\
+\begin{enumerate}
+    \item The title
+    \item The description
+    \item The date and time
+    \item The certain location where event is taking place
+\end{enumerate}
 
-Firstly in this chapter we will discuss \nameref{sec:datasource} for the dataset we need. Then we will present the method which we used to create the dataset using Microdata semantic markup and Common Crawl Data open corpus. We will tell about the process of URL crawling and event feature extraction for the creating the dataset. For every event we extracted more than two hundred features and we will provide with the list of them in section \nameref{sec:features}. In the last section we will talk about \nameref{sec:dataclean}.
+As also said we assume that the page already contains an event announcement, and we don't solve the task of information retrieval to list those pages which contain the events. Our task is to find and extract the structured information about the event knowing it's actually there.\\
+
+We consider the event extraction problem as several binary classification tasks, where every model runs on every element of the web page and makes its decision. In our approach, we explicitly build one-vs-all classifiers for every event component. Thus we have 4 different models that independently process the elements of the web page. \\
+
+On the web page, there is a big number of elements which are not relevant by default because they can't be an event property. The list of such elements includes advertisement blocks and pop-ups, footers, sidebars, media and other elements which are expected to be on a regular web page. We don't want our classifiers to spend computational time on such elements so we applied the filtering procedure in order to leave only relevant web elements for further analysis.\\
+
+\subsection*{About the dataset}
+As usual, for building the meaningful statistical model one needs to have a relatively large training set. As it was said before the collecting of such dataset is one of the main problems in Informational Extraction and often implies human involvement into labeling procedure. In our case we must have a big set of web pages with event announcement for which we know exactly where every component is located. One of the 'location' identifiers of the web element is XPath of the element in a DOM tree. What is XPath we discussed in details in the chapter \nameref{chap:background}.\\
+
+There are various types of design and structure of an event page. The event components might be located in different places relative to each other. Furthermore, there are different HTML code styles, which depend on the developer who programmed the front-end, used web frameworks and technologies. In order to build the model which will work on previously unseen web pages, we must train the classifiers on many diverse pages to consider all these cases. That's the reason why we didn't consider the option of collecting the training dataset through the human labeling process.\\   
+
+As we will discuss in the chapter \nameref{chap:datacollect} there exist several non-free well-formed datasets for 'vertical services' tasks. Researchers in related projects have been using these datasets and showed the high performance. In this thesis we didn't consider paid datasets as an option and rather set as a goal to create a technique for collecting such dataset automatically.\\
+
+To generate the dataset for training and evaluation we exploited the set of web pages which format their HTML code using the semantic markup Microdata together with the schema \textit{Event} from Schema.org. The Microdata markup and its structure were previously discussed in details in \nameref{chap:background} chapter. Search engines take advantage of the semantic markup to automatically extract the information, incorporate it into its vertical services and provide a richer browsing experience for users. Despite the fact search engines encourage and promote the websites which use such markup, in fact, not all of them use it. By statistics only 16\% of the domains use semantic markup, the rest 84\% use classic HTML. That's also the reason why the task of structural information extraction from unstructured web pages is still relevant - most of the data on the Internet is still stored as a plain HTML.\\ 
+
+Stat Link: http://webdatacommons.org/structureddata/2016-10/stats/stats.html  \\
+
+In order to extract the information from the web pages which actually do use the semantic Microdata tags, first of all, we need to find these pages and select only those which contain an event announcement. As we said, there is only small part of such websites. That means the problem of gathering the pages with specific schema is not obvious especially if we want to collect the rich and diverse dataset of URLs. As a consequence, one of the intermediate tasks in the thesis was to collect the list of URLs which apply Microdata with Event schema in their HTML code. \\
+
+Fortunately for us, we discovered the great open repository \textit{Common Crawl}, which maintains and collects the web crawl unstructured data. Common Crawl is the largest web corpus available to the public, which collects huge amount of data from various Internet pages. To find the pages which contain the Event Microdata markup would not be feasible if it wasn't for another great open repository \textit{Web Data Commons} which in fact does what we exactly need - it processes the Common Crawl entire database and selects only those URLs which contain any kind of structured data.\\
+
+The detailed process of collecting URLs, cleaning, parsing those URLs and again cleaning is discussed in the chapter \nameref{chap:datacollect}. The most challenging part of data collection task was the parsing those list of URLs. We had 80GB of URLs which supposed to contain an Event schema. We went through all of them, checked they availability, found the web elements tagged with Microdata semantic markup and extracted corresponding web features. For these purposes we implemented continuous parallel crawling process and set it on MetaCentrum computers. The result of all these steps is a dataset where every row consists of a URL, event component name and the values of corresponding features which we extracted from the page.\\ 
+
+After we created the dataset we performed the following procedures:
+\begin{enumerate}
+    \item Comprehensive exploratory data analysis including visualization of extracted features for every event component.
+    \item We performed feature engineering in order to extract useful information from text features, spatial features (X and Y coordinates of the web element) and visual features (CSS). 
+    \item Since we will work with several hundreds features, we run dimensionality reduction and feature selection methods. 
+    \item We built several models for binary classification tasks, optimized parameters for every model and presented comparison tables.  
+    \item We evaluated the models on previously unseen data.    
+\end{enumerate}
+
+\section{Architecture of the system / TODO}
+\label{sec:arch}
+
+The system is composed of 4 logical modules:
+
+\begin{itemize}
+    \item \textbf{I. URLs Collection} - download data from Web Data Commons, clean it, extract the URLs with Event Microdata semantic markup.
+    \item \textbf{II. Creating a dataset} - send these URLs to MetaCentrum and set continuous parallel crawling process for extracting web elements of the event components and corresponding features.
+    \item \textbf{III. Dataset cleaning} - processing of the raw data, in the end we'll have a final dataset for analysis.
+    \item \textbf{IV. Analysis and modeling} - data exploration, analysis, building and evaluation of models.
+\end{itemize}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{figures04/Architecure}
+\caption{The components of Sociopath event extraction system}
+\label{fig:architecture}
+\end{center}
+\end{figure}
+
+On the picture \nameref{fig:architecture} you see the detailed schema of the application. Below you will find the description of every component from this schema.\\
+
+\textbf{Common Crawl}. \textit{The Common Crawl Foundation} is non-profit organization which collects and maintain the largest and the most comprehensive public corpus of web crawl data. Common Crawl's web archive consists of more than 250 TiB of content from more than 3 billion webpages. It completes the crawls every month and the history is available for the last 8 years (http://commoncrawl.org/connect/blog/). Common Crawl keeps the data in AWS S3 bucket which publicly available by this link https://aws.amazon.com/ru/public-datasets/common-crawl/  The corpus contains raw web page data, extracted metadata and text. \\
+
+\textbf{Web Data Common}. \textit{The Web Data Commons} (WDC) project was started by researchers from Freie Universität Berlin and the Karlsruhe Institute of Technology (KIT) in 2012. The goal of the project is extracting the structured data (RDFa, Microdata, Microformat, and Embedded JSON-LD) from the Common Crawl corpus and share the dataset for public download in order to support researcher and companies. The same as Common Crawl corpus, structured corpus is publicly available in Amazon S3 buckets. WDC provides with the new corpus quarterly, so in January, 2017 the datasets corresponding to October, 2016 was available.\\
+
+\textbf{1. URLs extractor}. This component takes as an input the raw data from Web Data Common which looks as a huge text file which consists of N-Quad rows. An example of such format you will see in the section \nameref{subsec:nquand}. The goal of URLs extractor is collecting only URL addresses of those pages which contain the \textit{Event} Microdata semantic markup. \textit{Event} schema includes more specific types of Event structure as \textit{SocialEvent}, \textit{SportsEvent}, \textit{TheaterEvent}, \textit{VisualArtsEvent}, etc.\\
+
+\textbf{2. URLs cleaner}. This component ensures that all URLs exists, available, and have the correct structure. After URLs are collected, we put them to the storage of text files with the chunks of URLs. Every chunk consist of 100 URLs with Event Microdata. We keep the data like this in the \textbf{3. List of URLs} component because it would be more convenient to process later.\\
+
+\textbf{4. Multiparser.} This component is the most time-consuming one. The Multiparser is a parallel program which runs several independent processes for crawling the URLs. Every crawler basically does 3 main things: loading, feature extraction and writing. In the first step it goes to the webpage, and since we know from Web Data Common there is an Event there, it tries to find every event's component. Then if it succeeds it extracts web features through the JavaScript in a virtual browser. So the virtual browser actually opens every page, renders it, and sees it together with the DOM, CSS and JavaScript being executed. This step is the longest one, it takes from 30 seconds to 2 minutes to render and extract all features for one URL. After it's done the crawler writes its result to the file. For every input file with chunks of URLs there is a separate file with corresponding extracted features. For every step of a crawler we set the time limit since sometimes it's processing too long and holding everything back. \\
+
+\textbf{5. Raw dataset}\\\
+
+\textbf{6. Data loader} and \textbf{7. Data cleaner}. These two components aim to load the raw data from the MetaCentrum distributed computer system through the SSH connectors and then prepare and clean it before the analysis procedures.\\
+
+\textbf{8. Dataset.} There is a list of properties of the final dataset we've collected.
+
+\begin{itemize}
+    \item For every URLs with Event Microdata schema we extracted four event components (title, date time, location, description) together with the various web features. The full list you will find in the section \nameref{sec:features}. 
+    \item The dataset is cleared of the the records where visual block has zero-width or zero-height and web elements with the useless tags like \textit{script}, \textit{meta}, etc.
+    \item It contains at most 100 different URLs for one domain to get rid of inconsistency. 
+    \item Every page contains only one event. The pages with several events generally have the different structure than one-event pages, so if we leave it we will add noise to the data. More about the dataset cleaning read in section \nameref{sec:dataclean}.  
+    \item We removed the records with duplicate numeric features.
+\end{itemize}
+
+\textbf{9. Exploratory data analysis}. We visualized and learned every features, its basic statistics, the form of distribution and its specificity.\\
+
+\textbf{10. Feature engineering and selection}. On this stage we run several Random Forests algorithms in order to reveal the features importance for every binary classifier. Also we did feature engineering and created features can be divided into several parts:
+\begin{itemize}
+\item Spatial features related to original X and Y coordinates of the web element on the page.
+\item Textual features from the description and title of the event. 
+\item Visual features from the CSS original properties.  
+\end{itemize}
+
+\textbf{11. Model building}\\
+
+\textbf{12. Evaluation}\\
+
+\section{Tools}
+
+Here is a list of major tools and frameworks which we used for building the Sociopath event extraction system. All used tools are free and/or open-source.\\
+
+\noindent\textbf{Used programming languages:} \textit{Python} for all processing, parsing and data analysis procedures; \textit{JavaScript} for DOM manipulation inside the virtual browser.\\
+
+\noindent\textbf{Python stack:} \textit{sklearn, pandas, numpy} libraries for data manipulation and model building; \textit{NLTK} toolkit for textual features engineering;  \textit{xgboost} framework for boosted trees algorithm; \textit{multiprocessing} library for parallel parsing process. \\
+
+\noindent\textbf{Webpage crawling:} \textit{PhantomJS} virtual browser; \textit{urllib2, Scrapy} frameworks for retrieving data from a URL webpage with CSS and XPath selectors.\\
+
+\noindent\textbf{Visualization:} \textit{Matplotlib, Seaborn and Bokeh} - Python libraries for dataset visualization, \textit{draw.io} - web service for creating diagrams. \\
+
+\noindent\textbf{Computation:} \textit{Local computer} -- Mac OS, Processor 2,7GHz Intel Core i5, RAM 16 GB; \textit{Remote computation} -- \textit{MetaCentrum} virtual distributed computing infrastructure (free for CTU students).\\
+
+\noindent\textbf{SSH connection:} \textit{Paramiko} for Python code, \textit{Cyberduck} and terminal for a desktop.\\
+
+\noindent\textbf{IDE:} PyCharm IDE and Jupyter Notebook.\\
 
 
-\section{Possible data sources}
-\label{sec:datasource}
-\section{Common Crawl and Web data common}
-\subsection{N-quands format}
-\label{subsec:nquand}
-\section{List of extracted features}
-\label{sec:features}
-\section{URLs parsing process}
-\label{sec:urlparse}
-\section{Dataset cleaning}
-\label{sec:dataclean}
+
+
+
