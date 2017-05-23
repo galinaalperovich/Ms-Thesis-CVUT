@@ -1,10 +1,10 @@
 \chapter{Web extraction / TODO}
 
-\textit{Web extraction} (also Web scraping, Web harvesting) is the extraction of structured data from a webpage presented as an HTML, i.e. semi-structured text. The access to the webpage might be done directly through the HTTP protocol (for example from the terminal) or with the browser which will actually render the page (we discussed it in details in section \nameref{sec:browser}). In case we do it through the HTTP request, we will get the raw information the same as a browser gets before it does all complicated prepossessing steps and displaying. In the current thesis, we will use both approaches and take advantage of each of them. We will discuss it in section \nameref{sec:urlparse}.
+\textit{Web extraction} (also Web scraping, Web harvesting) is the extraction of structured data from a webpage presented as an HTML, i.e. semi-structured text. The access to the webpage might be done directly through the HTTP protocol (for example from the terminal) or with the browser which will actually render the page (we discussed it in details in section \nameref{sec:browser}). In case we do it through the HTTP request, we will get the raw information the same as a browser gets before it does all complicated prepossessing steps and displaying. In the current thesis, we will use both approaches and take advantage of each of them.
 
-Since we know the main concepts related to a webpage and its structure, we can talk now about the Web extraction (WE) problem. In this section, we will discuss popular techniques used in this area as wrappers and adaptive methods, and also metrics for quality evaluation of extraction.\\  
+Since we know the main concepts related to a webpage and its structure, we can talk now about the Web extraction (WE) problem in detail. In this section, we will discuss popular techniques used in this area as crawlers, wrappers as well as complementary problems as region extraction.\\
 
-It is important to highlight that by saying that we \textit{extract} the information from a webpage, we assume the information is actually available and readable. Also, we assume that when we extract the information, the page is available, what means the server returns 200 status code in a header of Hypertext Transfer Protocol (HTTP) request together with the content of the page.\\
+It is important to highlight that by saying that we \textit{extract} the information from a webpage, we assume the information is actually available and readable.
 
 
 \section{Information Extraction / TODO}
@@ -17,21 +17,6 @@ Association = Relation Extraction p.67\\
 
 % https://web.stanford.edu/class/cs124/lec/Information_Extraction_and_Named_Entity_Recognition.pdf
 
-\textit{Named Entity Recognition (NER)} is the task of extracting entities, such as proper name (person, location and organization), time (date and time), and numerical values (currency and percentage), from the source text, and mapping them into predefined categories, such as person, organization, location name or “none-of-the-above” [7]. The two main components is \textit{to find} the entity and then \textit{classify} this entity. \\
-
-[7 A. Borthwick. A Maximum Entropy Approach to Named Entity Recognition. Phd thesis, New York University, 1999.]\\
-% [lectures source https://web.stanford.edu/class/cs124/lec/Information_Extraction_and_Named_Entity_Recognition.pdf]
-
-There three main techniques for NER (and IE): 
-\te
-Hand-written regular expressions\\
-Using classifiers
-• Generative: Naïve Bayes
-• Discriminative: Maxent models\\
-Sequence models
-• HMMs
-• CMMs/MEMMs\\
-
 
 \section{Web extraction methods}
 
@@ -43,7 +28,7 @@ Despite the fact, web developers use the same tools, HTML pages of different web
 
 \subsection{Web crawlers}
 
-One of the popular methods is so-called \textit{web crawlers} (or web spiders, web scrappers) which are basically using XPath and CSS selectors for extracting the information. The algorithm is very simple: you look to an HTML code, find those blocks which you need to extract, compose correct XPath or CSS selectors for it and after that, you can extract the information on any webpage where such path in a DOM tree exists. If you have one website with a big number of static pages with identical structure and design -- this method is the most appropriate and fast. \\
+One of the popular methods is \textit{web crawlers} (or web spiders, web scrappers) which are basically using XPath and CSS selectors for extracting the information. The algorithm is very simple: you look to an HTML code, find those blocks which you need to extract, compose correct XPath or CSS selectors for it and after that, you can extract the information on any webpage where such path in a DOM tree exists. If you have one website with a big number of static pages with identical structure and design -- this method is the most appropriate and fast. \\
 
 In our thesis, we used Scrapy Python framework for identifying the semantic Metadata tags and crawling the text corresponding to each tag. See \nameref{img:scrapy}.
 
@@ -67,24 +52,186 @@ The code is self-explainable, but let's briefly discuss the main steps. Firstly 
 
 \subsection{Wrappers / TODO}
 % http://www.isi.edu/integration/courses/csci548_2010/slides/Wrapper_Generation.pdf
+% COPY%
+Data extraction methods can be divided into three segments depending on the level of automation[Liu11]:
+• Manual approach: Human observers web page and its source code and writes down rules or program code extract data. Also tools that make the process simpler for programmers, such as pattern speci cation languages and user interfaces are placed to this segment.
+• Wrapper induction: In this approach supervised learning where extraction rules are learned from a manually labeled data records.
+• Automatic extraction: This uses unsupervised learning to  nd repetitive pat- terns on single or multiple pages. As this is fully automatic, then it can be applied in web scale.\\
 
-\subsection{Adaptive information extraction/ TODO}
+[Robert Baumgartner, Thomas Eiter, Georg Gottlob, Marcus Herzog, and Christoph Koch. Information Extraction for the Semantic Web. In Nor- bert Eisinger and Jan Maauszy«ski, editors, Reasoning Web, number 3564 in Lecture Notes in Computer Science, pages 275 289. Springer Berlin Hei- delberg, 2005. DOI: 10.1007/11526988\_8.]
 
-Important to say that it is Named Entity Recognition + Classification 
+
+
+In academic papers, programs for data extraction are called wrappers. They wrap original data and provide them in some machine readable format. Wrappers are typically small programs or scripts, which are usually implemented manually by a programmer. A new speci c wrapper is created for each set of documents that have to be processed. Manual implementation of robust wrapper scripts can be a nontrivial task, but it is not discussed in this paper.\\
+Wrapper generators can be an elegant alternative to manual wrapper creation. Wrapper generators are tools which can produce wrappers without programming. It means that wrapper generators are programs which return other programs as their output. \\
+Wrapper Induction\\
+Nicholas Kushmerick in his dissertation [18] de ned wrapper construction as an inductive learning process.\\
+Typical usage of the program is as follows: A user de nes set of desired attributes and an example document is shown to the user. Then the user indicates fragments of the page to be extracted. The program then tries to learn a wrapper for the resource. Then the second example is shown, and the program uses learned wrapper to automatically label the new example.\\
+The inductive learning process is based on generalization of wrappers that are obtained from human labeled documents.\\
+
+Mozenda [26]\\
+WebHarvy Data Extractor [41] \\
+FiVaTech, presented in [17] is a system for fully automatic extraction from HTML pages. Many similarities with previous algorithms can be found. FiVaTech reconstructs a template which was used for page rendering which makes it similar to ExAlg or RoadRunner. On the other site FiVaTech algorithm is based on looking for similar trees of HTML nodes which makes it similar to MDR and DEPTA.\\
+
+
+[A Brief Survey of Web Data Extraction Tools]:
+groups of wrappers: Languages for wrapper development Minerva [10], TSIMMIS[18], WebOQL [4]\\
+HTML-aware tools: roadrunner, Lixto\\
+
+NLP based tools:Rapier, SRV, \\
+Wrapper induction: STALKER, \\
+
+
+
 \subsection{Other techniques/ TODO}
 
 WIKI:\\
-Text pattern matching[edit]
+Text pattern matching
 A simple yet powerful approach to extract information from web pages can be based on the UNIX grep command or regular expression-matching facilities of programming languages (for instance Perl or Python).
 
 
 
-\section{Other related problems / TODO}
+\section{Related problems / TODO}
+
+\subsection{Information retrieval / TODO}
+
+\subsection{Named Entity Recognition}
+\textit{Named Entity Recognition (NER)} is the task of extracting entities, such as proper name (person, location and organization), time (date and time), and numerical values (currency and percentage), from the source text, and mapping them into predefined categories, such as person, organization, location name or “none-of-the-above” [7]. The two main components is \textit{to find} the entity and then \textit{classify} this entity. \\
+
+[7 A. Borthwick. A Maximum Entropy Approach to Named Entity Recognition. Phd thesis, New York University, 1999.]\\
+% [lectures source https://web.stanford.edu/class/cs124/lec/Information_Extraction_and_Named_Entity_Recognition.pdf]
+
+There three main techniques for NER (and IE): 
+\te
+Hand-written regular expressions\\
+Using classifiers
+• Generative: Naïve Bayes
+• Discriminative: Maxent models\\
+Sequence models
+• HMMs
+• CMMs/MEMMs\\
+
 
 \subsection{Region extraction / TODO}
-\subsection{Visual segmentation / TODO}
 
-% http://ijriest.com/IJRIEST_V1_I1_04.pdf
+% Article http://80.ieeexplore.ieee.org.dialog.cvut.cz/stamp/stamp.jsp?arnumber=6231632&tag=1
+
+Web documents are getting more and more sophisticated,
+which complicates the task of information extraction. This
+has motivated using region extractors so that information
+extractors can focus only on data records or data regions\\
+
+All of the region extractors work on semistructured
+documents that are formatted in HTML and rely on
+their DOM t\\
+Repetetive structure\\
+The majority of region extractors are unsupervised
+and usually rely on the following algorithms: Tree
+matching, string matching, and clustering.\\
+
+ The difference
+between information extractors and region extractors is that
+the former focus on extracting and structuring data records
+and their attributes, whereas the latter focus on identifying
+the HTML fragments that contain this information. Y \\
+
+State of the art Region extraction\\
+3.3 MDR: Mining Data Records\\
+Mining Data Records [100], or MDR for short, is intended to
+extract data records. It builds on the hypothesis that a data
+region contains a repetitive structure in a document, that
+each repetitive structure inside a data region is a data
+record, and that data records are usually rendered inside
+tables and forms.\\
+[100] B. Liu, R.L. Grossman, and Y. Zhai, “Mining Web Pages for Data
+Records,” IEEE Intelligent Systems, vol. 19, no. 6, pp. 49-55, Nov./
+Dec. 2004.\\
+
+y Embley et al. [53] \\
+The proposal by Embley et al. [53] is intended to extract the
+data records from the largest data region in a web document.
+It builds on the hypothesis that there is a unique data region,
+which is the largest region in the web document, that this
+region contains multiple data records, that some tags are
+more likely to be data record separators based on their
+type and their occurrences, and that counting on an
+ontology helps identify data records.\\
+
+[53]] D.W. Embley, Y.S. Jiang, and Y.-K. Ng, “Record-Boundary
+Discovery in Web Documents,” Proc. ACM SIGMOD Int’l Conf.
+Management of Data, pp. 467-478, 1999.\\
+
+Yi et al.\\
+[175], Wang and Lochovsky [163], and Kang and Choi [84]
+have confirmed experimentally that using region extractors
+has a positive impact on both efficiency and effectiveness; it
+is not surprising then that some recent proposals for
+information extraction incorporate a built-in region extractor
+[98], [99], [143], [164], [178]. Beyond information
+extraction, region extractors have also proven to be useful
+for information retrieval [176], focused web crawling [25],
+[32], topic distillation [31], adaptive content delivery [82],
+mashups [152], and metasearch engines [113].\\
+
+[175] L. Yi, B. Liu, and X. Li, “Eliminating Noisy Information in Web
+Pages for Data Mining,” Proc. ACM SIGKDD Ninth Int’l Conf.
+Knowledge Discovery and Data Mining (KDD), pp. 296-305, 2003. \\
+[163] Wang and F.H. Lochovsky, “Data-Rich Section Extraction from
+HTML Pages,” Proc. Third Int’l Conf. Web Information Systems Eng.
+(WISE), pp. 313-322, 2002\\
+[84] J. Kang and J. Choi, “Recognising Informative Web Page Blocks
+Using Visual Segmentation for Efficient Information Extraction,”
+J. Universal Computer Science, vol. 14, no. 11, pp. 1893-1910, 2008.\\
+
+OMINI [23] \\
+OMINI [23] is intended to learn rules to extract data records
+from web documents that contain multiple data records in a
+unique data region. It builds on the hypothesis that there is
+a unique data region in the web document, that this region
+corresponds to the subtree with the largest number of
+children, and that some tags are more likely to be data
+record separators based on their occurrences and type.
+OMINI is a constituent part of the information extraction
+toolkit called XWRAP Elite [71]\\
+
+[23] ] D. Buttler, L. Liu, and C. Pu, “A Fully Automated Object
+Extraction System for the World Wide Web,” Proc. Int’l Conf.
+Distributed Computing Systems (ICDCS), pp. 361-370, 2001\\
+
+U-REST: Unsupervised Record Extraction
+SysTem
+Unsupervised Record Extraction SysTem [140], [141], or UREST
+for short, is intended to extract data records. It builds
+on the hypothesis that data records in a document belong to
+a unique data region, have similar DOM trees, have similar
+structure, and have small separators, if any.\\
+
+[140] Y.K. Shen, “Automatic Record Extraction from the World Wide
+Web,” http://dspace.mit.edu/bitstream/handle/1721.1/35609/
+75289843.pdf?sequence=1, 2005.\\
+
+[141] Y.K. Shen and D.R. Karger, “U-REST: An Unsupervised Record
+Extraction System,” Proc. Int’l Conf. World Wide Web (WWW),
+pp. 1347-1348, 2007.\\
+
+VIPS: Vision-Based Page Segmentation
+VIsion-based Page Segmentation [24], or VIPS for short, is
+intended to find all of the regions of which a document is
+composed. It builds on the hypothesis that web designers
+provide visual cues that help people recognize the different
+regions of which a document is composed, e.g., horizontal
+or vertical rules, boxes, colored panels, special fonts, or
+background images. \\
+[24] D. Cai, S. Yu, J.-R. Wen, and W.-Y. Ma, “Extracting Content
+Structure for Web Pages Based on Visual Representation,” Proc.
+Fifth Asia Pacific Web Conf. (APWeb), pp. 406-417, 2003.\\
+
+Article of this guy: A Densitometric Approach to Web Page Segmentation\\
+
+[A Densitometric Approach to Web Page Segmentation] we de- scribe a new approach to segment HTML pages, building on methods from Quantitative Linguistics and strategies bor- rowed from the area of Computer Vision. We utilize the notion of text-density as a measure to identify the individ- ual text segments of a web page, reducing the problem to solving a 1D-partitioning task.\\
+
+
+
 
 \section{Recall and Precision / TODO}
 
@@ -97,7 +244,7 @@ p.17 of presentation
 
 \section{Web extraction as a service}
 
-Since the task of automatic web extraction is sought after, there are many applications written for solving this task. There are both desktop and web, free and paid applications with different functionality for the extraction of specific entities. Let's consider those services which provide this functionality as an API.\\
+Since the task of automatic web extraction is sought after, there are many commercial applications written for solving this task. There are both desktop and web, free and paid applications with different functionality for the extraction of specific entities. Let's consider those services which provide this functionality as an API.\\
 
 Such applications usually offer their services on a paid basis (per number of requests) and allow to use it by any other application through HTTP requests. These APIs normally extract only specific list of structured information. So it might be an API only for reviews or for example, only for product description in the online store. Below you will find popular web services and their main features.\\
 
@@ -120,4 +267,44 @@ Such applications usually offer their services on a paid basis (per number of re
 % [source https://www.programmableweb.com/category/extraction/api]\\
 % [source https://cloud.google.com/natural-language/docs/reference/rest/]\\
 
+
 \section{Related works / TODO}
+
+[source: A Survey on Region Extractors from Web Documents Hassan A. Sleiman and Rafael Corchuelo http://80.ieeexplore.ieee.org.dialog.cvut.cz/stamp/stamp.jsp?arnumber=6231632&tag=1] \\
+
+[source Learning to Extract Local Events from the Web http://static.googleusercontent.com/media/research.google.com/ru//pubs/archive/43796.pdf] \\
+
+Petrovski et al. use Schema.org annotations
+for products to learn regular expressions that help identify
+product attributes such as CPU speed, version, and product
+number [22]. \\
+[22] \\
+
+. Gentile et al. work on dictionary-based wrapper
+induction methods that learn interesting XPaths using linked
+data [7, 8].\\
+
+[Web Content Extraction Through Machine Learning Ziyan Zhou]\\
+Our ap- proach classifies text blocks using a mixture of visual and language independent features. In addition, a pipeline is de- vised to automatically label datapoints through clustering where each cluster is scored based on its relevance to the webpage description extracted from the meta tags, and dat- apoints in the best cluster are selected as positive training examples. Our pipeline collects data, labels exam- ples, trains support vector classifier, and evaluates learned model in an automated manner.\\
+
+[Extracting Data Records from the Web Using Tag Path Clustering]
+The method focuses on how a distinct tag path appears repeatedly in the DOM tree of the Web document. Instead of comparing a pair of individual segments, it compares a pair of tag path occurrence patterns (called visual signals) to estimate how likely these two tag paths represent the same list of objects.\\
+
+[Automated data extraction from the web with conditional models Int. J. Business Intelligence and Data Mining, Vol. 1, No. 2, 2005] e-commercial websites Extracting data on the Web, Conditional probabilistic models\\
+
+
+[H. Becker. Identification and characterization of events in social media. PhD thesis, Columbia University, 2011.]\\
+
+From [Joint Repairs for Web Wrappers]:
+These recent advances have finally allowed for accurate and fully automated wrapper induction at the scale of hundreds of thousands of sources [18].\\
+[18] G. Gottlob, T. Furche, G. Grasso, X. Guo, G. Orsi, C. Schallhart, and C. Wang, “Diadem: Thousands of websites to a single database,” PVLDB, vol. 7, no. 14, pp. 1845–1856, 2014.\\
+
+[Deep Neural Networks for Web Page Information Extraction] In this work we present a new method, which uses convolutional neural networks to learn a wrapper that can extract information from previously unseen templates. Therefore, this wrapper does not need any site-specific initialization and is able to extract information from a single web page\\ Therefore, the research community is mainly focused on wrappers that need to be adapted (manually or automatically) to a particular website and then they can extract information from its web pages [19, 20, 5, 11, 8, 3]\\
+This section briefly summarizes works on web page information extraction (more extensive surveys can be found in [6, 15, 19]). \\
+The first group of wrappers uses manually labeled examples for their initial- ization [11, 8, 3]\\
+More recent works address these issues, some propose automatic wrapper maintenance [6,13], some propose methods for automatic initialization. These methods use tree-matching algorithms in order to find repeated patterns either across multiple pages [14, 4, 17] or within a single page [19, 20, 5]. The disadvan- tage of these methods is their dependence on repeated patterns, which makes them unable to automatically extract information from unique document (such as invoice or product description).\\
+
+
+
+
+\section*{Conclusion of the chapter}

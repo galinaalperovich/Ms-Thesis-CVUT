@@ -1,16 +1,16 @@
 \chapter{Background from Web technologies}
 \label{chap:background}
 
-In this thesis we often operate with such concepts as webpage, HTML, CSS and JavaScript, web element, DOM, XPath, etc. All these terms refer to the field of web development. In this chapter we will discuss the meaning of this concepts as well as main related works in this field.\\
+In this thesis, we often operate with such concepts as a webpage, HTML, CSS and JavaScript, web element, DOM, XPath, etc. All these terms refer to the field of web development. In this chapter, we will discuss the meaning of these concepts as well as related works in this area.\\
 
-We will start from the webpage and its main components. Then we will explain in details the algorithm of web page rendering, so called the critical rendering path. After we will talk about Web extraction and list the most popular techniques. In the last section we will discuss related main works in the field of Web Extraction, specially those ones which related to the extraction of events and other specific structured information.\\
+We will start from the webpage and its main components. Then we will explain in details the algorithm of web page rendering, so called the critical rendering path. After this, we will talk about Web extraction and list the most popular techniques. In the last section, we will discuss related primary works in the field of Web Extraction, especially those which related to the extraction of events and other specific structured information.\\
 
 \section{Web page}
-\textit{A Webpage} is primarily text document formatted and annotated with Hypertext Markup Language (HTML). A website is a collection of related webpages together with corresponding media files. To view a rendered webpage, we need to make use of a web browser, which provides communication between the user, webpage resources and web server where the corresponding website is hosted. To get the information needed for a displaying a webpage the browser retrieves the data from a web server by sending HTTP requests. We won't discuss the process of requesting, rather we will explain the intermediate steps between the stage when the browser retrieved the information from the server and displays it to the user.\\ 
+\textit{A Webpage} is primarily text document formatted and annotated with Hypertext Markup Language (HTML). A website is a collection of related webpages together with corresponding media files. To view a rendered webpage, we need to make use of a web browser, which provides communication between the user, webpage resources and web server where the associated website hosted. To get the information needed for a displaying a webpage the browser retrieves the data from a web server by sending HTTP requests. We won't discuss the process of requesting, rather we will explain the intermediate steps between the stage when the browser retrieved the information from the server and displayed it to the user.\\ 
 
-There are two main types of the website and therefore the pages - \textit{static} and \textit{dynamic}. A static webpage is usually written in a plain HTML, whereas dynamic page is using a server-side scripts for the content generation. The main points which make the differences between them are scalability, simplicity to update the content and the price. With dynamic websites it is easy to create a big number of similar pages and dynamically update the content based on user actions. Dynamic pages is taking it's content from a database, whereas the static pages already has some content which can't be updated easily. But at the same time with dynamic website it is more complicated to change the design, because the pages are essentially a template into which content is poured to. The design of static pages is more flexible and can be changed manually. As for the price, static website is relatively cheap and easy to make comparing to dynamic websites.\\ 
+There are two main types of the website and therefore the pages - \textit{static} and \textit{dynamic}. A static webpage is usually written in a plain HTML, whereas dynamic page is using server-side scripts for the content generation. The main points which make the differences between them are scalability, simplicity to update the content and the price. With dynamic websites, it is easy to create a significant number of similar pages and dynamically update the content based on user actions. Dynamic pages are taking it's content from a database, whereas the static pages already have some content which can't be updated quickly. But at the same time with a dynamic website, it is more complicated to change the design, because the pages are essentially a template into which content is poured to. The design of static pages is more flexible and can be modified manually. As for the price, static website is relatively cheap and easy to make comparing to dynamic websites.\\ 
 
-Anyways, after the browser retrieved the information from the server, for both dynamic and static webpages the browser has the same types of information in order to display the webpage. Only in static case the browser retrieved original files (HTML, CSS, JavaScript, etc)  with the predefined content, and in the dynamic case the web server generated these files and took the data from a database.\\
+Anyways, after the browser retrieved the information from the server, for both dynamic and static webpages the browser has the same types of information to display the webpage. Only in static case the browser retrieved original files (HTML, CSS, JavaScript, etc)  with the predefined content, and in the dynamic case the web server generated these files and took the data from a database.\\
 
 A webpage as a set of available information contains a lot of different pieces:
 
@@ -25,7 +25,7 @@ A webpage as a set of available information contains a lot of different pieces:
 \end{itemize}
 
 \subsection{HTML, CSS and JavaScript}
-The triad of the most important Web technologies are HTML to specify the content of web pages, CSS to specify the presentation of web pages, and JavaScript to specify the behaviour of web pages.[source Flanagan, David. JavaScript - The definitive guide (6 ed.). p. 1.]. Let's briefly discuss how these three major components looks like and show small examples.\\
+The triad of the most important Web technologies are HTML to specify the content of web pages, CSS to specify the presentation of web pages, and JavaScript to specify the behavior of web pages.[source Flanagan, David. JavaScript - The definitive guide (6 ed.). p. 1.]. Let's briefly discuss how these three major components looks like and show small examples.\\
 [source https://www.w3schools.com]\\
 
 \noindent\textbf{Hypertext Markup Language (HTML)} - is the standard markup language for creating web pages and web applications. HTML document has the structure of a tree and contains the configuration of the page, its textual content and links to all associated media files. HTML file is parsed by a browser into Document Object Model and we will consider this process in details in the next section. The building blocks of an HTML is an HTML tags ( \textt{<div>, <title>, <body>})  which after the parsing transformed to an HTML elements. Here is a \nameref{lst:html}: \\
@@ -43,11 +43,11 @@ The triad of the most important Web technologies are HTML to specify the content
 </html>
 \end{lstlisting}
 
-It is possible to incorporate both CSS and JavaScript into the HTML but in a modern web development these three thing are usually separated into different files. It allows to maintain and change the content, the visualization and the interactivity features independently.\\
+It is possible to incorporate both CSS and JavaScript into the HTML, but in a modern web development, these three things are usually separated into different files. It allows to maintain and change the content, the visualization, and the interactivity features independently.\\
 
 Since the HTML document has a structure and consists of these labeled blocks (sometimes even semantic ones as \textt{<title>}), one can consider a web document as a semi-structured document when compared to a plain text document.\\
 
-\noindent\textbf{Cascading Style Sheets (CSS)} is a style sheet language used for describing the presentation of a document written in a markup language [source: "CSS developer guide". Mozilla Developer Network. Retrieved 2015-09-24.]. CSS is primarily designed to enable the separation of content and presentation of a webpage, including layout, colors, and fonts. Such separation improves content accessibility and allows easily change the visual presentation of the page. CSS also allows to control how the page will display on a different screens and devices. There are more than five hundreds available CSS properties which can be specified. Both the CSS and HTML specifications are maintained by the World Wide Web Consortium (W3C). Web browser parses CSS files and creates CSSOM tree which is very conceptually similar to DOM. Here is a \nameref{lst:css}: \\
+\noindent\textbf{Cascading Style Sheets (CSS)} is a style sheet language used for describing the presentation of a document written in a markup language [source: "CSS developer guide." Mozilla Developer Network. Retrieved 2015-09-24.]. CSS is primarily designed to enable the separation of content and presentation of a webpage, including layout, colors, and fonts. Such separation improves content accessibility and allows easily change the visual presentation of the page. CSS also allows controlling how the page will be displayed on different screens and devices. There are more than five hundred available CSS properties which can be specified. World Wide Web Consortium (W3C) maintain Both the CSS and HTML specifications. The web browser parses CSS files and creates CSSOM tree which is very conceptually similar to DOM. Here is a \nameref{lst:css}: \\
 
 \begin{lstlisting}[language=css, caption={Small example of CSS file}, label={lst:css}, captionpos=b]
 body {
@@ -65,10 +65,10 @@ div {
 }
 \end{lstlisting}\\
 
-\noindent\textbf{JavaScript (JS)} is a powerful multi-paradigm language, supporting object-oriented, imperative, and functional programming styles [link to Wiki]. 95\% of 10 million most popular web pages use JS, and all modern web browsers support it without the need for plug-ins [https://w3techs.com/technologies/details/cp-javascript/all/all]. Scripts are embedded in or included to HTML pages and interact with the DOM and CCSOM. JS can interact and modify both DOM and CCSOM and it adds interactivity to originaly static webpages. There are come examples of the JS effects and a \nameref{lst:js}:
+\noindent\textbf{JavaScript (JS)} is a powerful multi-paradigm language, supporting object-oriented, imperative, and functional programming styles [link to Wiki]. 95\% of 10 million most popular web pages use JS, and all modern web browsers support it without the need for plug-ins [https://w3techs.com/technologies/details/cp-javascript/all/all]. Scripts are embedded in or included to HTML pages and interact with the DOM and CCSOM. JS can interact and modify both DOM and CCSOM, and it adds interactivity to original static webpages. There are come examples of the JS effects and a \nameref{lst:js}:
 
 \begin{itemize}
-    \item It allows to load data from the server without needs to reload the page (AJAX technology).
+    \item It allows loading data from the server without needs to reload the page (AJAX technology).
     \item It adds animation, interactivity and media content.
     \item It can track the user behavior on the website and collect the information for the web analytic, ad tracking, and penalization purposes.
 \end{itemize}
@@ -87,10 +87,10 @@ image.onload = window.setInterval(function() {
 \end{lstlisting}\\
 
 
-\section{How does the browser render the page / TODO}
+\section{How does the browser render the page}
 \label{sec:browser}
 
-Every time the browser retrieves the information from the web server, it makes the series of important actions in order to display the initial page to the user. This series of steps is named \textit{the critical rendering path}. For a web developers it is very important to understand these steps because optimized websites are easy to use and have a higher rank in search engines. Optimized in this case means that the browser is able to load and render the page quickly and the internal structure of the code is clear.\\
+Every time the browser retrieves the information from the web server, it makes the series of important actions to display the initial page to the user. This sequence of steps is named \textit{the critical rendering path}. For web developers, it is critical to understand these actions because optimized websites are easy to use and have a higher rank in search engines. Optimized in this case means that the browser can load and render the page quickly and the internal structure of the code is clear.\\
 
 [source: https://developers.google.com/web/fundamentals/performance/critical-rendering-path/adding-interactivity-with-javascript]
 [source: https://varvy.com/pagespeed/critical-render-path.html]
@@ -102,9 +102,9 @@ The algorithm of how does the browser render the page as follows:
     \item The browser parses the HTML code and builds the \textit{Document Object Model} (DOM) tree. The DOM contains the objects which define the structure and the content of the page.
     \item The browser parses the CSS files and builds the CSSOM tree. It is very much like DOM for HTML. The CSSOM contains the objects which define the style of all elements in DOM.
     \item JavaScript can modify existing DOM and CSSOM, change any elements of both trees.
-    \item The DOM and CSSOM trees are combined to form \textit{the Render tree}. Render tree doesn't include the hidden nodes as script, meta tags, an so on. Also some nodes are hidden because it was reflected in the CSS files (explicit property "display: none"). Render tree contains only the nodes which required to render the page.
+    \item The DOM and CSSOM trees are combined to form \textit{the Render tree}. Render tree doesn't include the hidden nodes as a script, meta tags, and so on. Also, some nodes are hidden because it was reflected in the CSS files (explicit property "display: none"). Render tree contains only the nodes which required to render the page.
     \item The browser is building the layout and computes the exact position and size of each object.
-    \item The paint stage is when the browser takes the render tree and renders (meaning draws) the pixels to the screen of the user. 
+    \item The painting stage is when the browser takes the render tree and renders (meaning draws) the pixels to the screen of the user. 
 \end{enumerate}
 
 On the picture \nameref{fig:domcsstree} you can see how the DOM, CSSOM amd Render Tree look like on the \nth{6} step.\\
@@ -118,19 +118,18 @@ On the picture \nameref{fig:domcsstree} you can see how the DOM, CSSOM amd Rende
 \end{center}
 \end{figure}
 
-The popularity of the website in search engines depends upon several factors: the website has relevant and interesting content, , from developer point of view the website is optimized and has clear internal structure, the website is active and 
-
 \subsection{XPath and CSS selectors}
+\label{subsec:xpathcss}
 
-\textit{XPath} is a query language for selecting nodes from an XML document based on its tree structure. \textit{CSS selectors} are patterns used to select the element for styling and it's also based on a tree structure of an XML document. Since a browser parses and translates an HTML document to a DOM tree, both the XPath and CSS selectors provide the ability to navigate around the tree and select nodes by a variety of criteria. Both CSS and XPath are the languages developed and recommended by World Wide Web Consortium (W3C). Even though we see the similarity between them and they aim to do the same things, XPath and CSS locators have important technical differences:
+\textit{XPath} is a query language for selecting nodes from an XML document based on its tree structure. \textit{CSS selectors} are patterns used to choose the element for styling, and it's also based on a tree structure of an XML document. Since a browser parses and translates an HTML document to a DOM tree, both the XPath and CSS selectors provide the ability to navigate around the tree and select nodes by a variety of criteria. Both CSS and XPath are the languages developed and recommended by World Wide Web Consortium (W3C). Even though we see the similarity between them and they aim to do the same things, XPath and CSS locators have important technical differences:
 \begin{itemize}
     \item XPath engines are different in each type of the browser. That means this language is inconsistent and expressions must be rewritten for every browser.  
     \item Some browsers even don't have native support for XPath (Internet Explorer).
     \item XPath has more complex syntax comparing to CSS, which expressions are usually shorter and more clear.
     \item XPath supports boolean functions which evaluate an expression and returns true or false. CSS doesn't support this functionality.
     \item CSS selectors are more flexible and have better performance than XPath in all browsers.
-    \item XPath can traverse down and up the DOM, CSS can traverse only down.
-    \item CSS fully supports HTML, for example, 'id' and other special HTML properties of the element can be used.
+    \item XPath can traverse down, and up the DOM, CSS can traverse only down.
+    \item CSS fully supports HTML, for example, 'id' and other unique HTML properties of the element can be used.
 \end{itemize}
 
 A community of web developers prefers CSS selectors over XPath due its simplicity and performance. In our work, we will use both CSS and XPath locators since we will need features of both of them: traversing the tree and boolean function as well as specific element locations. You can see the syntax of both languages on the table \nameref{table:xpathcss}.\\
@@ -144,27 +143,27 @@ A community of web developers prefers CSS selectors over XPath due its simplicit
 
 \begin{tabular}{| p{5cm} | p{5cm}| p{4cm} |}
 \hline
-\thead{Selector}	&	\thead{Xpath (1.0 - 2.0)}	&	\thead{CSS (1-3)}  \\
+\thead{Selector}    &    \thead{Xpath (1.0 - 2.0)}    &    \thead{CSS (1-3)}  \\
 \hline
-Whole web page	&	\texttt{xpath=/html }	&	\texttt{css=html} \\
+Whole web page    &    \texttt{xpath=/html }    &    \texttt{css=html} \\
 \hline
-Whole web page body	&	\texttt{xpath=/html/body}	&	\texttt{css=body} \\
+Whole web page body    &    \texttt{xpath=/html/body}    &    \texttt{css=body} \\
 \hline
-All text nodes of web page	&	\texttt{//text()}	&	\texttt{NA}  \\
+All text nodes of web page    &    \texttt{//text()}    &    \texttt{NA}  \\
 \hline
-Element E by absolute reference	&	\texttt{xpath=/html/body/.../E }	&	\texttt{css=body>...>E}  \\
+Element E by absolute reference    &    \texttt{xpath=/html/body/.../E }    &    \texttt{css=body>...>E}  \\
 \hline
-Element E by relative reference	&	\texttt{//E}	&	\texttt{css=E} \\
+Element E by relative reference    &    \texttt{//E}    &    \texttt{css=E} \\
 \hline
-Second E element anywhere on page	&	\texttt{xpath=(//E)[2]}	&	\texttt{NA} \\
+Second E element anywhere on page    &    \texttt{xpath=(//E)[2]}    &    \texttt{NA} \\
 \hline
-Element E with attribute A	&	\texttt{//E[@A]}	&	\texttt{css=E[A]}  \\
+Element E with attribute A    &    \texttt{//E[@A]}    &    \texttt{css=E[A]}  \\
 \hline
-Element E with attribute A containing text 'A' exactely	&	\texttt{//E[@A='t']}	&	\texttt{css=E[A='t']} \\
+Element E with attribute A containing text 'A' exactely    &    \texttt{//E[@A='t']}    &    \texttt{css=E[A='t']} \\
 \hline
-Element E with attribute A containing text 'A'	&	\texttt{//E[contains(@A,'t')]}	&	\texttt{css=E[A*='t']} \\
+Element E with attribute A containing text 'A'    &    \texttt{//E[contains(@A,'t')]}    &    \texttt{css=E[A*='t']} \\
 \hline
-Element E whose attribute A ends with 't'	&	\texttt{//E[substring(@A, string-length(@A) - string-length('t')+1)='t']}	&	\texttt{css=xpath=E[A\$='t']}\\
+Element E whose attribute A ends with 't'    &    \texttt{//E[substring(@A, string-length(@A) - string-length('t')+1)='t']}    &    \texttt{css=xpath=E[A\$='t']}\\
 \hline
 \end{tabular}}
 \caption{Comparison of XPath and CSS selectors syntax}
@@ -174,7 +173,7 @@ Element E whose attribute A ends with 't'	&	\texttt{//E[substring(@A, string-len
 \end{table}
 
 
-\section{Semantic Web / TODO}
+\section{Semantic Web}
 Currently, the Internet, in general, can be considered as \textit{"Web of documents"}, where every document is an HTML page. With Semantic Web, W3C is helping to build a technology stack to support a \textit{"Web of data"}, where all available data on those HTML pages produce the database and anyone can retrieve that data similarly working with databases. So \textit{the Semantic Web} is an extension of the Web through the list of specific standards and technologies supported by the W3C [source Wiki].  \\
 
 As we know, today not only the humans read the pages on the Internet. A lot of computers with the comprehensive programs read the Interned too, and the easiest example is a search engine. It continuously scans the Web pages, processed an enormous amount of data with complicated algorithms to understand the meaning of the text written in natural language. It is a very complex task to understand the context of the document, its semantic nature and the relationship between included concepts. To do so one needs special software and significant computational power, that's why only big corporations as Google, IBM (with the Watson project), and other can afford it. The root of this complexity lies in the fact that the Web is semi-structured text written in natural language, initially made for simple human needs, not for a computer or complicated queries about the underlying concepts.\\ 
@@ -197,7 +196,8 @@ The biggest problem with Semantic Web is its practical feasibility. While learni
 The list of concepts and its relationships is very broad and includes for example person, address, dates, events, etc. There are three the most popular semantic markup: Microdata, RDF, and Microformat. Also, the last version of HTML (HTML5) has embedded tags which created especially for some semantic annotations. The core of the thesis is using \textit{Microdata} for collecting the initial training set. Let's discuss how does this markup look like and what functionality provide.\\
 
 \subsubsection*{Microdata}
-\textit{Microdata} vocabularies iself does not provide the semantics, or meaning of an Item.[source: https://html.spec.whatwg.org/multipage/microdata.html] Instead of this, web developers can create a custom vocabulary or use vocabularies available on the Web. \textit{Schema.org} schemas provide the most commonly used markup vocabularies, which includes: Person, Place, Event, Organization and many others. \\
+\label{subsubsec:microdata}
+\textit{Microdata} vocabularies itself does not provide the semantics or meaning of an Item.[source: https://html.spec.whatwg.org/multipage/microdata.html] Instead of this, web developers can create a custom vocabulary or use vocabularies available on the Web. \textit{Schema.org} schemas provide the most commonly used markup vocabularies, which includes: Person, Place, Event, Organization, and many others. \\
 
 In our work, we regularly use \textit{Event Shcema} vocabulary of the Microdata markup. Let's consider a small example and its primary fields. Look at the two listings: {lst:htmlevent} and {lst:htmleventmark}.\\
 
@@ -247,40 +247,34 @@ As you can see, the second code block looks more cumbersome because it has a lot
 
 There are dozens of Event properties in "http://schema.org/Event", but in the thesis we consider only four main properties "name", "startDate", "description" and "location". We will call them \textit{event components}.\\
 
-You can mention, that the item can contain a property as well as another item. For example, property "address" includes the item type "http://schema.org/PostalAddress". In the thesis it would be an additional difficulty during the parsing process because we will need to invoke not only the property but also the properties of all included items to collect the event components. We will discuss it in chapter \nameref{chap:datacollect}. 
+You can mention, that the item can contain a property as well as another item. For example, property "address" includes the item type "http://schema.org/PostalAddress." In the thesis, it would be an additional difficulty during the parsing process because we will need to invoke not only the property but also the properties of all included items to collect the event components. We will discuss it in chapter \nameref{chap:datacollect}. 
 
 \subsubsection*{Semantic markup popularity}
 
-up vote
-1
-down vote
-The last statistics from the WebDataCommons as follows:
+Search engines take advantage of the semantic markup to automatically extract the information, incorporate it into its vertical services and provide a richer browsing experience for users. Despite the fact that search engines encourage and promote the websites which use such markup, in fact, not all of them use it. By statistics only 16\% of the domains use semantic markup, the rest 84\% use standard HTML. That's also the reason why the task of structural information extraction from unstructured web pages is still relevant - most of the data on the Internet is still stored as a plain HTML.\\ 
 
-Source: http://webdatacommons.org/structureddata/2016-10/stats/stats.html
+We can collect popularity of semantic annotations from Web Data Commons web service. In the fourth quarter of 2016, it crawled 34 million pay-level-domains and detected that there are 5.63 million (16.5\%) domains use RDFa, Microdata or Microformat semantic markup on their pages. See the graph \nameref{fig:markup} to explore the numbers. As you can see, Microdata is leading, that's the main reason why we considered to use this annotation in the thesis. \\
 
-Number of domain parsed: 34 million pay-level-domains
-Number of domains with RDFa, Microdata and Microformats: 5.63 million (16.5%)
-
-Popularity different formats: 
-
-
-\begin{figure}[H]
-\begin{subfigure}{1\textwidth}
+\begin{figure}[h]
+\begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.9\linewidth]{figures02/urls_meta}
-  \caption{URL popularity}
-\end{subfigure} \\
-\begin{subfigure}{1\textwidth}
+  \includegraphics[width=1.\linewidth]{figures02/urls_meta}
+  \caption{Across URLs}
+\end{subfigure} 
+\begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.9\linewidth]{figures02/domain_meta}
-  \caption{Domain popularity}
+  \includegraphics[width=.8\linewidth]{figures02/domain_meta}
+  \caption{Across domains}
 \end{subfigure}
-\caption{Visual difference between one-event and multi-events pages}
-\source{\href{http://webdatacommons.org/structureddata/2016-10/stats/stats.html}{Web Data Commons, 2017}}
-\label{fig:onemulti}
+\caption{Popularity of semantic annotations, 2017}
+\source{\href{http://webdatacommons.org/structureddata/2016-10/stats/stats.html}{Web Data Commons}}
+\label{fig:markup}
 \end{figure}
 
 
 
 
+\section*{Conclusion of the chapter}
+In this chapter, we considered the most important concepts which we use in the thesis. We explained the structure of a webpage, discussed related terms like HTML, CSS, and JavaScript, discussed in detail how does the browser render a webpage and the notions of CSS and XPath locators of the web element. Also, we talked about the idea of Semantic Web, its prevalence and described Microdata semantic annotation which we use for collecting the training dataset.\\
 
+In the next chapter, we will cover the Web extraction and theoretical background we apply in the thesis. 
