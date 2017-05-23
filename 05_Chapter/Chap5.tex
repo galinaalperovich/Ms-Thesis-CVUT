@@ -57,45 +57,17 @@ The most time-consuming part of data collection was the parsing the list of URLs
 
 For every step of a crawler, we set the time limit because sometimes it's processing too long and holding everything back. To control the execution time, we needed to run separate Python process for every time-consuming action. The whole crawling process has been ongoing for three months.\\
 
-The result of all these steps is a dataset where every row consists of a URL, event component name and the values of corresponding features. See table \nameref{table:featurelist}.
+The result of all these steps is a dataset where every row consists of a URL, event component name and the values of corresponding features. To summarize, see the figure \nameref{fig:collect}. 
 
-
-
-\begin{table}[h]
-\begin{center}
-{\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{| p{6cm} | p{6cm} |}
-\hline
-\textbf{DOM}   &   \textbf{CSS}\\
-\hline
-URL of the page    &    Color (three chanells)\\
-Meta name (name, startDate, description, location, no\_event)    &    Text alignment (center, left, right, etc)    \\
-Text of the web element    &    Property of the block view    \\
-HTML tag    &    The level font weight    \\
-Number of siblings in a DOM tree    &    Padding    \\
-Number of childs in a DOM tree    &    Font family (Verdana, Arial, etc)    \\
-    &    Font size \\
-    &    The language of the page \\
-    
-    &    \textit{+ 270 other CSS features} \\
-\hline
-\textbf{Visual}   &   \textbf{Textual}  \\
-\hline
-X and Y coordinate on the rendered picture    &    Length of the text inside the block    \\
-X and Y coordinate of the center of a visual block    &    Number of punctuation marks in text    \\
-Visual block height     &    Number of digits in text    \\
-Visual block width        &    Number of digits/text length    \\
-Height in a browser     &    Number of upper case letters    \\
-Width in a browser     &    Number of whitespaces    \\
-
-     &    \textit{+ tf-idf matrix}    \\
-\hline
-\end{tabular}}
-\caption{List of main extracted features after feature engineering}
-\label{table:featurelist}
-\end{center}
-\end{table}    
-    
 \section*{Conclusion of the chapter}
 
-In this chapter we focused on collecting the dataset process. We talked about gethering the URLs from Web Data Commons service and comprehensive parallel parsing process, which we run on MetaCentrum. Also we discussed requirements for a training dataset and presented the list of main features which we extracted. 
+In this chapter we focused on collecting the dataset process. We talked about gathering the URLs from Web Data Commons service and comprehensive parallel parsing process, which we run on MetaCentrum. Also we discussed requirements for a training dataset and presented the list of main features which we extracted. 
+
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{dataset_collect}
+\caption{The scheme of dataset collecting process}
+\label{fig:collect}
+\end{center}
+\end{figure}

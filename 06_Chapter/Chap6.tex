@@ -34,6 +34,7 @@ Corresponding code for this step you may see in the notebook with the prefix \te
 
 
 \section{CSS properties}
+\label{sec:css}
 In out Raw dataset we have 288 CSS features from a virtual web browser. To get these properties the browser rendered the page, so we have real post-processing values of CSS fields. Many of properties have prefix \textit{-webkit}. Webkit is a rendering engine used by Safari, Chrome, and other browsers. The \textit{-webkit} prefix on CSS selectors are properties that only this specific engine is intended to process. Due to inconsistency in a browser rendering engines, developers need to set multiple rules for the same thing for all popular browsers, that's the reason why web developers community is hoping this goes away. From our point of view, that means we have a lot of duplicated or almost the same features which don't add new information.\\
 
 Here is a list of steps we made for working with CSS features:
