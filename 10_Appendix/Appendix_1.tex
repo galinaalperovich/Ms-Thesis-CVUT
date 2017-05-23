@@ -1,12 +1,13 @@
 % \setcounter{chapter}{#1}
-\chapter*{Appendix}
-\addcontentsline{toc}{chapter}{Appendix}
+\chapter{Appendix}
+\label{appendix}
+% \addcontentsline{toc}{chapter}{Appendix}
 
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{figures/distrUpperByMeta}
-\caption{Raw data-cleaning workflow}
+\caption{Distribution of upper case letters number by meta name}
 \label{fig:distrUpperByMeta}
 \end{center}
 \end{figure}
@@ -14,7 +15,7 @@
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{figures/distrWhiteByMeta}
-\caption{Raw data-cleaning workflow}
+\caption{Distribution of white spaces by meta name}
 \label{fig:distrWhiteByMeta}
 \end{center}
 \end{figure}
@@ -22,7 +23,7 @@
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{figures/distrDigitPropByMeta}
-\caption{Raw data-cleaning workflow}
+\caption{Distribution of digit proportion by meta name}
 \label{fig:distrDigitPropByMeta}
 \end{center}
 \end{figure}
@@ -30,10 +31,67 @@
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{figures/distrPunctByMeta}
-\caption{Raw data-cleaning workflow}
+\caption{Distribution of punctuation marks number by meta name}
 \label{fig:distrPunctByMeta}
 \end{center}
 \end{figure}
+
+\begin{table}[h]
+\begin{center}
+
+\begin{tabular}{llrrrrrr}
+\toprule
+            &       &  digit\_share &  num\_digit &   num\_punc &    num\_upp &  num\_white &   text\_len \\
+meta\_name & {} &              &            &            &            &            &            \\
+\midrule
+description & count &      2206.00 &    2206.00 &    2206.00 &    2206.00 &    2206.00 &    2206.00 \\
+            & mean &         0.02 &       1.99 &       2.23 &       5.70 &       5.41 &      43.14 \\
+            & std &         0.05 &       3.28 &       1.94 &       4.59 &       4.72 &      32.55 \\
+            & min &         0.00 &       0.00 &       0.00 &       0.00 &       0.00 &       1.00 \\
+            & 25\% &         0.00 &       0.00 &       0.96 &       3.00 &       2.65 &      23.02 \\
+            & 50\% &         0.00 &       0.00 &       1.00 &       4.00 &       2.65 &      23.02 \\
+            & 75\% &         0.02 &       2.00 &       3.00 &       8.00 &       8.00 &      60.00 \\
+            & max &         0.44 &      14.00 &       7.00 &      19.00 &      19.00 &     141.00 \\
+location & count &      5780.00 &    5780.00 &    5780.00 &    5780.00 &    5780.00 &    5780.00 \\
+            & mean &         0.06 &       3.27 &       2.12 &       6.74 &       4.87 &      47.45 \\
+            & std &         0.08 &       3.65 &       1.69 &       4.35 &       3.85 &      30.90 \\
+            & min &         0.00 &       0.00 &       0.00 &       0.00 &       0.00 &       1.00 \\
+            & 25\% &         0.00 &       0.00 &       1.00 &       3.00 &       2.65 &      23.00 \\
+            & 50\% &         0.04 &       1.62 &       2.00 &       6.00 &       3.00 &      42.00 \\
+            & 75\% &         0.11 &       6.00 &       3.00 &      10.00 &       7.00 &      69.00 \\
+            & max &         0.73 &      14.00 &       7.00 &      19.00 &      19.00 &     141.00 \\
+name & count &     18116.00 &   18116.00 &   18116.00 &   18116.00 &   18116.00 &   18116.00 \\
+            & mean &         0.05 &       1.07 &       0.85 &       4.46 &       3.97 &      32.32 \\
+            & std &         0.14 &       2.41 &       1.25 &       3.25 &       3.11 &      20.12 \\
+            & min &         0.00 &       0.00 &       0.00 &       0.00 &       0.00 &       2.00 \\
+            & 25\% &         0.00 &       0.00 &       0.00 &       2.00 &       2.00 &      18.00 \\
+            & 50\% &         0.00 &       0.00 &       0.00 &       4.00 &       3.00 &      27.00 \\
+            & 75\% &         0.00 &       0.00 &       1.00 &       6.00 &       5.00 &      42.00 \\
+            & max &         1.00 &      14.00 &       7.00 &      19.00 &      19.00 &     141.00 \\
+not\_event & count &    135665.00 &  135665.00 &  135665.00 &  135665.00 &  135665.00 &  135665.00 \\
+            & mean &         0.11 &       1.43 &       0.88 &       2.70 &       2.33 &      20.70 \\
+            & std &         0.23 &       2.60 &       1.31 &       2.83 &       3.08 &      21.49 \\
+            & min &         0.00 &       0.00 &       0.00 &       0.00 &       0.00 &       1.00 \\
+            & 25\% &         0.00 &       0.00 &       0.00 &       1.00 &       0.00 &       8.00 \\
+            & 50\% &         0.00 &       0.00 &       0.00 &       2.00 &       1.00 &      14.00 \\
+            & 75\% &         0.10 &       2.00 &       1.00 &       3.00 &       3.00 &      24.00 \\
+            & max &         1.00 &      14.00 &       7.00 &      19.00 &      19.00 &     141.00 \\
+startDate & count &      6105.00 &    6105.00 &    6105.00 &    6105.00 &    6105.00 &    6105.00 \\
+            & mean &         0.41 &       5.74 &       1.40 &       1.38 &       2.75 &      16.54 \\
+            & std &         0.20 &       3.01 &       1.36 &       1.36 &       2.92 &      10.98 \\
+            & min &         0.00 &       0.00 &       0.00 &       0.00 &       0.00 &       1.00 \\
+            & 25\% &         0.29 &       3.00 &       1.00 &       0.00 &       1.00 &       9.00 \\
+            & 50\% &         0.39 &       6.00 &       1.00 &       1.00 &       2.00 &      14.00 \\
+            & 75\% &         0.50 &       8.00 &       2.00 &       2.00 &       3.00 &      22.00 \\
+            & max &         1.00 &      14.00 &       7.00 &      13.00 &      19.00 &     122.00 \\
+\bottomrule
+\end{tabular}
+
+\caption{Summery statistics for a textual features grouped by meta name}
+\label{table:textualDistr}
+\end{center}
+\end{table}      
+
 
 
 

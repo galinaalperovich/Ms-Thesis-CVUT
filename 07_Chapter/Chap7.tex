@@ -1,30 +1,32 @@
 \chapter{Experimental part: Exploratory data analysis / TODO}
 \label{chap:dataexplore}
-In this chapter we will explore the data the data we have, create several new features from existing ones, and then visualize the fields and relationship between them. \\
+In this chapter we will explore the data we have, create several new features from existing ones, visualize and discover the relationships between them. Most of the figures and tables for this chapter you can find in \nameref{appendix}.\\
 
+Here we often refer to a \textit{meta name} field in the dataset. It may takes five values: \textit{name}, \textit{startDate}, \textit{location}, \textit{description} and \textit{noEvent}. Also we use the term \textit{event component} which is applied to all meta names excluding \textit{noEvent}.
 
 
 \section{Feature engineering}
-Before we start exploring the data we would like to extract several new features from the existing columns. We will work on the following types of features: 
+Before we start exploring the data we would like to extract several new features. We will work on the following types of features: 
 
 \begin{itemize}
-\item Spatial, related to original X and Y coordinates of the web element on the page. X and Y are coordinates on the real page rendered by a browser. 
-\item Textual content.
-\item Visual features from the CSS properties - we discussed it in section \nameref{sec:css} where we created several features from the color, font family and properties related the the pixel values. 
+\item \textit{Textual features} related to an original text of the event components.
+\item \textit{Spatial features} related to X and Y coordinates of the web element on the page. X and Y are coordinates of a visual block on the real rendered page. 
 \end{itemize}
 
-\subsection{Text features}
+In section \nameref{sec:css} we already extracted several \textit{Visual features} from the CSS properties. We divided a value of the color, the font family and properties measured the pixels. 
 
-Our main textual feature is a text of the web element. For the event name, location and start data it's a short string, for a description is a much longer string. That's why the first extracted feature is a \textit{length of the text}. On the picture \nameref{fig:distrTextByMeta} you can see the difference of the text length distribution by the meta name (name, startDate, location, description, noEvent). \\
+\subsection{Textual features}
 
-After we extracted the text length we noticed that the date and location usually contain more digits than name and description, so we extracted the number of digits feature too. See \nameref{fig:distrDigitsByMeta}.\\
+An original textual feature is a text contained in a web element. For the event name, location and start date, it's a quite short string. For a description is much longer text. That's why the first extracted feature is a \textit{length of the text}. On the picture \nameref{fig:distrTextByMeta} you distribution of the text length differs among meta names. \\
 
-Additionally, also extracted number of uppercase letter, white spaces, digit proportion and punctuation. See the rest of the figures in Appendix: \nameref{fig:distrUpperByMeta}, \nameref{fig:distrWhiteByMeta}, \nameref{fig:distrDigitPropByMeta}, \nameref{fig:distrPunctByMeta}.
+After we extracted the text length, we noticed that the date and location usually contain more digits than name and description meta names. So we extracted also the number of digits. See \nameref{fig:distrDigitsByMeta}.\\
+
+Additionally, we extracted number of uppercase letter, white spaces, digit proportion and a number of punctuation marks. See the rest of the figures in \nameref{appendix}.
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{figures07/distrTextByMeta}
-\caption{Raw data-cleaning workflow}
+\caption{Distribution of text length by meta name}
 \label{fig:distrTextByMeta}
 \end{center}
 \end{figure}
@@ -32,15 +34,67 @@ Additionally, also extracted number of uppercase letter, white spaces, digit pro
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{figures07/distrDigitsByMeta}
-\caption{Raw data-cleaning workflow}
+\caption{Distribution of digits number by meta name}
 \label{fig:distrDigitsByMeta}
 \end{center}
 \end{figure}
 
+Therefore we created six additional features from one textual field: text length, number of punctuation marks, number of digits, digits share, number of upper case letters, number of white spaces. You can see that visually they distinguish meta names well, also the difference in basic statistics you can find in table \nameref{table:textualDistr}. \\
 
-\subsection{Coordinates features}
+When we build the model, we will also calculate a \textit{tf-idf weighting matrix} in ofrder to reflect the importance of every word in a text.
 
-After we extracted new features we got the following fileds in a dataset: {table:featurelist}.
+\subsection{Spatial features}
+
+Here we will work on two original coordinates X and Y of a visual blocks where every element is located. Also we will use two other related features block width and block height. The precise meaning of X,Y features as follows: X pixels means horizontal position on page from left side, and Y pixels means vertical position on page from top side. That means that X and Y are coordinates of the left upper corner of the corresponding visual block. For example, see \nameref{fig:nameXYCluster8}.\\
+
+The first feature we created, is an ultimate X and Y which are centers of the visual block rather then left upper corner. Our guess was that these two features better represent the location on the page.\\
+
+Then we applied K-means clustering algorithm to assign the cluster label for every row. The idea here was to attempt the visual block on a page where every component might appear. We learned the model for sub datasets for every meta name. Unfortunately this experiment wasn't successful, because it appears that centered X and Y don't have a clustering structure. Rather the elements can appear almost anywhere on a page with only small deviation in means. There are some difference in basic statistics of X and Y for different meta names, but the standard deviation is so high that it can't be considered as a significant result. See the figure \nameref{fig:nameXYCluster8}  \\
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{figures07/nameXYCluster8}
+\caption{The distribution of original X and Y for an event start date}
+\label{fig:startDateXY}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{figures07/nameXYCluster8}
+\caption{Unsuccessful clustering of X,Y center of the blocks for event name}
+\label{fig:nameXYCluster8}
+\end{center}
+\end{figure}
+    
+    
+     the distribution of X and Y for a start date
+    
+
+\section{Final dataset}
+The final dataset after the cleaning and feature engineering is a table of 168K rows and 32 columns. Let's look at its main properties: 
+
+\begin{itemize}
+    \item The list of columns in the dataset: {table:featurelist}.
+    \item It's cleaned of outliers, frequent domains, multi-events pages and inconsistency. 
+    \item It contains 33K unique URLs, and  4000 domain names. 
+    \item There are in average 45 URLs per one domain name. 
+    \item We have 137K rows related to a random elements on the webpage, 18K for a event's name, 6K for a start date, 6K for location, and 2K for description. In sum, 32K rows containing features of event components. 
+    \item There a in average 1.8 event components out of 4 on a webpage. 
+    \item There are the most popular combinations of event components fro one URL. 
+    \begin{itemize}
+        \item \textit{name} 8335
+        \item \textit{location, name} 2863 
+        \item \textit{name, startDate} 2522 
+        \item \textit{location, name, startDate} 1735
+    \end{itemize}
+    Top 10 list of combinations you may find in table \nameref{table:top10comb}.
+    \item We have 30 numeric features and 4 textual. Additionaly, we will include \textit{idf-idf} matrix later.
+    \item We replaced outliers of numerical features with the NaN. We fill the missing values with the corresponding average values.  
+    \item 
+\end{itemize}
+
 
 \begin{table}[h]
 \begin{center}
@@ -72,35 +126,11 @@ Width in a browser     &    Number of whitespaces    \\
      &    \textit{+ tf-idf matrix}    \\
 \hline
 \end{tabular}}
-\caption{List of main extracted features after feature engineering}
+\caption{List of features}
 \label{table:featurelist}
 \end{center}
 \end{table}    
-    
-    
 
-
-
-\section{Description of the dataset}
-As a clean final dataset we have a table of 168K rows and 32 columns. Let's look at the main properties of the dataset: 
-
-\begin{itemize}
-    \item It contains 33K unique URLs, and  4000 domain names. 
-    \item There are in average 45 URLs per one domain name. 
-    \item We have 137K rows related to a random elements on the webpage, 18K for a event's name, 6K for a start date, 6K for location, and 2K for description. In sum, 32K rows containing features of event components. 
-    \item There a in average 1.8 event components out of 4 on a webpage. 
-    \item There are the most popular combinations of event components fro one URL. 
-    \begin{itemize}
-        \item \textit{name} 8335
-        \item \textit{location, name} 2863 
-        \item \textit{name, startDate} 2522 
-        \item \textit{location, name, startDate} 1735
-    \end{itemize}
-    Top 10 list of combinations you may find in table \nameref{table:top10comb}.
-    \item We have 30 numeric features and 4 textual. Additionaly, we will include \textit{idf-idf} matrix later.
-    \item We replaced outliers of numerical features with the NaN. We fill the missing values with the corresponding average values.  
-    \item 
-\end{itemize}
 
 
 \begin{table}
