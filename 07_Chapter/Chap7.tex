@@ -23,20 +23,37 @@ After we extracted the text length, we noticed that the date and location meta n
 
 By analogy, we extracted also number of uppercase letter, white spaces, digit proportion and a number of punctuation marks. See the rest of the figures in \nameref{appendix}.
 
-\begin{figure}[h]
-\begin{center}
-\includegraphics[width=1.0\textwidth]{figures07/distrTextByMeta}
-\caption{Distribution of text length by meta name}
-\label{fig:distrTextByMeta}
-\end{center}
-\end{figure}
+
 
 \begin{figure}[h]
-\begin{center}
-\includegraphics[width=1.0\textwidth]{figures07/distrDigitsByMeta}
+\begin{subfigure}{1\textwidth}
+  \centering
+  \includegraphics[width=1.0\textwidth]{figures07/distrTextByMeta}
+  \caption{Histogram}
+\end{subfigure} \\
+\begin{subfigure}{1\textwidth}
+  \centering
+  \includegraphics[width=1.0\textwidth]{figures07/distrTextByMeta_violin}
+  \caption{Violin plot}
+\end{subfigure}
+\caption{Distribution of text length by meta name}
+\label{fig:distrTextByMeta}
+\end{figure}
+
+
+\begin{figure}[h]
+\begin{subfigure}{1\textwidth}
+  \centering
+  \includegraphics[width=1.0\textwidth]{figures07/distrDigitsByMeta}
+  \caption{Histogram}
+\end{subfigure} \\
+\begin{subfigure}{1\textwidth}
+  \centering
+  \includegraphics[width=1.0\textwidth]{figures07/distrDigitsByMeta_violin}
+  \caption{Violin plot}
+\end{subfigure}
 \caption{Distribution of digits number by meta name}
 \label{fig:distrDigitsByMeta}
-\end{center}
 \end{figure}
 
 Therefore we created six additional features from one textual field: text length, number of punctuation marks, number of digits, digits share, number of upper case letters, number of white spaces. You can see that visually they distinguish meta names well. The difference in basic statistics you can find in table \nameref{table:textualDistr}. \\
@@ -170,6 +187,7 @@ Width in a browser     &    Number of whitespaces    \\
 \end{table}	
 
 \section{Analysis of features}
+Let's look at other fields of the dataset and visualize with the grouping by the meta name.    
 
 \begin{table}
 \begin{center}
