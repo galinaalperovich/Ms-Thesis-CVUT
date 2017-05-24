@@ -127,7 +127,7 @@ The final dataset after the cleaning and feature engineering is a table of 168K 
 {\renewcommand{\arraystretch}{1.2}
 \begin{tabular}{| p{6cm} | p{6cm} |}
 \hline
-\textbf{DOM}   &   \textbf{CSS}\\
+\textbf{DOM}   &   \textbf{CSS (Visual)}\\
 \hline
 URL of the page    &    Color (three chanells)\\
 Meta name (name, startDate, description, location, no\_event)    &    Text alignment (center, left, right, etc)    \\
@@ -140,7 +140,7 @@ Number of childs in a DOM tree    &    Font family (Verdana, Arial, etc)    \\
     
     &    \textit{+ 270 other CSS features} \\
 \hline
-\textbf{Visual}   &   \textbf{Textual}  \\
+\textbf{Spatial}   &   \textbf{Textual}  \\
 \hline
 X and Y coordinate on the rendered picture    &    Length of the text inside the block    \\
 X and Y coordinate of the center of a visual block    &    Number of punctuation marks in text    \\
@@ -199,9 +199,9 @@ The figure \ref{fig:distrFontSizeByMeta} shows that the distribution of a font s
 
 Basic statistics for the different numerical features for all meta names you can see on table \ref{table:sumstatnum}.\\
 
-On the figure \ref{fig:distrTagByMeta} you will notice that the tag usage is different for different meta names. We encoded the tag name by the number from 0 to 35.  
+On the figure \ref{fig:distrTagByMeta} you will notice that the tag usage is different for different meta names. We encoded the tag name by the number from 0 to 35.  \\
 
-\begin{figure}[H]
+\begin{figure}[h]
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=1\textwidth]{figures07/distrFontSizeByMeta}
@@ -217,7 +217,7 @@ On the figure \ref{fig:distrTagByMeta} you will notice that the tag usage is dif
 \caption{Distribution of digits number by meta name}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[h]
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=1\textwidth]{figures07/distrTagByMeta}
@@ -226,11 +226,11 @@ On the figure \ref{fig:distrTagByMeta} you will notice that the tag usage is dif
 \end{subfigure}
 \begin{subfigure}{.5\textwidth}
   \centering
-    % \includegraphics[width=1\textwidth]{figures07/boxUpperByMeta}
-    % \caption{The number of uppercase letters by meta names}
-    % \label{fig:boxUpperByMeta}
+    \includegraphics[width=1\textwidth]{figures07/pcatsne}
+    \caption{PCA on standardized numeric values for different meta names.}
+    \label{fig:pcatsne}
 \end{subfigure}
-\caption{Distribution of tag and }
+% \caption{Distribution of tag and Principal component analysis}
 \end{figure}
 
 \begin{table}[h]
@@ -260,9 +260,9 @@ max    &    255.0    &    100.0    &    900.0    &    1.0    &    194.0\\
 \caption{Summary statistics for some numerical features}
 \label{table:sumstatnum}
 \end{center}
-\end{table}    
+\end{table}  \\  
 
-Despite the fact there are many features which visually distinguish the different meta names, dimensionality reduction output didn't show good separation. We performed both PCA and t-SNE approaches to see if the clusters appear there (specially after unsuccessful clustering). PCA showed a small separation but t-SNE not. The result of PCA you can see on figure \ref{fig:pcatsne}
-
-
-\section*{Conclusion on chapter}
+Despite the fact there are many features which visually distinguish the different meta names, dimensionality reduction output didn't show good separation. We standardized the values and performed both PCA and t-SNE approaches on all numerical features to see if the clusters appear there. Especially after unsuccessful clustering it would be good to see it here. PCA showed a small separation but t-SNE not. The result of PCA you can see on figure \ref{fig:pcatsne}
+ 
+\section*{Conclusion of the chapter}
+In this chapter we performed exploratory data analysis by visualizing the features and grouping by the meta names. As we see, there features which separate well the meta names (the tag, font size, digits share, text length, etc) and which not (x and y coordinates, font family, color). We performed deminsionality reduction with PCA and see a small separation on clusters whereas k-means clustering on X and Y coordinates didn't perform well.  
