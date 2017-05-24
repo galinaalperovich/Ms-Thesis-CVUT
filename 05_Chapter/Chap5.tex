@@ -47,7 +47,7 @@ The most time-consuming part of data collection was the parsing the list of URLs
 
 \noindent\textbf{Step 1.} In the first step the parser goes to the webpage and tries to find all event components. Here we use \textit{Scrapy} framework and explicit HTTP requesting, that's why it's a fast operation. One of the problems we face here is that an Event item may contain not only properties like Date, Location or Description. It also might have another item inside, for example, Place, which has the same Location property. In this way, we had to collect event properties such that they will not intersect with each other. We did it wit the specially constructed XPath locator. \\
 
-\noindent\textbf{Step 2.} If it succeeds in a previous step, then it runs a virtual \textit{PhantomJS} browser on this page. Otherwise, it starts to process a new URL.\\
+\noindent\textbf{Step 2.} If it succeeds in a previous step, then it runs a virtual \textit{PhantomJS} browser on this page. Otherwise, it starts to process a new URL. We need to render the page with the browser to extract visual and spatial features what can't be done with a simple HTTP requesting.\\
 
 \noindent\textbf{Step 3.} The virtual browser opens a page and renders if fully - including images, CSS, even Ajax-delivered content. It is more advanced that using HTTP requesting because we have access to a visual layout and DOM, CSSOM trees.\\
 

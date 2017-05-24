@@ -181,18 +181,19 @@ block\_width	& 124\\
 
 
 
-\section*{Conclusion on data cleaning}
-After these five steps, we reduced the number of records in the dataset significantly. In original dataset, we had 1.5M rows with the both event components and random elements of the page. After the last step, we gained 170K where 140K is random web element features, and 30K are an event components.\\
-The largest part was reduced after the first step where we removed the evident inconsistency. That happens due to a big number of web elements without width, height and with zero coordinates. These elements usually have \textit{meta} tag and they include all event information but not associated with any real web elements which contain the name, location, date and description. Also, we removed multi-events pages, pages with frequent domains, detected outliers and replaced them with 'NaN' value. We performed CSS feature selection and cleaning, after this step the number of CSS feature declined from 288 to 12. The size of our final dataset is 170K rows and 21 columns. In the next chapters we will continue feature engineering, so the number of columns will increase.
+\section*{Conclusion of the chapter}
+In this chapter we discussed the five steps on data cleaning. After these actions, we reduced the number of records in the dataset significantly. In original dataset, we had 1.5M rows with the both event components and random elements of the page. After the last step, we gained 170K where 140K is random web element features, and 30K are an event components.\\
+
+The largest part was reduced after the first step where we removed the evident inconsistency. That happens due to a big number of web elements without width, height and with zero coordinates. These elements usually have \textit{meta} tag and they include all event information but not associated with any real web elements which contain the name, location, date and description. Also, we removed multi-events pages, pages with frequent domains, detected outliers and replaced them with 'NaN' value. We performed CSS feature selection and cleaning, after this step the number of CSS feature declined from 288 to 12.
 
 
 
-\textbf{8. Dataset.} There is a list of properties of the final dataset we've collected.
+% \textbf{8. Dataset.} There is a list of properties of the final dataset we've collected.
 
-\begin{itemize}
-    \item For every URLs with Event Microdata schema, we extracted four event components (title, date time, location, description) together with the various web features. The full list you will find in the section \nameref{sec:features}. 
-    \item The dataset is cleared of the records where visual block has zero-width or zero-height and web elements with the useless tags like \textit{script}, \textit{meta}, etc.
-    \item It contains at most 100 different URLs for one domain to get rid of inconsistency. 
-    \item Every page contains only one event. The pages with several events have the different structure than one-event pages, so if we leave it, we will add noise to the data. More about the dataset cleaning read in section \nameref{sec:dataclean}.  
-    \item We removed the records with duplicate numeric features.
-\end{itemize}
+% \begin{itemize}
+%     \item For every URLs with Event Microdata schema, we extracted four event components (title, date time, location, description) together with the various web features. The full list you will find in the section \nameref{sec:features}. 
+%     \item The dataset is cleared of the records where visual block has zero-width or zero-height and web elements with the useless tags like \textit{script}, \textit{meta}, etc.
+%     \item It contains at most 100 different URLs for one domain to get rid of inconsistency. 
+%     \item Every page contains only one event. The pages with several events have the different structure than one-event pages, so if we leave it, we will add noise to the data. More about the dataset cleaning read in section \nameref{sec:dataclean}.  
+%     \item We removed the records with duplicate numeric features.
+% \end{itemize}
