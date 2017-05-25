@@ -1,6 +1,6 @@
 \chapter{Data collection}
 \label{chap:datacollect}
-To build the meaningful statistical model one needs to have a relatively large training set. Usually, collecting the training set is the main stumbling block in the tasks related to Information Extraction (IE) and often implies human involvement into labeling procedure. For solving the problem of Event Extraction (EE) from the webpage we need to create or find publicly available well-labeled dataset.\\
+To build the significant statistical model one needs to have a relatively large training set. Usually, collecting the training set is the main stumbling block in the tasks related to Information Extraction (IE) and often implies human involvement into labeling procedure. For solving the problem of Event Extraction (EE) from the webpage we need to create or find publicly available well-labeled dataset.\\
 
 Firstly in this chapter, we will discuss \nameref{sec:datasource} for the dataset we need. Then we will present the method which we used to create the dataset using Microdata semantic markup. Then we will talk about the process of URL crawling and event feature extraction for a collecting the dataset. For every event, we extracted three hundred features, and we will present the list of the main ones in section \nameref{sec:features}.
 
@@ -36,9 +36,9 @@ To generate the dataset for training, we exploited the set of web pages which fo
 
 \subsection{Collecting URLs}
 
-Fortunately for us, we discovered the great open repository \textit{Common Crawl}, which maintains and collects the web crawl unstructured data. Common Crawl is the largest web corpus available to the public, which collects a vast amount of data from various Internet pages. To find the pages which contain the Event Microdata markup would not be feasible if it wasn't for another great open repository \textit{Web Data Commons (WDC)} which in fact does what we exactly need. It processes the Common Crawl entire database and selects only those URLs which contain any structured data.\\
+Fortunately for us, we discovered the great open repository \textit{Common Crawl}, which maintains and collects the web crawl unstructured data. Common Crawl is the largest web corpus available to the public, which harvests a vast amount of data from various Internet pages. To find the pages which contain the Event Microdata markup would not be feasible if it wasn't for another great open repository \textit{Web Data Commons (WDC)} which in fact does what we exactly need. It processes the Common Crawl entire database and selects only those URLs which contain any structured data.\\
 
-To get the clean list of such URLs, we found 80GB file associated with Event schema on WDC and downloaded it. The file has a structure of N-quads. You can see the small example of such file below [ source]. The content of the file is very verbose and contains a lot of unnecessary information. So we processed the file by selecting only URLs for the \textit{Event} schema and its successors as \textit{SocialEvent}, \textit{SportsEvent}, \textit{TheaterEvent}, etc. The size of the list of URLs reduced to 400 MB. 
+To get the clean list of such URLs, we found 80GB file associated with Event schema on WDC and downloaded it. The file has a structure of N-quads. You can see the small example of such file below [ source]. The content of the archive is very verbose and contains a lot of unnecessary information. So we processed the file by selecting only URLs for the \textit{Event} schema and its successors as \textit{SocialEvent}, \textit{SportsEvent}, \textit{TheaterEvent}, etc. The size of the list of URLs reduced to 400 MB. 
 
 \subsection{URLs crawling}
 \label{sec:urlparse}
@@ -61,7 +61,7 @@ The result of all these steps is a dataset where every row consists of a URL, ev
 
 \section*{Conclusion of the chapter}
 
-In this chapter we focused on collecting the dataset process. We talked about gathering the URLs from Web Data Commons service and comprehensive parallel parsing process, which we run on MetaCentrum. Also we discussed requirements for a training dataset and presented the list of main features which we extracted. 
+In this chapter, we focused on collecting the dataset process. We talked about gathering the URLs from Web Data Commons service and comprehensive parallel parsing process, which we run on MetaCentrum. Also, we discussed requirements for a training dataset and presented the list of main features which we extracted. 
 
 
 \begin{figure}[h]

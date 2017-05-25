@@ -4,9 +4,9 @@ In this chapter, we will present the process of the raw dataset cleaning. As we 
 
 This chapter opens the block of the chapters which cover the Experimental part of the thesis. We will often refer to the Python code which may be found in corresponding Jupyter notebooks. In this chapter, we cover the main stages and present the scheme of the whole cleaning pipeline. Also, we will show how the raw data is melting, meaning after the every step of the cleaning process the amount of data is reducing dramatically. The less significant results will be available in Appendix chapter. The whole process together with the corresponding code you may see in the notebooks with the prefix \textit{Clean}.\\
 
-The process of big dataset cleaning usually is very time-consuming, and in our thesis, it was not an exception. The reason for this in our case is that the dataset is artificial and collected from the Internet by our crawlers. During the collecting stage, we could face problems with the web element availability, encoding, duplicates, missing values and all other natural effects. We separated the whole process into 4 logical components. In the first part we remove the rows which have a visible damage. In the second part we look closer and work individually with the CSS properties since there are more than 200 features and not all of them are relevant for us. In the third part, we work with \textit{frequent domains} which have a lot of similar URL pages. In the last part, we worked with the outliers and logically not-existing values of the features. \\
+The process of big dataset cleaning usually is very time-consuming, and in our thesis, it was not an exception. The reason for this in our case is that the dataset is artificial and collected from the Internet by our crawlers. During the collecting stage, we could face problems with the web element availability, encoding, duplicates, missing values and all other natural effects. We separated the whole process into 4 logical components. In the first part, we remove the rows which have a visible damage. In the second part we look closer and work individually with the CSS properties since there are more than 200 features and not all of them are relevant for us. In the third part, we work with \textit{frequent domains} which have a lot of similar URL pages. In the last part, we worked with the outliers and logically not-existing values of the features. \\
 
-On the picture \nameref{fig:clean} you main see the main stages of the cleaning process. On the upper part of the picture, you find five main steps. In the bottom of the picture, you can see a number of records left in a dataset after each step. After step "CSS properties" nothing changed because at that moment we reduced the number of columns, rather than rows. 
+On the picture \nameref{fig:clean} you main see the main stages of the cleaning process. On the upper part of the picture, you find five main steps. In the bottom of the picture, you can see the number of records left in a dataset after each step. After step "CSS properties" nothing changed because at that moment we reduced the number of columns, rather than rows. 
 
 \begin{figure}[h]
 \begin{center}
@@ -20,11 +20,11 @@ Let's discuss every part of this scheme.\\
 
 \section{Evident inconsistency}
 
-When we uploaded the data, first of all we worked with several types of inconsistency which are easy to detect and which usually touches a lot of data:
+When we uploaded the data, first of all, we worked with several types of inconsistency which are easy to detect and which usually touches a lot of data:
 
 \begin{itemize}
     \item Duplicates of rows by numerical features.
-    \item The 'meta' tag. Developers often set the meta information with semantic schema not in the associated real web element, but rather to an artificial auxiliary tags 'meta'. These artificial tags don't fall into a render tree because they are not visible. That means the data like this is unnecessary because it doesn't contain any visual relevant information we extract. \textit{After this filtering, the dataset became approximately four times smaller.}
+    \item The 'meta' tag. Developers often set the meta information with semantic schema not in the associated real web element, but rather to an artificial auxiliary 'meta' tags. These artificial tags don't fall into a render tree because they are not visible. That means the data like this is unnecessary because it doesn't contain any visual relevant information we extract. \textit{After this filtering, the dataset became approximately four times smaller.}
     \item Zero block width and height.
     \item Zero X and Y coordinates
     \item Empty URL
@@ -41,10 +41,10 @@ Here is a list of steps we made for working with CSS features:
 
 \begin{enumerate}
     \item Remove duplicated columns.
-    \item Remove those columns one where the there is a default value is been set for every row in a dataset. For example auto, nonzero, normal, etc. 
+    \item Remove those columns one where the there is a default value is set for every row in a dataset. For example auto, nonzero, normal, etc. 
     \item Replaced sub-string 'px' in every cell to extract numerical pixel value.
     \item Calculated the proportion of 'NaN' and 'None' values for every column. Then remove those columns we the percentage was greater than 30\%. We saw a big jump from 30\% to 90\% without intermediate values, so it looked like a safe threshold. See \nameref{table:cssnan}
-    \item Calculate unique values of CSS properties and removed that one where the value is not a categorical one.   
+    \item Calculated unique values of CSS properties and removed that one where the value is not a categorical one.   
     \item Then work specifically with the 12 color properties. After we had examined their values, it appears that almost all of them were the same or had default values. So we decided to leave only one main \textit{color} property which has the form \textit{'rgb(number, number, number)'}. We extracted these three values for red, green and blue channels into three new features. 
     \item Extract a font family from the corresponding column into one separate feature.
     \item On this stage we had only 12 CSS properties left. Then we considered categorical features as \textit{display, font\_family, text\_align, tag, display} and made label encoding with the value between 0 and (number of classes - 1) for every feature.
@@ -58,37 +58,37 @@ The final list of 12 CSS features as follows: \textit{x\_coords, y\_coords, bloc
 {\renewcommand{\arraystretch}{1.5}
 \begin{tabular}{| p{2cm} | p{5cm}| p{3cm} |}
 \hline
-\textbf{id}	&	\textbf{CSS property}	&	\textbf{value} \\
+\textbf{id}    &    \textbf{CSS property}    &    \textbf{value} \\
 \hline
-104	&	-webkit-animation-name	&	0.999987 \\
+104    &    -webkit-animation-name    &    0.999987 \\
 \hline
-90	&	list-style-image	&	0.999793 \\
+90    &    list-style-image    &    0.999793 \\
 \hline
-40	&	-webkit-box-shadow	&	0.999637 \\
+40    &    -webkit-box-shadow    &    0.999637 \\
 \hline
-...	&	...	&	... \\
+...    &    ...    &    ... \\
 \hline
-83	&	border-bottom-style	&	0.994262 \\
+83    &    border-bottom-style    &    0.994262 \\
 \hline
-4	&	text-shadow	&	0.948314 \\
+4    &    text-shadow    &    0.948314 \\
 \hline
-9	&	list-style-type	&	0.209271 \\
+9    &    list-style-type    &    0.209271 \\
 \hline
-15	&	display	&	0.035866 \\
+15    &    display    &    0.035866 \\
 \hline
-78	&	speak	&	0.000214 \\
+78    &    speak    &    0.000214 \\
 \hline
-87	&	pointer-events	&	0.000052 \\
+87    &    pointer-events    &    0.000052 \\
 \hline
-71	&	text-indent	&	0.000000 \\
+71    &    text-indent    &    0.000000 \\
 \hline
-76	&	border-bottom-left-radius	&	0.000000 \\
+76    &    border-bottom-left-radius    &    0.000000 \\
 \hline
-75	&	image-rendering	&	0.000000 \\
+75    &    image-rendering    &    0.000000 \\
 \hline
-74	&	-webkit-transition-property	&	0.000000 \\
+74    &    -webkit-transition-property    &    0.000000 \\
 \hline
-60	&	border-right-color	&	0.000000 \\
+60    &    border-right-color    &    0.000000 \\
 \hline
 \end{tabular}}
 \caption{Top result for the proportion of 'NaN' and 'None' values in different CSS properties }
@@ -100,9 +100,9 @@ The final list of 12 CSS features as follows: \textit{x\_coords, y\_coords, bloc
 Corresponding code for this step you may see in the notebook with the prefix \textit{Clean II}.
 
 \section{Frequent domain names}
-During the dataset examining, we found out that there are many URL pages belonging to same domain name. For us it means that in the dataset we have a lot of records whose corresponding webpages have a similar structure and use the same visual templates. A structure of such HTML pages is also alike, and only the content of the pages differ. It happens because these pages generated automatically by a web-server, as we discussed before such websites are called \textit{dynamic}.\\ 
+During the dataset examining, we found out that many URL pages are belonging to the same domain name. For us, it means that in the dataset we have a lot of records whose corresponding webpages have a similar structure and use the same visual templates. A structure of such HTML pages is also alike, and only the content of the pages differ. It happens because these pages generated automatically by a web-server, as we discussed before such websites are called \textit{dynamic}.\\ 
 
-On this step, we get rid of those pages whose domain appears too often. We limited the number of pages for one domain name and tagged every record with the flag \textit{keep/remove} depending on how many times the associated domain appeared before. Then we removed records with \textit{remove} value.
+On this step, we get rid of those pages whose domain appears too often. We limited the number of pages for one domain name and tagged every record with the flag \textit{keep/remove} depending on how many times the associated domain name appeared before. Then we removed records with \textit{remove} value.
 
 
 \section{Multi-events pages}
@@ -137,9 +137,9 @@ We replaced outliers with 'NaN' values for further imputation. We detected outli
 $$IPR =  P_{90\%} -  P_{10\%}$$
 $$ P_{90\%} + 1.5 * IPR^* \leq outliers \leq P_{10\%} - 1.5 * IPR^* $$
 
-We didn't set original values of percentiles to $Q_{25\%}$ and $Q_{75\%}$ because otherwise, we would lose too much data, so we decided to consider weaker condition. As an example see\nameref{table:outlier} where a number of original values are 32 207.\\
+We didn't set original values of percentiles to $Q_{25\%}$ and $Q_{75\%}$ because otherwise, we would lose too much data, so we decided to consider weaker condition. As an example, see\nameref{table:outlier} where the number of original values are 32 207.\\
 
-After outliers replacing the basic statistics of the features became much better. Also, we didn't found distinct deviation from our understanding of the feature meaning.
+After we had replaced outliers, the basic statistics of the features became much better. Also, the numbers we saw accord with our understanding of the feature properties and their meaning.
 
 \begin{figure}[h]
 \begin{subfigure}{.5\textwidth}
@@ -161,17 +161,17 @@ After outliers replacing the basic statistics of the features became much better
 {\renewcommand{\arraystretch}{1.5}
 \begin{tabular}{| p{5cm} | p{5cm}|}
 \hline
-\textbf{Feature name}	& \textbf{Number of outliers}\\
+\textbf{Feature name}    & \textbf{Number of outliers}\\
 \hline
-num\_siblings	& 476\\
+num\_siblings    & 476\\
 \hline
-x\_coords	& 585\\
+x\_coords    & 585\\
 \hline
-y\_coords	& 680\\
+y\_coords    & 680\\
 \hline
-block\_height	& 837\\
+block\_height    & 837\\
 \hline
-block\_width	& 124\\
+block\_width    & 124\\
 \hline
 \end{tabular}}
 \caption{Number of outliers for several features}
@@ -182,18 +182,6 @@ block\_width	& 124\\
 
 
 \section*{Conclusion of the chapter}
-In this chapter we discussed the five steps on data cleaning. After these actions, we reduced the number of records in the dataset significantly. In original dataset, we had 1.5M rows with the both event components and random elements of the page. After the last step, we gained 170K where 140K is random web element features, and 30K are an event components.\\
+In this chapter, we discussed the five steps on data cleaning. After these actions, we reduced the number of records in the dataset significantly. In original dataset, we had 1.5M rows with the both event components and random elements of the page. After the last step, we gained 170K where 140K is random web element features, and 30K are an event components.\\
 
-The largest part was reduced after the first step where we removed the evident inconsistency. That happens due to a big number of web elements without width, height and with zero coordinates. These elements usually have \textit{meta} tag and they include all event information but not associated with any real web elements which contain the name, location, date and description. Also, we removed multi-events pages, pages with frequent domains, detected outliers and replaced them with 'NaN' value. We performed CSS feature selection and cleaning, after this step the number of CSS feature declined from 288 to 12.
-
-
-
-% \textbf{8. Dataset.} There is a list of properties of the final dataset we've collected.
-
-% \begin{itemize}
-%     \item For every URLs with Event Microdata schema, we extracted four event components (title, date time, location, description) together with the various web features. The full list you will find in the section \nameref{sec:features}. 
-%     \item The dataset is cleared of the records where visual block has zero-width or zero-height and web elements with the useless tags like \textit{script}, \textit{meta}, etc.
-%     \item It contains at most 100 different URLs for one domain to get rid of inconsistency. 
-%     \item Every page contains only one event. The pages with several events have the different structure than one-event pages, so if we leave it, we will add noise to the data. More about the dataset cleaning read in section \nameref{sec:dataclean}.  
-%     \item We removed the records with duplicate numeric features.
-% \end{itemize}
+The largest part was reduced after the first step where we removed the obvious inconsistency. That happens due to a big number of web elements without width, height and with zero coordinates. These elements usually have \textit{meta} tag and they include all event information but not associated with any real web elements which contain the name, location, date and description. Also, we removed multi-events pages, pages with frequent domains, detected outliers and replaced them with 'NaN' value. We performed CSS feature selection and cleaning, after this step the number of CSS feature declined from 288 to 12.
