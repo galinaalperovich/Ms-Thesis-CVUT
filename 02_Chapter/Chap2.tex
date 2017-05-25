@@ -8,7 +8,7 @@ We will start from the webpage and its main components. Then we will explain in 
 \section{Web page}
 \textit{A Webpage} is primarily text document formatted and annotated with Hypertext Markup Language (HTML). A website is a collection of related webpages together with corresponding media files. To view a rendered webpage, we need to make use of a web browser, which provides communication between the user, webpage resources and web server where the associated website hosted. To get the information needed for a displaying a webpage the browser retrieves the data from a web server by sending HTTP requests. We won't discuss the process of requesting, rather we will explain the intermediate steps between the stage when the browser retrieved the information from the server and displayed it to the user.\\ 
 
-The access to the webpage might be done directly through the HTTP protocol (for example from the terminal) or with the browser which will actually render the page. In case we do it through the HTTP request, we will get the raw information the same as a browser gets before it does all complicated prepossessing steps and displaying. In the current thesis, we will use both approaches and take advantage of each of them.
+The access to the webpage might be done directly through the HTTP protocol (for example from the terminal) or with the browser which will render the page. In case we do it through the HTTP request, we will get the raw information the same as a browser gets before it does all complicated prepossessing steps and displaying. In the current thesis, we will use both approaches and take advantage of each of them.
 
 There are two main types of the website and therefore the pages - \textit{static} and \textit{dynamic}. A static webpage is usually written in a plain HTML, whereas dynamic page is using server-side scripts for the content generation. The main points which make the differences between them are scalability, simplicity to update the content and the price. With dynamic websites, it is easy to create a significant number of similar pages and dynamically update the content based on user actions. Dynamic pages are taking it's content from a database, whereas the static pages already have some content which can't be updated quickly. But at the same time with a dynamic website, it is more complicated to change the design, because the pages are essentially a template into which content is poured to. The design of static pages is more flexible and can be modified manually. As for the price, static website is relatively cheap and easy to make comparing to dynamic websites.\\ 
 
@@ -45,7 +45,7 @@ The triad of the most important Web technologies are HTML to specify the content
 </html>
 \end{lstlisting}
 
-It is possible to incorporate both CSS and JavaScript into the HTML, but in a modern web development, these three things are usually separated into different files. It allows to maintain and change the content, the visualization, and the interactivity features independently.\\
+It is possible to incorporate both CSS and JavaScript into the HTML, but in a modern web development, these three things are normally separated into different files. It allows to maintain and change the content, the visualization, and the interactivity features independently.\\
 
 Since the HTML document has a structure and consists of these labeled blocks (sometimes even semantic ones as \textt{<title>}), one can consider a web document as a semi-structured document when compared to a plain text document.\\
 
@@ -67,7 +67,7 @@ div {
 }
 \end{lstlisting}\\
 
-\noindent\textbf{JavaScript (JS)} is a powerful multi-paradigm language, supporting object-oriented, imperative, and functional programming styles [link to Wiki]. 95\% of 10 million most popular web pages use JS, and all modern web browsers support it without the need for plug-ins [https://w3techs.com/technologies/details/cp-javascript/all/all]. Scripts are embedded in or included to HTML pages and interact with the DOM and CCSOM. JS can interact and modify both DOM and CCSOM, and it adds interactivity to original static webpages. There are come examples of the JS effects and a \nameref{lst:js}:
+\noindent\textbf{JavaScript (JS)} is a powerful multi-paradigm language, supporting object-oriented, imperative, and functional programming styles [link to Wiki]. 95\% of 10 million most popular web pages use JS, and all modern web browsers support it without the need for plug-ins [https://w3techs.com/technologies/details/cp-javascript/all/all]. Scripts are embedded in or included to HTML pages and interact with the DOM and CCSOM. JS can interact and modify both DOM and CCSOM, and it adds interactivity to original static webpages. There is an examples of the JS code in listing \ref{lst:js}:
 
 \begin{itemize}
     \item It allows loading data from the server without needs to reload the page (AJAX technology).
@@ -199,7 +199,7 @@ The list of concepts and its relationships is very broad and includes for exampl
 
 \subsubsection*{Microdata}
 \label{subsubsec:microdata}
-\textit{Microdata} vocabularies itself does not provide the semantics or meaning of an Item. \cite{Microdata} [source: https://html.spec.whatwg.org/multipage/microdata.html] Instead of this, web developers can create a custom vocabulary or use vocabularies available on the Web. \textit{Schema.org} schemas provide the most commonly used markup vocabularies, which includes: Person, Place, Event, Organization, and many others. \\
+\textit{Microdata} vocabularies itself does not provide the semantics or meaning of an Item. \cite{Microdata} [source: https://html.spec.whatwg.org/multipage/microdata.html] Instead of this, web developers can create a custom vocabulary or use vocabularies available on the Web. \textit{Schema.org} schemes provide the most commonly used markup vocabularies, which includes: Person, Place, Event, Organization, and many others. \\
 
 In our work, we regularly use \textit{Event Shcema} vocabulary of the Microdata markup. Let's consider a small example and its primary fields. Look at the two listings: {lst:htmlevent} and {lst:htmleventmark}.\\
 
@@ -272,8 +272,6 @@ We can collect popularity of semantic annotations from Web Data Commons web serv
 \source{\href{http://webdatacommons.org/structureddata/2016-10/stats/stats.html}{Web Data Commons}}
 \label{fig:markup}
 \end{figure}
-
-
 
 
 \section*{Conclusion of the chapter}
