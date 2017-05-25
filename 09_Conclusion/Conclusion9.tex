@@ -1,15 +1,18 @@
 \chapter{Conclusion}
 \label{chap:conclusion}
-\subsection{Summary / TODO}
 
-After we had created the dataset we performed the following procedures:
+\section{Summary}
+
+The primary results of this thesis as follows: 
 \begin{enumerate}
-    \item Comprehensive exploratory data analysis including visualization of extracted features for every event component.
-    \item We performed feature engineering to extract useful information from text features, spatial features (X and Y coordinates of the web element) and visual features (CSS). 
-    \item Since we will work with several hundred features, we run dimensionality reduction and feature selection methods. 
-    \item We built several models for binary classification tasks, optimized parameters for every model and presented comparison tables.  
-    \item We evaluated the models on previously unseen data.    
+    \item We made a review of existing modern methods of Web Extraction, considered all main complementary tasks of Information Extraction problem and listed work related to social events extraction.   
+    \item We developed the original system which collects training examples for an event extraction problem with the use of Microdata semantic markup.
+    \item Hence, we automatically created the training labeled dataset which contains various features including textual, DOM-related, spatial and visual.
+    \item We performed extensive cleaning procedure on the original dataset what reduced the number of records dramatically.
+    \item We engineered many features from original CSS properties, textual field and spatial coordinates  (X and Y coordinates of the web element). 
+    \item We made comprehensive exploratory data analysis including visualization of extracted features for every event component and their relationships, dimensionality reduction and clustering.
+    \item We built several binary classification models for every event component, optimized parameters for every model, evaluated them and presented comparison tables. 
 \end{enumerate}
 
 
-\subsection{Future work}
+\section{Future work  / TODO}
