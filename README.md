@@ -1,6 +1,6 @@
 # SocioPath
 
-The goal of the project is to develop an adaptive framework which automatically extracts information on local event announcements (e.g., concerts, lectures, festivals, performances etc.) from a webpage. 
+The goal of the project is to develop an adaptive framework which automatically extracts information on local event announcements (e.g., concerts, lectures, festivals, performances etc.) from a webpage using machine learning.
 
 ### The primary results of this thesis 
 
