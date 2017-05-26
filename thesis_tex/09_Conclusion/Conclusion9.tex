@@ -1,0 +1,31 @@
+\chapter{Conclusion}
+\label{chap:conclusion}
+
+\section{Summary}
+
+The primary results of this thesis are the following: 
+\begin{enumerate}
+    \item We made a review of existing modern Web Extraction methods, considered all main complementary tasks and listed work related to social events extraction.   
+    \item We developed the original system which in parallel collects training examples for an event extraction problem with the use of Microdata semantic markup.
+    \item Hence, we automatically created the training labeled dataset which contains various web features: visual, textual, spatial and DOM-related.
+    \item We performed extensive cleaning procedure on the original dataset what reduced the number of records and columns dramatically.
+    \item We engineered many features from original ones.
+    \item We made comprehensive exploratory data analysis for every event component including visualization of extracted features and their relationships, dimensionality reduction and clustering.
+    \item We built several binary classification models for every event component and calculated the primary performance metrics. We got the high performance metrics for all event components thanks to set of relevant features, calculating the \texttf{tf-idf} matrix and PCA dimensionality reduction.
+    \item We made the final dataset public and therefore it is the first publicly available dataset for social event extraction problem. The data with the code are available in a GitHub repository: \url{https://github.com/galinaalperovich/Ms-Thesis-CVUT}
+\end{enumerate}
+
+The main conclusion of the thesis is also that we demonstrated that it is possible to automatically extract training dataset, prepare and build meaningful models which can recognize the event components on a web page. The list of items annotated with the semantic markup is very large, and hypothetically our approach can be extended to any of them. 
+
+
+\section{Future work}
+
+This work can be improved and optimized in many ways indefinitely. \\
+
+\noindent\textbf{Data collecting}: It is possible to collect even more training examples, while the upper bound for the number of such examples is the amountf URLs which have the Microdata semantic markup in their HTML code. It is possible to extract more features, especially DOM-related ones. Theoretically, it could be any features associated with the tree structure of the page. Also, since we used the virtual browser it is possible to consider the page as an image and apply computer vision methods on it. \\
+
+\noindent\textbf{Cleaning procedure} might be incorporated into crawling process to filter pages and web elements. Region Extraction methods would help in this task because they can identify important regions on the page. \\
+
+\noindent\textbf{Feature engineering}: If we have more extracted web features, is it possible to create more relevant features from existing ones to improve the quality of classifiers. \\
+
+\noindent\textbf{Approach}: In the thesis, we considered the local event extraction problem as a set of binary classification tasks which work on every event component independently. A logical continuation of this approach might be the using of the relative information about the event components. Also, it would be a good idea to process the page content more like a natural language text and exploit its sequential structure.
