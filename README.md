@@ -1,6 +1,6 @@
 # SocioPath
 
-The task is to develop an adaptive framework which automatically extracts information on local event announcements (e.g., concerts, lectures, festivals, performances etc.) from a webpage. 
+The goal of the project is to develop an adaptive framework which automatically extracts information on local event announcements (e.g., concerts, lectures, festivals, performances etc.) from a webpage. 
 
 ### The primary results of this thesis 
 
@@ -18,7 +18,7 @@ The task is to develop an adaptive framework which automatically extracts inform
 
 * We built several binary classification models for every event component and calculated the primary performance metrics. We got the high performance metrics for all event components thanks to set of relevant features, calculating the tf-idf matrix and PCA dimensionality reduction.
 
-* We made the final dataset public and therefore it is the first publicly available dataset for social event extraction problem. The data with the code are available in this GitHub repository (DATA_FINAL.zip)
+* We made the final dataset public and therefore it is the first publicly available dataset for social event extraction problem. The data with the code are available in this GitHub repository (DATA.csv.zip)
 
 
 The main conclusion of the thesis is also that we demonstrated that it is possible to automatically extract training dataset, prepare and build meaningful models which can recognize the event components on a web page. The list of items annotated with the semantic markup is very large, and hypothetically our approach can be extended to any of them. 
@@ -30,7 +30,7 @@ The main conclusion of the thesis is also that we demonstrated that it is possib
 
 [2] Nikolaos Pappas, Georgios Katsimpras, Efstathios Stamatatos. "Extracting Informative Textual Parts from Web Pages Containing User-Generated Content". 12th Int. Conference on Knowledge Management and Knowledge Technologies, Graz, Austria, 2012 
 
-[6] Alberto H. F. Laender, Berthier A. Ribeiro-Neto, Altigran S. da Silva, Juliana S. Teixeira. "A Brief Survey of Web Data Extraction Tools"; ACM SIGMOD Record, Volume 31 Issue 2, June 2002
+[3] Alberto H. F. Laender, Berthier A. Ribeiro-Neto, Altigran S. da Silva, Juliana S. Teixeira. "A Brief Survey of Web Data Extraction Tools"; ACM SIGMOD Record, Volume 31 Issue 2, June 2002
 
 [4] Gengxin Miao, Junichi Tatemura, Wang-Pin Hsiung. "Extracting Data Records from the Web Using Tag Path Clustering". Proceedings of the 18th international conference on World wide web, Pages 981-990, 2009
 
