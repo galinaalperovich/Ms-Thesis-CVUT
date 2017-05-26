@@ -195,7 +195,7 @@ The list of concepts and its relationships is very broad and includes for exampl
 \label{subsubsec:microdata}
 \textit{Microdata} vocabularies itself does not provide the semantics or meaning of an Item \cite{Microdata}. Instead of this, web developers can create a custom vocabulary or use vocabularies available on the Web. \textit{Schema.org} schemes provide the most commonly used markup vocabularies, which includes: Person, Place, Event, Organization, and many others. \\
 
-In our work, we regularly use \textit{Event Shcema} vocabulary of the Microdata markup. Let's consider a small example and its primary fields. Look at the two listings: {lst:htmlevent} and {lst:htmleventmark}.\\
+In our work, we regularly use \textit{Event Shcema} vocabulary of the Microdata markup. Let's consider a small example and its primary fields. Look at two listings: plain HTML file \ref{lst:htmlevent} and the same HTML with Microdata annotations \ref{lst:htmleventmark}.\\
 
 \begin{lstlisting}[language=html, caption={Event information without semantic markup}, label={lst:htmlevent}, captionpos=b]
 <div class="event-wrapper">
@@ -241,11 +241,11 @@ As you can see, the second code block looks more cumbersome because it has a lot
     \item \textbf{itemprop} - contatining tag holds specific property of the item, for example "location", "startDate", "name".
 \end{itemize}
 
-There are dozens of Event properties in "http://schema.org/Event", but in the thesis we consider only four main properties "name", "startDate", "description" and "location". We will call them \textit{event components}.\\
+There are dozens of Event properties in "http://schema.org/Event", but in the thesis we consider only four main and the most popular properties "name", "startDate", "description" and "location". We will call them \textit{event components}.\\
 
-You can mention, that the item can contain a property as well as another item. For example, property "address" includes the item type "http://schema.org/PostalAddress." In the thesis, it would be an additional difficulty during the parsing process because we will need to invoke not only the property but also the properties of all included items to collect the event components. We will discuss it in chapter \nameref{chap:datacollect}. 
+You can mention, that the item can contain a property as well as another item. For example, property "address" includes the item type "http://schema.org/PostalAddress." In the thesis, it would be an additional difficulty during the parsing process because we will need to invoke not only the property but also the properties of all included items to collect the event components. We will discuss it in Chapter \ref{chap:datacollect}. 
 
-\subsubsection*{Semantic markup popularity}
+\subsubsection{Semantic markup popularity}
 
 Search engines take advantage of the semantic markup to automatically extract the information, incorporate it into its vertical services and provide a richer browsing experience for users. Despite the fact that search engines encourage and promote the websites which use such markup, in fact, not all of them use it. By statistics only 16\% of the domains use semantic markup, the rest 84\% use standard HTML. That's also the reason why the task of structural information extraction from unstructured web pages is still relevant - most of the data on the Internet is still stored as a plain HTML.\\ 
 
@@ -269,6 +269,4 @@ We can collect popularity of semantic annotations from Web Data Commons web serv
 
 
 \section*{Conclusion of the chapter}
-In this chapter, we considered the most important concepts which we use in the thesis. We explained the structure of a webpage, discussed related terms like HTML, CSS, and JavaScript, discussed in detail how does the browser render a webpage and the notions of CSS and XPath locators of the web element. Also, we talked about the idea of Semantic Web, its prevalence and described Microdata semantic annotation which we use for collecting the training dataset.\\
-
-In the next chapter, we will cover the Web extraction and theoretical background we apply in the thesis. 
+In this chapter, we considered the most important concepts which we use in the thesis. We explained the structure of a webpage, discussed related terms like HTML, CSS, and JavaScript, discussed in detail how does the browser render a webpage and the notions of CSS and XPath locators of the web element. Also, we talked about the idea of Semantic Web, its prevalence and described Microdata semantic annotation which we use for collecting the training dataset.

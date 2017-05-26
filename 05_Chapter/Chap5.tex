@@ -16,7 +16,7 @@ By the \textit{web features} we mean the values describing the event component a
 
 There are various types of design and structure of an event page. The event components might be located in different places relatively to each other. Furthermore, there are different HTML code styles, which depend on the developer who programmed the front-end, used web frameworks and technologies. To build the model which will work on previously unseen web pages, we must train the classifiers on many various pages to consider all these cases. That's the reason why we didn't consider the option of collecting the training dataset through the human labeling process.\\
 
-Therefore, the list of requirements for a dataset we need the following: 
+Therefore, the list of requirements for a dataset we need is the following: 
 
 \begin{enumerate}
     \item It is free
@@ -26,9 +26,9 @@ Therefore, the list of requirements for a dataset we need the following:
     \item It is fairly fresh (the webpage should be available)
 \end{enumerate}
 
-There is one non-free well-formed dataset of labeled webpages named \textit{The ClueWeb12 Dataset}\cite{ClueWeb12}. Researchers in related projects have been using these datasets and showed the high performance\cite{GoogEvent}. In this thesis, we didn't consider paid datasets as an option. Rather we set a goal to create a technique for collecting such dataset automatically.\\
+There is one non-free well-formed dataset of labeled webpages named \textit{The ClueWeb12 Dataset} \cite{ClueWeb12}. Researchers in related projects have been using these datasets and showed the high performance \cite{GoogEvent}. In this thesis, we didn't consider paid datasets as an option. Rather we set a goal to create a technique for collecting such dataset automatically.\\
 
-There are also several datasets with annotated webpages from other fields, for example University dataset\cite{datUni}, Internet Advertisement\cite{datAd}, Interested or not web pages\cite{datInterest}, Phishing websites\cite{datFhishing}, Rumor dataset\cite{datRumor}, Amazon product review\cite{datAmazon}, Real state from website\cite{datReal}. There is no publicly available dataset for event extraction problem. One of the goals of this thesis is to create such dataset and shared with community.
+There are also several datasets with annotated webpages from other fields, for example University dataset \cite{datUni}, Internet Advertisement \cite{datAd}, Interested or not web pages \cite{datInterest}, Phishing websites \cite{datFhishing}, Rumor dataset \cite{datRumor}, Amazon product review \cite{datAmazon}, Real state from website \cite{datReal}. There is no publicly available dataset for event extraction problem. One of the goals of this thesis is to create such dataset and shared with community.
 
 \section{Creating a dataset}
 
@@ -36,9 +36,9 @@ To generate the dataset for training, we exploited the set of web pages which fo
 
 \subsection{Collecting URLs}
 
-Fortunately for us, we discovered the great open repository \textit{Common Crawl}, which maintains and collects the web crawl unstructured data. Common Crawl is the largest web corpus available to the public, which harvests a vast amount of data from various Internet pages. To find the pages which contain the Event Microdata markup would not be feasible if it wasn't for another great open repository \textit{Web Data Commons (WDC)} which in fact does what we exactly need. It processes the Common Crawl entire database and selects only those URLs which contain any structured data.\\
+Fortunately for us, we discovered the great open repository \textit{Common Crawl}, which maintains and collects the web crawl unstructured data. Common Crawl is the largest web corpus available to the public, which harvests a vast amount of data from various Internet pages. To find the pages which contain the Event Microdata markup would not be feasible if it wasn't for another great open repository \textit{Web Data Commons} (WDC) which in fact does what we exactly need. It processes the Common Crawl entire database and selects only those URLs which contain any structured data.\\
 
-To get the clean list of such URLs, we found 80GB file associated with Event schema on WDC and downloaded it. The file has a structure of N-quads. You can see the small example of such file below [ source]. The content of the archive is very verbose and contains a lot of unnecessary information. So we processed the file by selecting only URLs for the \textit{Event} schema and its successors as \textit{SocialEvent}, \textit{SportsEvent}, \textit{TheaterEvent}, etc. The size of the list of URLs reduced to 400 MB. 
+To get the clean list of such URLs, we found 80GB file associated with Event schema on WDC and downloaded it. The content of the archive is very verbose and contains a lot of unnecessary information. So we processed the file by selecting only URLs for the \textit{Event} schema and its successors as \textit{SocialEvent}, \textit{SportsEvent}, \textit{TheaterEvent}, etc. The size of the list of URLs reduced to 400 MB. 
 
 \subsection{URLs crawling}
 \label{sec:urlparse}

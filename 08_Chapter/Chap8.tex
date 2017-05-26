@@ -90,7 +90,7 @@ The reason for performing this procedure is the following: we have many differen
 
 \noindent\textbf{Conclusion:} Working with textual field and applying the combination of tf-idf and dimensional reduction methods can increase the result very much.\\
 
-The code for all three experiments can be found on attached CD in the folder notebooks/ with the prefix "Model Building."
+The code for all three experiments can be found on attached CD in the folder notebooks/ with the prefix \textit{"Model Building."}
 
 % \subsection{Experiment 4}
 
@@ -100,31 +100,34 @@ The code for all three experiments can be found on attached CD in the folder not
 {\renewcommand{\arraystretch}{1.2}
 \begin{tabular}{lrrrrll}
 \toprule
-f1\_score &  mean\_accuracy &  precision &  recall &    meta\_name &                  model \\
+f1\_score &  accuracy &  precision &  recall &    meta\_name &                  model \\
 \midrule
-0.86 &           0.86 &       0.86 &    0.86 &         name &          Random forest \\
+\textbf{0.86} &           \textbf{0.86} &       \textbf{0.86} &    0.86 &         name &          Random forest \\
 0.82 &           0.83 &       0.82 &    0.84 &         name &                    SVM \\
 0.75 &           0.75 &       0.74 &    0.78 &         name &    Logistic regression \\
-0.85 &           0.86 &       0.81 &    0.90 &         name &  Extreme Random Forest \\
+0.85 &           \textbf{0.86} &       0.81 &    \textbf{0.90} &         name &  Extreme Random Forest \\
 \midrule
 0.81 &           0.80 &       0.77 &    0.87 &     location &          Random forest \\
-0.81 &           0.81 &       0.81 &    0.81 &     location &                    SVM \\
+0.81 &           \textbf{0.81} &       \textbf{0.81} &    0.81 &     location &                    SVM \\
 0.76 &           0.76 &       0.77 &    0.77 &     location &    Logistic regression \\
-0.82 &           0.81 &       0.75 &    0.91 &     location &  Extreme Random Forest \\
+\textbf{0.82} &           \textbf{0.81} &       0.75 &    \textbf{0.91} &     location &  Extreme Random Forest \\
 \midrule
 0.84 &           0.83 &       0.82 &    0.88 &  description &          Random forest \\
 0.82 &           0.82 &       0.78 &    0.87 &  description &                    SVM \\
 0.77 &           0.77 &       0.74 &    0.83 &  description &    Logistic regression \\
-0.86 &           0.87 &       0.83 &    0.91 &  description &  Extreme Random Forest \\
+\textbf{0.86} &           \textbf{0.87} &       \textbf{0.83} &    \textbf{0.91} &  description &  Extreme Random Forest \\
 \midrule
-0.91 &           0.90 &       0.90 &    0.92 &         date &          Random forest \\
+\textbf{0.91} &           0.90 &       \textbf{0.90} &    0.92 &         date &          Random forest \\
 0.87 &           0.87 &       0.89 &    0.86 &         date &                    SVM \\
 0.80 &           0.81 &       0.86 &    0.79 &         date &    Logistic regression \\
-0.91 &           0.91 &       0.88 &    0.95 &         date &  Extreme Random Forest \\
+\textbf{0.91} &           \textbf{0.91} &       0.88 &    \textbf{0.95} &         date &  Extreme Random Forest \\
 \bottomrule
 \end{tabular}}
-\caption{Experiment 3: Metrics values for a different classification models and event components. PCA components calculated on extracted tf-idf matrix were added as additional features}
+\caption{Experiment 3: Metrics values for a different classification models and event components. PCA components calculated on extracted tf-idf matrix were added as additional features. Cross-validation with k = 5.}
 \label{table:sumresultPCA}
 \end{center}
 \end{table} 
 
+\section*{Conclusion of the chapter}
+
+In this chapter we showed three experiment with four different classification models and initial preferences on input features. We saw that additionally constructed tf-idf matrix and PCA improved the performance, hence textual information is important factor for event extraction task. For every event component there are different classifiers which maximize the metrics, but generally ensemble model Extreme Random Forest works the best.
