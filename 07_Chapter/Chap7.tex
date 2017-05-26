@@ -104,6 +104,7 @@ The final dataset after the cleaning and feature engineering is a table of 168K 
 
 \begin{itemize}
     \item The list of features in the dataset can be seen in table \ref{table:featurelist}.
+    \item Every row in a dataset associated with one of the following meta names for every parsed URL: event name, event date, event location, event description or random element on the page. The row contains URL, meta name and all web features we collected: textual, spatial, visual and DOM-related.
     \item It's cleaned of outliers, frequent domains, multi-events pages, and inconsistency. 
     \item It contains 33K unique URLs and  4000 domain names. 
     \item There are in average 45 URLs per one domain name. 
@@ -137,8 +138,6 @@ Number of siblings in a DOM tree    &    Padding    \\
 Number of childs in a DOM tree    &    Font family (Verdana, Arial, etc)    \\
     &    Font size \\
     &    The language of the page \\
-    
-    &    \textit{+ 270 other CSS features} \\
 \hline
 \textbf{Spatial}   &   \textbf{Textual}  \\
 \hline
@@ -221,7 +220,7 @@ On the figure \ref{fig:distrTagByMeta} you will notice that the tag usage is dif
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=1\textwidth]{figures07/distrTagByMeta}
-  \caption{The tag value by meta names}
+  \caption{Distribution of HTML tag value by meta names}
   \label{fig:distrTagByMeta}
 \end{subfigure}
 \begin{subfigure}{.5\textwidth}

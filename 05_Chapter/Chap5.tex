@@ -1,12 +1,12 @@
-\chapter{Data collection}
+\chapter{Collecting the data}
 \label{chap:datacollect}
 To build the significant statistical model one needs to have a relatively large training set. Usually, collecting the training set is the main stumbling block in the tasks related to Information Extraction (IE) and often implies human involvement into labeling procedure. For solving the problem of Event Extraction (EE) from the webpage we need to create or find publicly available well-labeled dataset.\\
 
-Firstly in this chapter, we will discuss \nameref{sec:datasource} for the dataset we need. Then we will present the method which we used to create the dataset using Microdata semantic markup. Then we will talk about the process of URL crawling and event feature extraction for a collecting the dataset. For every event, we extracted three hundred features, and we will present the list of the main ones in section \nameref{sec:features}.
+Firstly in this chapter, we will discuss requirements for the dataset we need. Then we will present the method which we used to create the dataset using Microdata semantic markup. Then we will talk about the process of URL crawling and event web feature extraction for a collecting the dataset.
 
 \section{Requirements for a dataset}
 
-As we said, collecting the labeled dataset in IE is hard. As an example, Google hired several particular companies where hundreds or thousands of people are labeling the data as the full-time job. [source] Search engines and big corporations which work on this task can afford the large labeled dataset with the high quality, but it is much more challenging for researchers. \\
+As we said, collecting the labeled dataset in IE is hard. As an example, Google hired several particular companies where hundreds or thousands of people are labeling the data as the full-time job\cite{GoogleRaters}. Search engines and big corporations which work on this task can afford the large labeled dataset with the high quality, but it is much more challenging for researchers. \\
 
 The rule "garbage in, garbage out" is saying that the quality of the learning algorithm is directly tied to the quality of data it takes as an input. Since we consider Event Extraction (EE) task as a set of binary classification tasks, it is critical for us to have representative and relatively large dataset for building the model.\\
 
@@ -26,9 +26,9 @@ Therefore, the list of requirements for a dataset we need the following:
     \item It is fairly fresh (the webpage should be available)
 \end{enumerate}
 
-There is one non-free well-formed dataset of labeled webpages named \textit{The ClueWeb12 Dataset} [source http://lemurproject.org/clueweb12/]. Researchers in related projects have been using these datasets and showed the high performance [source]. In this thesis, we didn't consider paid datasets as an option. Rather we set a goal to create a technique for collecting such dataset automatically.\\
+There is one non-free well-formed dataset of labeled webpages named \textit{The ClueWeb12 Dataset}\cite{ClueWeb12}. Researchers in related projects have been using these datasets and showed the high performance\cite{GoogEvent}. In this thesis, we didn't consider paid datasets as an option. Rather we set a goal to create a technique for collecting such dataset automatically.\\
 
-There are also several datasets with annotated webpages from other fields, for example University dataset [source http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/data/], Internet Advertisement [source  http://archive.ics.uci.edu/ml/datasets/Internet+Advertisements], Interested or not web pages [source http://kdd.ics.uci.edu/databases/SyskillWebert/SyskillWebert.html], Phishing websites [source https://archive.ics.uci.edu/ml/datasets/phishing+websites], Rumor dataset [source https://www.kaggle.com/arminehn/rumor-citation], Amazon product review [source https://snap.stanford.edu/data/web-Amazon.html], Real state from website [source https://www.kaggle.com/fredgirod/web-crawler-for-real-estate-market]. There is not publicly available dataset for event extraction. One of the goals of this thesis is to create such dataset.
+There are also several datasets with annotated webpages from other fields, for example University dataset\cite{datUni}, Internet Advertisement\cite{datAd}, Interested or not web pages\cite{datInterest}, Phishing websites\cite{datFhishing}, Rumor dataset\cite{datRumor}, Amazon product review\cite{datAmazon}, Real state from website\cite{datReal}. There is no publicly available dataset for event extraction problem. One of the goals of this thesis is to create such dataset and shared with community.
 
 \section{Creating a dataset}
 
@@ -57,17 +57,16 @@ The most time-consuming part of data collection was the parsing the list of URLs
 
 For every step of a crawler, we set the time limit because sometimes it's processing too long and holding everything back. To control the execution time, we needed to run separate Python process for every time-consuming action. The whole crawling process has been ongoing for three months.\\
 
-The result of all these steps is a dataset where every row consists of a URL, event component name and the values of corresponding features. To summarize, see the figure \nameref{fig:collect}. 
+The result of all these steps is a dataset where every row consists of a URL, event component name and the values of corresponding features. To summarize, see the scheme of dataset collecting process on figure \ref{fig:collect}. 
 
 \section*{Conclusion of the chapter}
 
 In this chapter, we focused on collecting the dataset process. We talked about gathering the URLs from Web Data Commons service and comprehensive parallel parsing process, which we run on MetaCentrum. Also, we discussed requirements for a training dataset and presented the list of main features which we extracted. 
 
-
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=1.0\textwidth]{dataset_collect}
-\caption{The scheme of dataset collecting process}
+\caption{The scheme of dataset collecting process, the final number of records is 1.6 million}
 \label{fig:collect}
 \end{center}
 \end{figure}
