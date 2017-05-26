@@ -159,7 +159,8 @@ unicode=true,
 {hyperref}
 
 
-
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
 
 \begin{document}
 
@@ -208,7 +209,7 @@ unicode=true,
 
 \acknowledgements
 \noindent
-I want to say thank to ... 
+I would like to express my sincere gratitude to my supervisor, Ing. Jan Drchal for his patient guidance and immense to help on my thesis. I want to specially thank my husband Simon for supporting and encouraging me in a way that no other ever could.
 
 
 \declaration{Prague, May, 2017}
@@ -225,6 +226,10 @@ I want to say thank to ...
 \listoftables
 
 
+
+\renewcommand*{\lstlistlistingname}{List of Source Code Listing}
+\lstlistoflistings
+
 %**************************************************************
 
 \mainbodystarts
@@ -232,7 +237,7 @@ I want to say thank to ...
 \parskip=0.2\baselineskip plus 0.2\baselineskip minus 0.1\baselineskip
 % \bibliographystyle{unsrt}
 \bibliographystyle{abbrv}
-%bibliographystyle{plain}
+% \bibliographystyle{plain}
 %\bibliographystyle{psc}
 
 %**************************************************************

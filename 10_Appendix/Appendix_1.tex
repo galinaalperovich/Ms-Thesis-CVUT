@@ -1,7 +1,5 @@
-% \setcounter{chapter}{#1}
 \chapter{Appendix}
 \label{appendix}
-% \addcontentsline{toc}{chapter}{Appendix}
 
 
 \begin{figure}[h]
@@ -152,4 +150,94 @@ startDate & count &    6105.00 &    6105.00 \\
 \end{table}  
 
 
-\label{append}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{figures08/importanceDate}
+\caption{Feature importance from Random Forest for the Event date, Top: digits share, number of digits, font family, tag, number of punctuation}
+\label{fig:importanceDate}
+\end{center}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{figures08/importanceLocation}
+\caption{Feature importance from Random Forest for the Event location, Top: number of uppercase letters, tag, font family, number of siblings, text length}
+\label{fig:importanceLocation}
+\end{center}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=1.0\textwidth]{figures08/importanceDescription}
+\caption{Feature importance from Random Forest for the Event description, Top: block width, text length, font family, number of punctuation}
+\label{fig:importanceDescription}
+\end{center}
+\end{figure}
+
+
+\begin{table}[h]
+\begin{center}
+{\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lrrrrll}
+\toprule
+accuracy &    f1 &  precision &  recall &    meta\_name &                  model \\
+\midrule
+0.98 &  0.98 &       0.98 &    0.97 &         name &          Random forest \\
+0.58 &  0.70 &       0.54 &    1.00 &         name &                    SVM \\
+0.82 &  0.82 &       0.81 &    0.82 &         name &    Logistic regression \\
+0.98 &  0.98 &       0.98 &    0.97 &         name &  Extreme Random Forest \\
+\midrule
+0.97 &  0.97 &       0.97 &    0.96 &     location &          Random forest \\
+0.59 &  0.71 &       0.56 &    1.00 &     location &                    SVM \\
+0.82 &  0.82 &       0.81 &    0.84 &     location &    Logistic regression \\
+0.97 &  0.97 &       0.97 &    0.97 &     location &  Extreme Random Forest \\
+\midrule
+0.95 &  0.95 &       0.96 &    0.94 &  description &          Random forest \\
+0.51 &  0.66 &       0.50 &    1.00 &  description &                    SVM \\
+0.87 &  0.88 &       0.87 &    0.88 &  description &    Logistic regression \\
+0.96 &  0.96 &       0.98 &    0.95 &  description &  Extreme Random Forest \\
+\midrule
+0.98 &  0.98 &       0.97 &    0.99 &         date &          Random forest \\
+0.57 &  0.21 &       0.99 &    0.12 &         date &                    SVM \\
+0.90 &  0.90 &       0.89 &    0.91 &         date &    Logistic regression \\
+0.98 &  0.99 &       0.99 &    0.98 &         date &  Extreme Random Forest \\
+\bottomrule
+\end{tabular}}
+\caption{Experiment 1: Overestimated metrics values for a different classification models and event components. The result is incorrect because in the train and test sets domain names are overlapping, that means trained classifier knows the structure of a webpage.}
+\label{table:sumresultOriginal}
+\end{center}
+\end{table} 
+
+
+\begin{table}[h]
+\begin{center}
+{\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lrrrrll}
+\toprule
+f1\_score &  mean\_accuracy &  precision &  recall &    meta\_name &                  model \\
+\midrule
+0.83 &           0.84 &       0.84 &    0.83 &         name &          Random forest \\
+0.81 &           0.82 &       0.83 &    0.81 &         name &                    SVM \\
+0.74 &           0.74 &       0.76 &    0.76 &         name &    Logistic regression \\
+0.86 &           0.87 &       0.85 &    0.89 &         name &  Extreme Random Forest \\
+\midrule
+0.83 &           0.82 &       0.81 &    0.87 &     location &          Random forest \\
+0.82 &           0.82 &       0.84 &    0.81 &     location &                    SVM \\
+0.77 &           0.77 &       0.70 &    0.86 &     location &    Logistic regression \\
+0.85 &           0.84 &       0.79 &    0.93 &     location &  Extreme Random Forest \\
+\midrule
+0.87 &           0.86 &       0.86 &    0.90 &  description &          Random forest \\
+0.86 &           0.86 &       0.84 &    0.87 &  description &                    SVM \\
+0.85 &           0.85 &       0.89 &    0.83 &  description &    Logistic regression \\
+0.88 &           0.88 &       0.86 &    0.90 &  description &  Extreme Random Forest \\
+\midrule
+0.91 &           0.91 &       0.93 &    0.90 &         date &          Random forest \\
+0.89 &           0.89 &       0.88 &    0.90 &         date &                    SVM \\
+0.84 &           0.84 &       0.87 &    0.82 &         date &    Logistic regression \\
+0.91 &           0.91 &       0.90 &    0.93 &         date &  Extreme Random Forest \\
+\bottomrule
+\end{tabular}}
+\caption{Experiment 2: Metrics values for a different classification models and event components. Only numeric standardized features were used}
+\label{table:sumresult}
+\end{center}
+\end{table} 

@@ -60,9 +60,9 @@ When we build different classification models in the next chapter, we will also 
 
 \subsection{Spatial features}
 
-Here we will work on two original coordinates X and Y of visual blocks. The visual block is a rectangle on a webpage where the web element is located. Also, we will use two other related features: block width and block height. The precise meaning of X, Y features as follows: X pixels means horizontal position on a page from the left side, and Y pixels means vertical position on a page from the top side. That means that X and Y are coordinates of the left upper corner of the corresponding visual block. Example of X Y scatter plot you can see on figure \ref{fig:startDateXY}. The axes on inverted such it looks the same as on a webpage.\\
+Here we will work on two original coordinates X and Y of visual blocks. The visual block is a rectangle on a webpage where the web element is located. Also, we will use two other related features: block width and block height. The precise meaning of X, Y features as follows: X pixels means horizontal position on a page from the left side, and Y pixels means vertical position on a page from the top side. That means that X and Y are coordinates of the left upper corner of the corresponding visual block. An example of X-Y scatter plot you can see on figure \ref{fig:startDateXY}. The axes on inverted such it looks the same as on a webpage.\\
 
-The first feature we created, is an ultimate X and Y which are centers of the visual block rather than left the upper corner. Our guess was that these two features better represent the location on the page. We visualized these two coordinates and it appears that there is no clear pattern here, rather the elements can appear almost anywhere on a page with only small deviation in means. See the figure \ref{fig:xyLocNameDate}.\\
+The first feature we created, is an ultimate X and Y which are centers of the visual block rather than left the upper corner. Our guess was that these two features better represent the location on the page. We visualized these two coordinates, and it appears that there is no clear pattern here, rather the elements can appear almost anywhere on a page with only small deviation in means. See the figure \ref{fig:xyLocNameDate}.\\
 
 \begin{figure}[h]
 \begin{subfigure}{.5\textwidth}
@@ -86,9 +86,9 @@ Then we applied K-means clustering algorithm to assign the cluster label for eve
 
 We can make several conclusions on the spatial features:
 \begin{itemize}
-    \item Visually X and Y coordinates badly separate the mate names.
-    \item The average of X coordinate differs for all meta names, but the standard deviation is very high. Y coordinates is more or less the same for all meta names except the description, usually it's located lower than other components.
-    \item Both, the visualization and summary statistics may be interpreted as follows: generally the name is located higher, the start date is more on the left side, the start date is usually more left than the location, and description is below. From page to page the design is different and that's why there is no clear picture on it. Since in our work we build one-vs-all classifiers, we won't use the relative positions of the event components.     
+    \item Visually X and Y coordinates badly separate the meta names.
+    \item The average of X coordinate differs for all meta names, but the standard deviation is very high. Y coordinates are more or less the same for all meta names except the description, usually, it's located lower than other components.
+    \item Both, the visualization and summary statistics may be interpreted as follows: generally, the name is located higher, the start date is more on the left side, the start date is usually more left than the location, and description is below. From page to page the design is different, and that's why there is no clear picture on component locations. Since in our work we build one-vs-all classifiers, we won't use the relative positions of the event components.     
 \end{itemize}
 
 % \begin{figure}[h]
@@ -104,6 +104,7 @@ The final dataset after the cleaning and feature engineering is a table of 168K 
 
 \begin{itemize}
     \item The list of features in the dataset can be seen in table \ref{table:featurelist}.
+    \item Every row in a dataset associated with one of the following meta names for every parsed URL: event name, event date, event location, event description or random element on the page. The row contains URL, meta name and all web features we collected: textual, spatial, visual and DOM-related.
     \item It's cleaned of outliers, frequent domains, multi-events pages, and inconsistency. 
     \item It contains 33K unique URLs and  4000 domain names. 
     \item There are in average 45 URLs per one domain name. 
@@ -137,8 +138,6 @@ Number of siblings in a DOM tree    &    Padding    \\
 Number of childs in a DOM tree    &    Font family (Verdana, Arial, etc)    \\
     &    Font size \\
     &    The language of the page \\
-    
-    &    \textit{+ 270 other CSS features} \\
 \hline
 \textbf{Spatial}   &   \textbf{Textual}  \\
 \hline
@@ -191,11 +190,11 @@ Width in a browser     &    Number of whitespaces    \\
 \end{table}    
 
 \section{Analysis of features}
-Let's briefly mention other valuable features which separate the meta name well enought. We will present the visualization with the grouping by the meta name and some summary tables.
+Let's briefly mention other valuable features which separate the meta name well enough. We will present the visualization with the grouping by the meta name and some summary tables.
 
-On the figure \ref{fig:boxUpperByMeta} we can see that the the number of uppercase letters is the highest for location meta name and the lowest for a start date.\\
+On the figure \ref{fig:boxUpperByMeta} we can see that the number of uppercase letters is the highest for location meta name and the lowest for a start date.\\
 
-The figure \ref{fig:distrFontSizeByMeta} shows that the distribution of a font size has a very different shape for different meta names. For description it is more or less normal, for the name and start date it is right-skewed distribution and for a random element it is almost stable which says that the random elements of the page in average has the same font size.\\   
+The figure \ref{fig:distrFontSizeByMeta} shows that the distribution of a font size has a very different shape for different meta names. For description, it is more or less normal, for the name and start date it is right-skewed distribution, and for a random element it is almost stable which says that the random elements of the page in average has the same font size.\\   
 
 Basic statistics for the different numerical features for all meta names you can see on table \ref{table:sumstatnum}.\\
 
@@ -221,7 +220,7 @@ On the figure \ref{fig:distrTagByMeta} you will notice that the tag usage is dif
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=1\textwidth]{figures07/distrTagByMeta}
-  \caption{The tag value by meta names}
+  \caption{Distribution of HTML tag value by meta names}
   \label{fig:distrTagByMeta}
 \end{subfigure}
 \begin{subfigure}{.5\textwidth}
@@ -262,7 +261,7 @@ max    &    255.0    &    100.0    &    900.0    &    1.0    &    194.0\\
 \end{center}
 \end{table}  \\  
 
-Despite the fact there are many features which visually distinguish the different meta names, dimensionality reduction output didn't show good separation. We standardized the values and performed both PCA and t-SNE approaches on all numerical features to see if the clusters appear there. Especially after unsuccessful clustering it would be good to see it here. PCA showed a small separation but t-SNE not. The result of PCA you can see on figure \ref{fig:pcatsne}
+Despite the fact, there are many features which visually distinguish the different meta names, dimensionality reduction output didn't show good separation. We standardized the values and performed both PCA and t-SNE approaches on all numeric features to see if the clusters appear there. Especially after unsuccessful clustering, it would be good to see it is there. PCA showed a small separation but t-SNE not. The result of PCA you can see on figure \ref{fig:pcatsne}
  
 \section*{Conclusion of the chapter}
-In this chapter we performed exploratory data analysis by visualizing the features and grouping by the meta names. As we see, there features which separate well the meta names (the tag, font size, digits share, text length, etc) and which not (x and y coordinates, font family, color). We performed deminsionality reduction with PCA and see a small separation on clusters whereas k-means clustering on X and Y coordinates didn't perform well.  
+In this chapter, we performed exploratory data analysis by visualizing the features and grouping by the meta names. As we see, there features which separate well the meta names (the tag, font size, digits share, text length, etc.) and which not (x and y coordinates, color). We performed dimensionality reduction with PCA and saw a small separation on clusters whereas k-means clustering on X and Y coordinates didn't perform well.  
